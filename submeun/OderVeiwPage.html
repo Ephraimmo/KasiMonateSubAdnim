@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+<style>
+  img{
+    width: 60px;
+    height: 70px;
+  }
+
+  tfoot tr, thead tr {
+	background: lightblue;
+}
+tfoot td {
+	font-weight:bold;
+}
+  
+</style>
+</head>
+<body>
+
+    
+        <div class="col-12">
+            <!-- Button trigger modal -->
+            <div class="row">
+                <div class="col-8 mb-2">
+                  <div class="btn-group">
+                    <button type="button" id="All orders" class="btn btn-info">All orders</button>
+                    <button type="button" id="Accept orders" class="btn btn-light">Accept orders</button>
+                    <button type="button" id="Ready orders" class="btn btn-light">Ready orders</button>  
+                  </div>
+                </div>
+    
+                <div class="col-4"></div>
+            </div>
+        </div>
+    
+  
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Add Category</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <img src="img/1.jpg" class="modal-img" alt="modal img" hidden>
+   
+            <div class="row">
+
+               <div class="col-md-12">
+                 <label class="mb-0" for="">Select Category</label> <br>
+                 <select class="form-select" id="SelectCategory" >
+                   <option value="">No Category Selected</option>
+                 </select>
+               </div>
+               
+               <div class="col-md-6">
+                 <label for="">Name</label>
+                 <input type="text" class="form-control" value="" id = "ProductName">
+               </div>
+               <div class="col-md-6">
+                 <label for="">Slug</label>
+                 <input type="text" class="form-control" value="" id = "ProductSlug">
+               </div>
+
+               <div class="col-md-12">
+                 <label for="">Short Description</label>
+                 <textarea class="form-control" name="Description" id="ProductShortDescription" placeholder="Enter short Description" rows="2"></textarea>
+               </div>
+
+               <div class="col-md-12">
+                 <label for="">Description</label>
+                 <textarea class="form-control" name="Description" id="ProductDescription" placeholder="Enter category Description" rows="2"></textarea>
+               </div>
+
+               <div class="col-md-6">
+                 <label for="">Original Price</label>
+                 <input type="number" class="form-control" value="" id = "ProductOriginal">
+               </div>
+               <div class="col-md-6">
+                 <label for="">Selling Price</label>
+                 <input type="number" class="form-control" value="" id = "ProductSelling">
+               </div>
+
+               <div class="row">
+
+                 <div class="col-md-6">
+                   <label for="">Quantity</label><br> 
+                   <input type="number" class="form-control" value="" id = "ProductQuantity">
+                 </div>
+
+                 <div class="col-md-1"></div>
+
+                 <div class="col-md-6">
+                   <label for="">Status</label> <br> 
+                   <input type="checkbox" id="Status_Product">
+                 </div>
+
+                 <div class="col-md-6">
+                   <label for="">Trending</label> <br> 
+                   <input type="checkbox" id="Trending_Product">
+                 </div>
+               </div>
+
+               <div class="col-md-12">
+                 <label for="">Meta Title</label>
+                 <input type="text" value=""  id = "Meta_TitleProduct" placeholder="Enter meta title" class="form-control">
+               </div>
+
+               <div class="col-md-12">
+                 <label for="">Meta Description</label>
+                 <textarea class="form-control" name="Description" id="Meta_Description_Product" placeholder="Enter meta description" rows="2"></textarea>
+               </div>
+
+               <div class="col-md-12">
+                 <label for="">Meta Keywords</label>
+                 <textarea class="form-control" name="Keywords" id="Meta_Keywords_Product" placeholder="Enter meta Keywords" rows="2"></textarea>
+                 <label for=""></label>
+               </div>
+
+               
+
+               <div class="row">
+
+                 <div class="col-md-10">
+                   
+                   <div id = "ControlDiv" > 
+                     <div class="row">
+                       <div id = "imagesDiv" > </div>
+                     </div>
+                     <label></label><span id="progress"></span><label id = "loadlab">Uploading 0 of 3</label>
+                     <progress class="progress-bar" id="myProgress" value="0" max="100">
+                       
+                     </progress> <label id="progress"> </label>
+                   </div>
+                 </div>
+               </div>
+
+             
+               <div class="col-md-10">
+                 
+
+                 <button type="button" id = "selimgsbtn" class="btn btn-primary" >Select Images</button>
+                 <button type="button" id = "addproductbtn" class="btn btn-primary" >Upload Images</button>
+                </div>
+               
+               <input hidden id = "namebox" type = "text"> <label hidden id = "extlab"> </label> <br><br>
+               
+            </div>
+   
+         </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" id = "CloseButton" class=" Save btn btn-primary" data-bs-dismiss="modal">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <table id="example" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Order List</th>
+              <th scope="col">Order Number</th>
+              <th scope="col">Total Price</th>
+              <th scope="col">Order Type</th>
+              <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody id = "addRow">
+            
+            
+        </tbody>
+        <tfoot>
+            <tr>
+              <th >Date</th>
+              <th >Order List</th>
+              <th >Order Number</th>
+              <th >Total Price</th>
+              <th >Order Type</th>
+              <th >Action</th>
+            </tr>
+        </tfoot>
+    </table>
+    
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+<script type="module">
+
+  import {initializeApp} from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+    apiKey: "AIzaSyDibpkuzUookkbMVIoHqe_rYu1umY1qF-4",
+    authDomain: "data-b93ed.firebaseapp.com",
+    databaseURL: "https://data-b93ed-default-rtdb.firebaseio.com",
+    projectId: "data-b93ed",
+    storageBucket: "data-b93ed.appspot.com",
+    messagingSenderId: "218236841715",
+    appId: "1:218236841715:web:e96bfd3174b08438701186"
+  };
+  
+      import {getDatabase, set,get,onValue, ref , child, update} from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
+  
+      // Initialize Firebase
+      const app    = initializeApp(firebaseConfig);
+      const realdb = getDatabase();
+      var buttonText;
+      var RejectPath;
+      //reload
+
+      //addEventListener for any button
+    document.addEventListener("click",function (e){
+
+      if (e.target.innerHTML != 'Yes'){
+        updateOrder(sessionStorage.getItem("CompanyName"),e.target.id,e);
+        if (e.target.innerHTML != 'Yes')
+          RejectPath = e;
+        else{
+          RejectPath = '';
+        }
+      }
+      else if (e.target.innerHTML == 'Yes') {
+        updateOrder(sessionStorage.getItem("CompanyName"),RejectPath.target.id,RejectPath); 
+      }
+     
+
+      if (e.target.innerHTML == "All orders")
+        changeButton("All orders","Accept orders","Ready orders");
+      else if (e.target.innerHTML == "Accept orders")
+        changeButton("Accept orders","All orders","Ready orders");
+      else if (e.target.innerHTML == "Ready orders")
+        changeButton("Ready orders","Accept orders","All orders");
+      
+
+    });
+
+      //get all orders from the Database
+      getAllOrder(sessionStorage.getItem("CompanyName"),"All orders");
+      
+      function changeButton(id,changeIdElement1,changeIdElement2){
+          document.getElementById(id).classList = "btn btn-info";
+          document.getElementById(changeIdElement1).classList = "btn btn-light";
+          document.getElementById(changeIdElement2).classList = "btn btn-light";
+          getAllOrder(sessionStorage.getItem("CompanyName"),id);
+      }
+
+      async function getAllOrder(companyName,valueOnChange){
+
+          const starCountRef = await ref(realdb, companyName);
+          
+          await onValue(starCountRef, (snapshot) => {
+            //var tbodyRef = document.getElementsByTagName('tbody')[0];
+            
+            var data = [];
+            var tbodyRef = document.getElementsByTagName('tbody')[0];
+  
+            
+    
+           while(tbodyRef.rows.length > 0) {
+              tbodyRef.deleteRow(0);
+           }
+
+           let tab = "";
+
+            snapshot.forEach((childSnapshot) => {
+              const childKey = childSnapshot.key;
+              const childData = childSnapshot.val();
+              const entries = Object.entries(childData);
+              var foodList = "";
+              var businessName = "";
+              var PreparingFood;
+              var Action = '';
+              var View = '';
+              var ready = '';
+              var Reject = '';
+              
+
+
+              
+
+              for (const [key, value] of Object.entries(entries)) {
+
+                var valuefood = value;
+
+                //console.log("key :" + `${key}`);
+                //console.log("value :" + valuefood);
+                if (`${value}`.toString().includes("Food List"))
+                {
+                  foodList = `${value}`.toString().replace("Food List",'');
+                  foodList = foodList.replace(",",'');
+                  foodList = foodList.replace(",",'');
+                }
+                else if (`${value}`.toString().includes("Preparing Food"))
+                {
+                  PreparingFood = `${value}`.toString().replace("Preparing Food,",'');  
+                  //console.log("value :" + `${value}` + " " + PreparingFood);
+                }else if (`${value}`.toString().includes("ready"))
+                {
+                  ready = `${value}`.toString().replace("ready,",'');  
+                  //console.log("value :" + `${value}` + " " + ready);
+                }
+              }
+
+
+              if (PreparingFood == "false")
+              {
+                Action = '<button type="button" id = ' + childData.path + ' style= "width:40%; height:30%;" class="btn btn-success m-1">Accept</button>'
+                       + '<button type="button" id = ' + childData.path + ' style= "width:40%; height:30%;" class="btn btn-danger m-1">Reject</button>';
+              }else if (PreparingFood == "true")
+              {
+                Action =  '<button type="button" id = ' + childData.path + ' style=  "width:40%; " class="btn btn-success m-1" > Ready</button>'
+                         + '<button type="button" id = ' + childData.path + ' style= "width:40%;" class="btn btn-danger m-1">Reject</button>';
+              }
+
+              //View = '<button id = ' + childData.path + ' type="button" class="btn btn-info m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Veiw</button>';
+              if (ready == "Reject" || ready == "true")
+                return;
+              
+              if (valueOnChange != "All orders")
+              {
+                if (PreparingFood == "false" && valueOnChange == "Accept orders")
+                  return;
+                if (PreparingFood == "true" && valueOnChange == "Accept orders")
+                  return;
+                
+
+              }
+                
+                
+              data.push([childData.Date,foodList,childData.Order_number,childData.Total,childData.type,Action]);
+
+            });
+            
+            $(document).ready(function () {
+              $('#example').DataTable({
+                "bDestroy": true,
+                data: data,
+                columnDefs: [{
+                  "defaultContent": "",
+                  "targets": "_all"
+                }],
+                paging: true,
+		            autoWidth: true,
+                columns: [
+                    { title: 'Date' },
+                    { title: 'Order List' },
+                    { title: 'Order Number' },
+                    { title: 'Total Price' },
+                    { title: 'Order Type' },
+                    { title: 'Action' },
+                    
+                ],
+            });
+          });
+
+          
+          
+          });  
+      }
+
+      //clear Table
+      async function updateOrder(companyName,OrderPath,e)
+    {
+       //alert(e.target.innerHTML);
+
+      
+      
+      if (e.target.innerHTML == "Accept")
+        {
+          update(ref(realdb,companyName + "/" + OrderPath),{
+            'Preparing Food': true 
+          }).then(()=>{
+            
+            //Toast_success("Successsful Accepted order");
+            
+          })
+          .catch(()=>{
+            //Toast_danger("Fail to accept order"); 
+            //alert("Fail Accepted order");
+          });
+        }else if (e.target.innerHTML == "Reject" ){
+        
+         
+            const result = await b_confirm('Are you sure you want to reject this order?')
+  
+            if (!result)
+            {
+              return;
+            }
+            else{
+
+              //alert("companyName + "/" + RejectPath : " + companyName + "/" + RejectPath.target.id);
+              update(ref(realdb,companyName + "/" + RejectPath.target.id),{
+                 'ready': "Reject" 
+              }).then(()=>{
+            //Toast_success("Successsful rejected order");
+            //alert("Successsful rejected order");
+              })
+              .catch(()=>{
+            //Toast_danger("Fail to reject order"); 
+            //alert("Fail to reject order");
+               createToast('Danger', 'Fail updated order!', 'toast-danger');
+             });
+             
+            }
+        }else if (e.target.innerHTML == " Ready" ) {
+          update(ref(realdb,companyName + "/" + OrderPath),{
+            'ready': true 
+          }).then(()=>{
+            //Toast_success("Successsful updated order");
+            //alert("Successsful updated order");
+            createToast('Success', 'Order was successful!', 'toast-success');
+          })
+          .catch(()=>{
+            //Toast_danger("Fail to updated order"); 
+            //alert("Fail updated order");
+            createToast('Danger', 'Fail updated order!', 'toast-danger');
+          });
+        }
+    }
+      
+    async function b_confirm(msg) {
+      const modalElem = document.createElement('div')
+      modalElem.id = "modal-confirm"
+      modalElem.className = "modal"
+      modalElem.innerHTML = `
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">             
+            <div class="modal-body fs-6">
+              <p>${msg}</p>
+          </div>    <!-- modal-body -->
+          <div class="modal-footer" style="border-top:0px">             
+            <button id="modal-btn-descartar" type="button" class="btn btn-secondary">Cancel</button>
+            <button id="modal-btn-aceptar" type="button" class="btn btn-primary">Accecpt</button>
+          </div>
+        </div>
+      </div>
+      `
+      const myModal = new bootstrap.Modal(modalElem, {
+        keyboard: false,
+        backdrop: 'static'
+      })
+      myModal.show()
+    
+      return new Promise((resolve, reject) => {
+        document.body.addEventListener('click', response)
+    
+        function response(e) {
+          let bool = false
+          if (e.target.id == 'modal-btn-descartar') bool = false
+          else if (e.target.id == 'modal-btn-aceptar') bool = true
+          else return
+    
+          document.body.removeEventListener('click', response)
+          document.body.querySelector('.modal-backdrop').remove()
+          modalElem.remove()
+          resolve(bool)
+        }
+      })
+    }
+
+      
+      </script>
+
+</html>

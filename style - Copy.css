@@ -1,0 +1,31 @@
+label {
+  font-weight: 600;
+  color: white;
+}
+h2{
+  color: white;
+  font-weight: 900;
+}
+body {
+  background: url(https://picsum.photos/2500/1500?image=1041);
+  background-size: cover;
+  font-family: sans-serif;
+}
+.box8{
+  box-shadow: 0px 0px 5px 1px #999;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  padding: 5%;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 0.625rem;
+}
+
+.jumbotron{
+  background-color: transparent;
+  padding: 0;
+}
+.mx-t3{
+margin-top: -3rem;
+}

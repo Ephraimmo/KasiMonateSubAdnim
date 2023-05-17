@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    
+</head>
+
+<style>
+  img{
+    width: 60px;
+    height: 70px;
+  }
+  tfoot tr, thead tr {
+	background: lightblue;
+}
+tfoot td {
+	font-weight:bold;
+}
+</style>
+<style>
+  .toast-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+  }
+  .toast-header {
+    background-color: #28a745;
+    color: #fff;
+  }
+  .toast-info .toast-header {
+    background-color: #17a2b8;
+  }
+  .toast-danger .toast-header {
+    background-color: #dc3545;
+  }
+  .toast-body {
+    background-color: #f8f9fa;
+  }
+  .toast-success .toast-body {
+    background-color: #f8f9fa;
+  }
+</style>
+
+<style>
+  
+  .border {
+    border-width:3px !important;
+}
+
+tfoot tr, thead tr {
+	background: lightblue;
+}
+tfoot td {
+	font-weight:bold;
+}
+</style>
+
+<body>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container" style="width: 20%;"></div>
+    
+        <div class="col-12">
+            <!-- Button trigger modal -->
+            <div class="row">
+                <div class="col-4">
+                    <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add Product</button>
+                </div>
+    
+                <div class="col-4"></div>
+            </div>
+        </div>
+
+        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Confirmar</h4>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="modal-btn-si">Si</button>
+                <button type="button" class="btn btn-primary" id="modal-btn-no">No</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+  
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Add Category</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <img src="img/1.jpg" class="modal-img" alt="modal img" hidden>
+   
+            <form class="row g-3 needs-validation" id="myForm" onsubmit="return false" novalidate>
+              <div class="row">
+
+                <div class="col-md-12">
+                  <label class="mb-0" for="">Select Category</label> <br>
+                  <select class="form-select" id="SelectCategory" required>
+                    <option value="">No Category Selected</option>
+                  </select>
+                </div>
+                
+                <div class="col-md-6">
+                  <label for="">Name</label>
+                  <input type="text" class="form-control" value="" id = "ProductName" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="">Slug</label>
+                  <input type="text" class="form-control" value="" id = "ProductSlug" required>
+                </div>
+ 
+                <div class="col-md-12">
+                  <label for="">Short Description</label>
+                  <textarea class="form-control" required name="Description" id="ProductShortDescription" placeholder="Enter short Description" rows="2"></textarea>
+                </div>
+ 
+                <div class="col-md-12">
+                  <label for="">Description</label>
+                  <textarea class="form-control" required name="Description" id="ProductDescription" placeholder="Enter category Description" rows="2"></textarea>
+                </div>
+ 
+                <div class="col-md-6">
+                  <label for="">Original Price</label>
+                  <input type="number" class="form-control" required value="" id = "ProductOriginal">
+                </div>
+                <div class="col-md-6">
+                  <label for="">Selling Price</label>
+                  <input type="number" required class="form-control" value="" id = "ProductSelling">
+                </div>
+ 
+                <div class="row">
+ 
+                  <div class="col-md-6">
+                    <label for="">Quantity</label><br> 
+                    <input type="number" class="form-control" value="" id = "ProductQuantity">
+                  </div>
+ 
+                  <div class="col-md-1"></div>
+ 
+                  <div class="col-md-3">
+                    <label for="">Status</label> <br> 
+                    <input type="checkbox" id="Status_Product">
+                  </div>
+ 
+                  <div class="col-md-2">
+                    <label for="">Trending</label> <br> 
+                    <input type="checkbox" id="Trending_Product">
+                  </div>
+                </div>
+ 
+                <div class="col-md-12">
+                  <label for="">Meta Title</label>
+                  <input type="text" value=""  id = "Meta_TitleProduct" placeholder="Enter meta title" class="form-control">
+                </div>
+ 
+                <div class="col-md-12">
+                  <label for="">Meta Description</label>
+                  <textarea class="form-control" name="Description" id="Meta_Description_Product" placeholder="Enter meta description" rows="2"></textarea>
+                </div>
+ 
+                <div class="col-md-12">
+                  <label for="">Meta Keywords</label>
+                  <textarea class="form-control" name="Keywords" id="Meta_Keywords_Product" placeholder="Enter meta Keywords" rows="2"></textarea>
+                  <label for=""></label>
+                </div>
+ 
+                
+ 
+                <div class="row">
+ 
+                  <div class="col-md-10">
+                    
+                    <div id = "ControlDiv" > 
+                      <div class="row">
+                        <div id = "imagesDiv" > </div>
+                      </div>
+                      
+                        
+                      </progress> <label id="progress"> </label>
+                    </div>
+                  </div>
+                </div>
+ 
+              
+                <div class="col-md-10" id = "showButton">
+                  
+ 
+                  <button type="button" id = "selimgsbtn" class="btn btn-primary" >Select Images</button>
+                  <button type="button" id = "addproductbtn" class="btn btn-primary" >Upload Images</button>
+                 </div>
+                
+                <input hidden id = "namebox" type = "text"> <label hidden id = "extlab"> </label> <br><br>
+                
+             </div>
+ 
+             <div class="col-6"><button id="Submitform" class="btn btn-primary" type="submit" ></button></div>
+                  
+            </form> 
+                
+
+   
+         </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" >Close</button>
+            <button type="button" id = "CloseButton" class=" Save btn btn-primary" >Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <table id="example" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th scope="col">Position</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Image</th>
+                <th scope="col">Srtatus</th>
+                <th scope="col">Action</th>
+              </tr>
+        </thead>
+        <tbody id = "addRow">
+            
+            
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Position</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Srtatus</th>
+                <th>Action</th>
+            </tr>
+        </tfoot>
+    </table>
+    
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+<script type="module">
+
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+  
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+  // ...
+  apiKey: "AIzaSyDibpkuzUookkbMVIoHqe_rYu1umY1qF-4",
+  authDomain: "data-b93ed.firebaseapp.com",
+  databaseURL: "https://data-b93ed-default-rtdb.firebaseio.com",
+  projectId: "data-b93ed",
+  storageBucket: "data-b93ed.appspot.com",
+  messagingSenderId: "218236841715",
+  appId: "1:218236841715:web:e96bfd3174b08438701186"
+};
+
+  
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  
+  import {getDatabase, set,get, ref , child, update}                                                                            from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
+  import {getStorage,ref as sRef,uploadBytesResumable,getDownloadURL, deleteObject }                                                          from "https://www.gstatic.com/firebasejs/9.1.3/firebase-storage.js";
+  import { getFirestore, doc, getDoc, getDocs , setDoc ,collection , onSnapshot , addDoc, updateDoc, deleteDoc , deleteField  } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js";
+  
+  const realdb = getDatabase();
+  const db     = getFirestore();
+  
+  //---------------------------------------------------------------------------------------------
+  var Files           = [];
+  var files           = [];
+  var FileReaders     = [];
+  var reader          = new FileReader();
+  var ImageLinksArray = [];
+  var count           = 0;
+  var progresValue    = [];
+  var oldImageUrl     = [];
+  var productPosition = 0;
+  var countLastPosition = 0;
+  var ProductUploadImage = [];
+  var updateImageExtention = '';
+  var updateImageName      = '';
+  var checkEditButtonClick = false;
+  var reload = false;
+  var imageToDelete = [];
+  
+    const imgdiv     = document.getElementById("imagesDiv");
+    const selBtn     = document.getElementById("selimgsbtn");
+    const addBtn     = document.getElementById("addproductbtn");
+  
+    const name                     = document.getElementById("ProductName");
+    const ProductSlug              = document.getElementById("ProductSlug");
+    const ProductShortDescription  = document.getElementById("ProductShortDescription");
+    const ProductDescription       = document.getElementById("ProductDescription");
+    const ProductOriginal          = document.getElementById("ProductOriginal");
+    const ProductSelling           = document.getElementById("ProductSelling");
+    const ProductQuantity          = document.getElementById("ProductQuantity");
+    const Status_Product           = document.getElementById("Status_Product");
+    const Trending_Product         = document.getElementById("Trending_Product");
+    const Meta_TitleProduct        = document.getElementById("Meta_TitleProduct");
+    const Meta_Description_Product = document.getElementById("Meta_Description_Product");
+    const Meta_Keywords_Product    = document.getElementById("Meta_Keywords_Product");
+
+    //addEventListener for any button
+    document.addEventListener("click",function (e){
+      
+      //add recoed to dataBase
+      if (e.target.innerHTML == "Add Product")
+      {
+        name                    .value = "";
+        ProductSlug             .value = "";
+        ProductShortDescription .value = "";
+        ProductDescription      .value = "";
+        ProductOriginal         .value = "";
+        ProductSelling          .value = "";
+        ProductQuantity         .value = "";
+        Status_Product          .value = "";
+        Trending_Product        .value = "";
+        Meta_TitleProduct       .value = "";
+        Meta_Description_Product.value = "";
+        Meta_Keywords_Product   .value = "";
+        removeAndShowElement(['showButton'],'block',false);
+        
+      }else if (e.target.innerHTML == "Add")
+      {
+        if (name.value == "")
+            {
+              document.getElementById("Submitform").click();
+              return;
+            }else if (ProductSlug.value == "")
+            {
+              document.getElementById("Submitform").click();
+              return;
+            }else if (ProductShortDescription.value == "")
+            {
+              document.getElementById("Submitform").click();
+              return;
+            }
+        AddProduct(sessionStorage.getItem("CompanyName"));
+        $('#staticBackdrop').modal('hide');
+        document.getElementById("myForm").reset();
+      }else if (e.target.innerHTML == "Edit")
+      {
+        removeAndShowElement([,'showButton'],'none',false);
+        getDoumentWithGivenID("imageURLs/" + sessionStorage.getItem("CompanyName") + "/meun",e.target.id);
+        productPosition = e.target.id;
+        document.getElementById("CloseButton").innerHTML = "Update";
+        checkEditButtonClick = true;
+
+      }else if (e.target.innerHTML == "Update")
+      {
+
+        if (name.value == "")
+        {
+          document.getElementById("Submitform").click();
+          return;
+        }else if (ProductSlug.value == "")
+        {
+          document.getElementById("Submitform").click();
+          return;
+        }else if (ProductShortDescription.value == "")
+        {
+          document.getElementById("Submitform").click();
+          return;
+        }
+        
+        updateDoument_GivenID("imageURLs/" + sessionStorage.getItem("CompanyName") + "/meun",sessionStorage.getItem("CompanyName"));
+        document.getElementById("CloseButton").innerHTML = "Add";
+        removeAndShowElement(['newId0','newId1','newId2'],"",true);
+        $('#staticBackdrop').modal('hide');
+        document.getElementById("myForm").reset();
+      }else if (e.target.innerHTML == "Delete")
+      {
+        DeleteProuct("imageURLs/" + sessionStorage.getItem("CompanyName") + "/meun",e.target.id);
+      }else if (e.target.innerHTML == "remove")
+      {
+        
+        ChangeImage('Are you sure you want to remove this Image?',e,false);
+        
+      }else if (e.target.innerHTML == "Update Image"){
+
+        ChangeImage('Are you sure you want to upload a Image?',e,true);
+ 
+      }else if (e.target.innerHTML == "Close" && checkEditButtonClick){
+        
+        removeAndShowElement(['newId0','newId1','newId2'],"",true);
+        
+        checkEditButtonClick = false;
+        $('#staticBackdrop').modal('hide');
+        document.getElementById("myForm").reset();
+      }
+    })
+
+//Run Add Validation
+AddValidation();
+
+//Add Validation
+function AddValidation(){
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+const forms = document.querySelectorAll('.needs-validation')
+var form = forms[0];
+
+
+function my_submit(ev) {
+if (!form.checkValidity()) {
+ev.preventDefault()
+ev.stopPropagation()
+} else {
+form.submit()
+}
+form.classList.add('was-validated')
+return false;
+}
+
+document.querySelector("#Submitform").addEventListener('click', my_submit)
+form.addEventListener('submit', my_submit);
+} 
+
+
+    async function ChangeImage(mag,e,value)
+    {
+      //const result = await b_confirm(mag);
+    //
+    //  //  if (!result)
+      //    return;
+      //  else
+          if (value)
+            selectNewImage(e.target.id);
+          else
+          removeImageUrl(e.target.id);
+    }
+
+
+    function removeImageUrl(id){
+
+      var valueId = id.split(',');
+      document.getElementById("image" + valueId[0]).src = "assets/images/no-image-icon-23492.png";
+      updateNewImageToDatabase(valueId[0],"imageURLs/" + sessionStorage.getItem("CompanyName") + "/meun",valueId[1],"assets/images/no-image-icon-23492.png");
+    }
+
+
+    //run get All product
+    getAllProduct(sessionStorage.getItem("CompanyName"));
+
+    //run get All category
+    getAllCategory(sessionStorage.getItem("CompanyName"));
+  
+     //get all Date for table category
+     async function getAllProduct(getProductPath){
+  
+        onSnapshot( collection(db, 'imageURLs/' + getProductPath + "/meun"), (docSnap) => {
+           var tbodyRef = document.getElementsByTagName('tbody')[0];
+  
+            
+    
+           while(tbodyRef.rows.length > 0) {
+              tbodyRef.deleteRow(0);
+           }
+
+           let tab = "";
+           var count = 0;
+           var data  = [];
+  
+          docSnap.forEach(doc => {
+
+            countLastPosition = doc.data().Position;
+            count++;
+
+            var imgUrl = '<img src= ' + doc.data().url.toString() + ' alt= ' + doc.data().Name  + ' style="width:60px;height:70px;">';
+            var Action = '<button id = ' + countLastPosition + ' type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Edit</button>'
+                       + '<button type="button" id = ' + countLastPosition + ' class="btn btn-danger" data-toggle="confirmation" data-title="Are your sure you want to delete this product?">Delete</button>';
+                       var CategoryStatus = "";
+            if (doc.data().Status_Product.toString() == "false")
+              CategoryStatus = "hidden";
+            else
+              CategoryStatus = "visible";
+            
+            data.push([count,doc.data().Name,doc.data().dec,imgUrl,CategoryStatus,Action]);
+          });
+
+          document.getElementById("addRow").innerHTML += tab;
+            $(document).ready(function () {
+          $('#example').DataTable({
+            "bDestroy": true,
+              data: data,
+              paging: true,
+		          autoWidth: true,
+              columns: [
+                  { title: 'Position' },
+                  { title: 'Name' },
+                  { title: 'Description' },
+                  { title: 'Image.' },
+                  { title: 'Status' },
+                  { title: 'Action' },
+            ],
+          });
+      });
+
+        })
+     }
+
+     //get all Date for table category
+     async function getAllCategory(categoryPath){
+
+  
+      var comboBox = document.getElementById("SelectCategory");
+      onSnapshot( collection(db, 'Category/' + categoryPath + "/CategoryList"), (docSnap) => {
+
+        
+        while (comboBox.length != 1){
+          comboBox.remove(1);
+        }
+        docSnap.forEach(doc => {
+          document.getElementById("SelectCategory").innerHTML += "<option value=''>" + doc.data().CategoryName + "</option>";
+          
+        })
+
+      
+   })
+  }
+    
+     // Add category
+     async function AddProduct(NameBus){
+      
+      countLastPosition++;
+      var refCol = doc(db,'imageURLs/' + NameBus + "/meun", countLastPosition.toString());
+      
+      await setDoc( refCol, {
+
+        Name                     : name.value,
+        ProductSlug              : ProductSlug.value,
+        ProductShortDescription  : ProductShortDescription.value,
+        dec                      : ProductDescription.value,
+        ProductOriginal          : ProductOriginal.value,
+        Price                    : ProductSelling.value,
+        store                    : NameBus,
+        ProductQuantity          : ProductQuantity.value,
+        Status_Product           : Status_Product.checked,
+        Trending_Product         : Trending_Product.checked,
+        Meta_TitleProduct        : Meta_TitleProduct.value,
+        Meta_Description_Product : Meta_Description_Product.value,
+        Meta_Keywords_Product    : Meta_Keywords_Product.value,
+        Position                 : countLastPosition,
+        url                      : ImageLinksArray[0],
+        url1                     : ImageLinksArray[1],
+        url2                     : ImageLinksArray[2],
+
+          }).then(() => {
+            RestoreBack();
+        //success("successful","category added successful");
+         // name.value                     = "";            
+         // ProductSlug.value              = "";                   
+         // ProductShortDescription.value  = "";                               
+         // ProductDescription.value       = "";                          
+         // ProductOriginal.value          = "";                       
+         // ProductSelling.value           = "";                      
+         // ProductQuantity.value          = "";                       
+         // Status_Product.value           = false;                      
+         // Trending_Product.value         = false;                        
+         // Meta_TitleProduct.value        = "";                         
+         // Meta_Description_Product.value = "";                                
+         // Meta_Keywords_Product.value    = "";                             
+                                           
+                  
+          }).catch((error) => {
+          //alert("bad " +  error);
+          createToast('Danger', 'Record was not Added!', 'toast-danger');
+           return;
+      });
+  
+      
+    }
+
+    //remove item function
+    function removeAndShowElement(allElementIds,value,removeBool){
+      allElementIds.forEach((ElementId) => {
+        if(!removeBool)
+          document.getElementById(ElementId).style.display = value;
+        else if (removeBool)
+        document.getElementById(ElementId).remove();
+      });
+    }
+  
+    //getting 
+    async function getDoumentWithGivenID(collectionName,Position){
+      
+      var refCol = doc(db,collectionName,Position.toString());
+      
+      const docSnap = await getDoc( refCol);
+  
+      
+      
+      productPosition = Position;
+  
+      
+      
+      if (docSnap.exists()){
+      
+          name                     .value   =  docSnap.data().Name;
+          ProductSlug              .value   =  docSnap.data().ProductSlug;
+          ProductShortDescription  .value   =  docSnap.data().ProductShortDescription;
+          ProductDescription       .value   =  docSnap.data().dec;
+          ProductOriginal          .value   =  docSnap.data().ProductOriginal;
+          ProductSelling           .value   =  docSnap.data().Price;
+          ProductQuantity          .value   =  docSnap.data().ProductQuantity;
+          Status_Product           .checked =  docSnap.data().Status_Product;
+          Trending_Product         .checked =  docSnap.data().Trending_Product;
+          Meta_TitleProduct        .value   =  docSnap.data().Meta_TitleProduct;
+          Meta_Description_Product .value   =  docSnap.data().Meta_Description_Product;
+          Meta_Keywords_Product    .value   =  docSnap.data().Meta_Keywords_Product;
+          ProductUploadImage[0]             = docSnap.data().url;
+          ProductUploadImage[1]             = docSnap.data().url1;
+          ProductUploadImage[2]             = docSnap.data().url2;
+          document.getElementById('imagesDiv').innerHTML              = '<div id = "newId0" class="container"><img src= ' + ProductUploadImage[0] + ' alt="Snow" style="width:33.33%" id = "image0"><button class="btn btn-danger m-1" id = ' + "0," + docSnap.data().Position + '>remove</button><button class="btn btn-success m-1" id = ' + "0," + docSnap.data().Position + ',upload >Update Image</button></div>';
+          document.getElementById('imagesDiv').innerHTML             += '<div id = "newId1" class="container"><img src= ' + ProductUploadImage[1] + ' alt="Snow" style="width:33.33%" id = "image1"><button class="btn btn-danger m-1" id = ' + "1," + docSnap.data().Position + '>remove</button><button class="btn btn-success m-1" id = ' + "1," + docSnap.data().Position + ',upload >Update Image</button></div>';
+          document.getElementById('imagesDiv').innerHTML             += '<div id = "newId2" class="container"><img src= ' + ProductUploadImage[2] + ' alt="Snow" style="width:33.33%" id = "image2"><button class="btn btn-danger m-1" id = ' + "2," + docSnap.data().Position + '>remove</button><button class="btn btn-success m-1" id = ' + "2," + docSnap.data().Position + ',upload >Update Image</button></div>';
+          //console.log(ProductUploadImage);
+          //imageToDelete
+         
+      }else
+      {
+        //info("The category does not exist or was not found");
+      }
+   
+   }
+   
+    //updating Doc 
+    async function updateDoument_GivenID(collectionPath,NameBus){
+
+   var refCol = doc(db,collectionPath, productPosition.toString());
+   
+   updateDoc( refCol, {
+      Name                     : name.value,
+      ProductSlug              : ProductSlug.value,
+      ProductShortDescription  : ProductShortDescription.value,
+      dec                      : ProductDescription.value,
+      ProductOriginal          : ProductOriginal.value,
+      Price                    : ProductSelling.value,
+      store                    : NameBus,
+      ProductQuantity          : ProductQuantity.value,
+      Status_Product           : Status_Product.checked,
+      Trending_Product         : Trending_Product.checked,
+      Meta_TitleProduct        : Meta_TitleProduct.value,
+      Meta_Description_Product : Meta_Description_Product.value,
+      Meta_Keywords_Product    : Meta_Keywords_Product.value,
+
+      //ProductName              : name.value,
+      //ProductSlug              : ProductSlug.value,
+      //ProductShortDescription  : ProductShortDescription.value,
+      //ProductDescription       : ProductDescription.value,
+      //ProductOriginal          : ProductOriginal.value,
+      //ProductSelling           : ProductSelling.value,
+      //ProductQuantity          : ProductQuantity.value,
+      //Status_Product           : Status_Product.checked,
+      //Trending_Product         : Trending_Product.checked,
+      //Meta_TitleProduct        : Meta_TitleProduct.value,
+      //Meta_Description_Product : Meta_Description_Product.value,
+      //Meta_Keywords_Product    : Meta_Keywords_Product.value,
+      //Position                 : count,
+      //ImageLinksArray          : ImageLinksArray.length == 0 ? ProductUploadImage : ImageLinksArray
+   }).then(() => {
+      RestoreBack();
+      //success("successful","category updated successful");
+      
+      //alert("category updated successful");
+      
+   }).catch((error) => {
+      //alert("bad " +  error);
+      createToast('Danger', 'Rocord was not found!', 'toast-danger');
+      //danger("Error","category didn't updated successful");
+      
+   });
+
+}
+
+    //delete product
+    async function DeleteProuct(path,position) {
+
+      
+      const result = await b_confirm('Are you sure you want to delete this item?')
+    
+      
+      if (!result)
+        return;
+        
+      await getDoumentWithGivenID(path,position);
+        
+      const docRef = await doc(db, path, position);
+
+      await DeleteImageOnDatabaseWithUrl(ProductUploadImage[0]);
+      await DeleteImageOnDatabaseWithUrl(ProductUploadImage[1]);
+      await DeleteImageOnDatabaseWithUrl(ProductUploadImage[2]);
+
+      await deleteDoc(docRef)
+              .then(() => {
+                //alert("Entire Document has been deleted successfully.");
+                createToast('Success', 'Record was deleted successfully!', 'toast-success');
+              }).catch(error => {
+                //alert(error);
+                createToast('Danger', 'Record was not deleted!', 'toast-danger');
+              });
+    }
+
+    async function b_confirm(msg) {
+      const modalElem = document.createElement('div')
+      modalElem.id = "modal-confirm"
+      modalElem.className = "modal"
+      modalElem.innerHTML = `
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">             
+            <div class="modal-body fs-6">
+              <p style="font-size: 30px; border: 3em;">${msg}</p>
+          </div>    <!-- modal-body -->
+          <div class="modal-footer" style="border-top:0px">             
+            <button id="modal-btn-descartar" type="button" class="btn btn-secondary">Cancel</button>
+            <button id="modal-btn-aceptar" type="button" class="btn btn-primary">Accept</button>
+          </div>
+        </div>
+      </div>
+      `
+      const myModal = new bootstrap.Modal(modalElem, {
+        keyboard: false,
+        backdrop: 'static'
+      })
+      myModal.show()
+    
+      return new Promise((resolve, reject) => {
+        document.body.addEventListener('click', response)
+    
+        function response(e) {
+          let bool = false
+          if (e.target.id == 'modal-btn-descartar') bool = false
+          else if (e.target.id == 'modal-btn-aceptar') bool = true
+          else return
+    
+          document.body.removeEventListener('click', response)
+          document.body.querySelector('.modal-backdrop').remove()
+          modalElem.remove()
+          resolve(bool)
+        }
+      })
+    }
+
+    function OpenFileDialog(){
+      let inp      = document.createElement("input");
+      inp.type     = "file";
+      inp.multiple = 'multiple';
+      
+      inp.onchange = (e) => {
+        AssignImagesToFilesArray(e.target.files);
+        CreateImageTags();
+      }
+      
+      inp.click();
+    }
+  
+    function AssignImagesToFilesArray(thefile){
+      let num     = Files.length + thefile.length;
+      let looplim = (num <= 4) ? thefile.length : (10 - Files.length)
+      
+      for (let i = 0; i < looplim; i++){
+        Files.push(thefile[i]);
+      }
+      
+      if (num > 4) 
+        createToast('Danger', 'Maximun 3 images are allowed!', 'toast-danger');
+        //alert("Maximun 3 images are allowed");
+    }
+    
+    function CreateImageTags(){
+      imagesDiv.innerHTML = "";
+      imagesDiv.classList.add('imagesDivcStyle');
+      
+      
+      for (let i = 0; i < Files.length; i++){
+        FileReaders[i] = new FileReader();
+        
+        FileReaders[i].onload = function(){
+          var img = document.createElement("img");
+          img.id  = "imgNo" + i;
+          img.classList.add('imgs');
+          img.src = FileReaders[i].result;
+          img.width = 60;
+          img.height = 60;
+          imagesDiv.append(img);
+        }
+          FileReaders[i].readAsDataURL(Files[i]);
+      }
+      
+    }
+  
+    function clearImages(){
+    
+    Files = [];
+    ImageLinksArray = [];
+    imgdiv.innerHTML = "";
+    imgdiv.classList.remove('imagesDivcStyle');
+    
+    
+  }
+  
+  function getShortTitle(){
+    let namey = name.value.substring(0,50);
+    
+    return namey.replace(/[^a-zA-Z0-9]/g,"");
+  }
+  
+  function GetImagUploadProgress(){
+    return "Image Uploaded " + ImageLinksArray.length + " of " + Files.length;
+  }
+  
+  function IsAllImageUploaded(){
+  
+      if (ImageLinksArray.length == Files.length)
+      return true;
+    else
+      return false;
+  }
+  
+  function GetPoints(){
+    let points = [];
+    if (p1.value.length > 0) points.push(p1.value);
+    if (p2.value.length > 0) points.push(p2.value);
+    if (p3.value.length > 0) points.push(p3.value);
+    if (p4.value.length > 0) points.push(p4.value);
+    
+    return points;
+  }
+  
+  function RestoreBack(){
+  
+    selBtn.disabled = false;
+    addBtn.disabled = false;
+    
+  
+  }
+ 
+  async function DeleteImageOnDatabaseWithUrl(url){
+
+  
+
+    const storage = getStorage();
+    const httpsReference = sRef(storage, url);
+
+    deleteObject(httpsReference).then(() => {
+      // File deleted successfully
+     // alert("File deleted successfully");
+
+    }).catch((error) => {
+      //alert(error);
+      createToast('Danger', 'Image was not deleted!', 'toast-danger');
+    });
+  }
+  //--------------------------------------------------------------------------
+    
+    selBtn.addEventListener('click',OpenFileDialog);
+    addBtn.addEventListener('click',UploadAllImage);
+    
+    //--------------------------------------------------------------------------
+    
+    function UploadAllImage(){
+      selBtn.disabled = true;
+      addBtn.disabled = true;
+      
+      ImageLinksArray = [];
+      
+      for(let i = 0; i < Files.length; i++){
+        UploadAnImage(Files[i],i);
+      }
+      
+    }
+  
+    var numberOfImageLoaded = 0;
+    
+    function UploadAnImage(imgToUpload, imgNo){
+
+      var uploadingButton = document.getElementById('addproductbtn');
+
+      uploadingButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
+    
+      const metadata = {
+        contentType: imgToUpload.type
+      }
+      
+      const storage = getStorage();
+      
+      const ImageAddress = "TheImages/" + getShortTitle() + "/img#" + (imgNo + 1);
+      
+      const storageRef = sRef(storage,ImageAddress);
+      
+      const UploadTask = uploadBytesResumable(storageRef, imgToUpload, metadata);
+      
+      UploadTask.on("state-changed", (snapshot) => {
+        
+      }, (error) => {
+      
+        
+      },
+      () =>
+      {
+        getDownloadURL(UploadTask.snapshot.ref).then((downloadURL) => {
+          
+          numberOfImageLoaded++;
+          //Toast_success("Image " + ImageLinksArray.length.toString() + "was loaded successfuly");
+
+          
+        
+          ImageLinksArray.push(downloadURL);
+        
+            if (IsAllImageUploaded()){
+              uploadingButton.innerHTML = "Upload Images";
+            }
+          });
+      }
+      
+      );
+      
+    }
+  
+    //
+    function selectNewImage(id)
+    {
+      var input = document.createElement('input');
+
+      var valueId = id.split(','); 
+	
+	    input.type = "file";
+	    input.click();
+	    input.onchange = e => {
+	    	files = e.target.files;
+		
+		    updateImageExtention = GetFileExt(files[0]);
+		    updateImageName      = getFileName(files[0]);
+		    
+		    reader.readAsDataURL(files[0]);
+      }
+
+      reader.onload = function(){
+        
+		    document.getElementById("image" + valueId[0]).src = reader.result;
+        UploadProcess(valueId[0],"imageURLs/" + sessionStorage.getItem("CompanyName") + "/meun",valueId[1]);
+	    }
+	
+	 }
+
+   //get File name 
+   function getFileName(file){
+	
+  var temp = file.name.split('.');
+  var fName = temp.slice(0,-1).join('.');
+  
+  return fName;
+  
+}
+
+function GetFileExt(file){
+	
+  var temp = file.name.split('.');
+  var ext = temp.slice((temp.length - 1), (temp.length));
+
+  
+
+  return '.' + ext[0];
+  
+}
+
+  //-------------------------upload image-------------------------//
+	
+	async function UploadProcess(id,collectionPath,productPosition) {
+	
+  var ImageToUpLoad = files[0];
+  
+  var ImgName = updateImageName + updateImageExtention;
+  
+  if (!validdateName()){
+   //alert("name cannot contain . # $ ....");
+   createToast('Danger', 'image name contain . # $ ....!', 'toast-danger');
+   
+   return;
+  }
+  
+  const metaData = {
+    contentType: ImageToUpLoad.type
+  }
+  
+  const storage = getStorage();
+  
+  const storageRef = sRef(storage , "Images/" + ImgName);
+
+  var loadingButton = document.getElementById( id + "," + productPosition + ',upload');
+  loadingButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
+  
+  const UploadTask = uploadBytesResumable(storageRef, ImageToUpLoad, metaData);
+  
+  UploadTask.on("state-changed", (snapshot) => {
+    
+    
+  }, (error) => {
+      
+    //alert("error : image not uploaded");
+    createToast('Danger', 'Image was not uploaded!', 'toast-danger');
+  },
+  () =>
+  {
+    getDownloadURL(UploadTask.snapshot.ref).then((downloadURL) => {
+      //alert("url : " + downloadURL);
+      loadingButton.innerHTML = 'Update Image';
+      //alert("ProductUploadImage[parseInt(id)] : " + ProductUploadImage[parseInt(id)]);
+      var deleteUrl = ProductUploadImage[parseInt(id)];
+      DeleteImageOnDatabaseWithUrl(deleteUrl);
+      updateNewImageToDatabase(id,collectionPath,productPosition,downloadURL);
+      
+      });
+  }
+  
+  );
+  
+}
+
+function updateNewImageToDatabase(id,collectionPath,productPosition,downloadURL)
+{
+  var refCol = doc(db,collectionPath, productPosition.toString());
+      if (id.toString() == "0")
+      {
+        updateDoc( refCol, {
+          url : downloadURL,
+        }).then(() => {
+          //RestoreBack();
+          createToast('Success', 'Image updated successful!', 'toast-success');
+        }).catch((error) => {
+          alert("bad " +  error);
+          //danger("Error","category didn't updated successful");
+          createToast('Danger', 'Image was not updated successful!!', 'toast-danger');
+        });
+
+      }else if (id.toString() == "1"){
+        updateDoc( refCol, {
+          url1 : downloadURL,
+        }).then(() => {
+          //RestoreBack();
+          createToast('Success', 'Image updated successful!', 'toast-success');
+        }).catch((error) => {
+          //alert("bad " +  error);
+          
+          //danger("Error","category didn't updated successful");
+        });
+
+      }else if (id.toString() == "2"){
+        updateDoc( refCol, {
+          url2 : downloadURL,
+        }).then(() => {
+          //RestoreBack();
+          createToast('Success', 'Image updated successful!', 'toast-success');
+        }).catch((error) => {
+          //alert("bad " +  error);
+          //danger("Error","category didn't updated successful");
+        });
+
+      }
+    
+}
+
+function validdateName() {
+	var regex = /[\.#$\[\]]/;
+	
+	return !(regex.test(namebox.value));
+	
+	}
+
+  </script>
+
+</html>

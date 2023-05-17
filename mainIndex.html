@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Admin Dashboard | Korsat X Parmaga</title>
+    <!-- ======= Styles ====== -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js      "></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js "></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+    
+</head>
+
+<style>
+
+
+iframe{      
+        display: block;  /* iframes are inline by default */   
+        height: 90vh;  /* Set height to 100% of the viewport height */   
+        width: 100%;  /* Set width to 100% of the viewport width */     
+        border: none; /* Remove default border */
+        background: lightyellow; /* Just for styling */
+    }
+
+    .containerProfile{
+  user-select: none;
+  margin: 0px auto;
+  border-radius: 40px;
+  background: #231e39;
+  color: #b3b8cd;
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
+}
+.cover-photo{
+  background: url("submeun/assets/images/no-image-icon-23492.png");
+  background-repeat: no-repeat;
+  background-position: 100%;
+  height: 160px;
+  width: 100%;
+  border-radius: 5px 5px 0 0;
+}
+.profile{
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  margin: 93px 0 0 -175px;
+  border: 1px solid #1f1a32;
+  padding: 7px;
+  background: #292343;
+}
+.profile-name{
+  font-size: 25px;
+  font-weight: bold;
+  margin: 27px 0 0 120px;
+}
+.about{
+  margin-top: 35px;
+  line-height: 21px;
+}
+button{
+  margin: 10px 0 40px 0;
+}
+.msg-btn, .follow-btn{
+  background: #03bfbc;
+  border: 1px solid #03bfbc;
+  padding: 10px 25px;
+  color: #231e39;
+  border-radius: 3px;
+  font-family: Montserrat, sans-serif;
+  cursor: pointer;
+}
+.follow-btn{
+  margin-left: 10px;
+  background: transparent;
+  color: #02899c;
+}
+.follow-btn:hover{
+  color: #231e39;
+  background: #03bfbc;
+  transition: .5s;
+}
+.container i{
+  padding-left: 20px;
+  font-size: 20px;
+  margin-bottom: 0px;
+  cursor: pointer;
+  transition: .5s;
+}
+.container i:hover{
+  color: #03bfbc;
+}
+
+    
+</style>
+
+<style>
+
+    table{
+        margin: 5px;
+        width: 35%;
+        background-color: transparent;
+    }
+    tr {
+  border-top: 1px solid #22262e;
+  background-color: transparent;
+  color:#f5f5f5;
+  font-size:10px;
+  font-weight:normal;
+  text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+}
+ 
+tr:hover td {
+  background: transparent;
+  background-color: transparent;
+  color:#fdfdff;
+  border-top: 1px solid #22262e;
+  border-bottom: 1px solid white;
+}
+ 
+tr:first-child {
+  border-top:none;
+}
+
+tr:last-child {
+  border-bottom:none;
+}
+ 
+tr:nth-child(odd) td {
+  background:#231e39;
+}
+ 
+tr:nth-child(odd):hover td {
+  background:#231e39;
+}
+
+tr:last-child td:first-child {
+  border-bottom-left-radius:0px;
+}
+ 
+tr:last-child td:last-child {
+  border-bottom-right-radius:0px;
+}
+ 
+td {
+  background:#231e39;
+  padding:2px;
+  text-align:left;
+  vertical-align:middle;
+  font-weight:10;
+  font-size:18px;
+  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid #231e39;
+}
+
+td:last-child {
+  border-right: 0px;
+}
+
+th.text-left {
+  text-align: left;
+}
+
+th.text-center {
+  text-align: center;
+}
+
+th.text-right {
+  text-align: right;
+}
+
+td.text-left {
+  text-align: left;
+}
+
+td.text-center {
+  text-align: center;
+}
+
+td.text-right {
+  text-align: right;
+}
+
+</style>
+<script type="text/javascript">
+    window.history.forward();
+    function noBack()
+    {
+        window.history.forward();
+    }
+  </script>
+
+  <style>
+    
+input[type="checkbox"] {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: red;
+  outline: none;
+  border-radius: 2rem;
+  cursor: pointer;
+  box-shadow: inset 0 0 5px rgb(0 0 0 / 50%);
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: 0.5s;
+}
+
+input[type="checkbox"]:checked::before {
+  transform: translateX(100%);
+  background: #fff;
+}
+
+input[type="checkbox"]:checked {
+  background: #00ed64;
+}
+
+  </style>
+
+<body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+        <div class="navigation" id="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <img id="imgIcon" width="40" style="border-radius: 50%; margin-top: 10px;" src="submeun/assets/images/no-image-icon-23492.png" alt="">
+                        </span>
+                        <span class="title" id="BrandName">Brand Name</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="#" id="Change1">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="title">Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" id="Change2">
+                        <span class="icon">
+                            <ion-icon name="albums-outline"></ion-icon>
+                        </span>
+                        <span class="title">Order</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#"- id="Change3">
+                        <span class="icon">
+                            <ion-icon name="podium-outline"></ion-icon>
+                        </span>
+                        <span class="title">Completed</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" id="Change4">
+                        <span class="icon">
+                            <ion-icon name="add-circle-outline"></ion-icon>
+                        </span>
+                        <span class="title">Category</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" id="Change5">
+                        <span class="icon">
+                            <ion-icon name="bag-add-outline"></ion-icon>
+                        </span>
+                        <span class="title">Product</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" id="Change6">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title">Sign Out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ========================= Main ==================== -->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+            </div>
+
+            <!-- ======================= section 1 ================== -->
+            <section id="section 1">
+                <!-- ======================= Cards ================== -->
+                <div class="cardBox">
+                    <div class="card">
+                        <div>
+                            <div class="numbers" id = "orderCompletedNumbers">0</div>
+                            <div class="cardName">Completed</div>
+                        </div>
+
+                        <div class="iconBx">
+                            <ion-icon name="podium-outline"></ion-icon>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div>
+                            <div class="numbers" id="orderIncoming">0</div>
+                            <div class="cardName">Incoming</div>
+                        </div>
+
+                        <div class="iconBx">
+                            <ion-icon name="cart-outline"></ion-icon>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div>
+                            <div class="numbers" id="orderRejected">0</div>
+                            <div class="cardName">Rejected</div>
+                        </div>
+
+                        <div class="iconBx">
+                            <ion-icon name="ban-outline"></ion-icon>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div>
+                            <div class="numbers" id="TotalEarning">R0.00</div>
+                            <div class="cardName">Earning</div>
+                        </div>
+
+                        <div class="iconBx">
+                            <ion-icon name="cash-outline"></ion-icon>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================ Order Details List ================= -->
+                <div class="details">
+                    <div class="recentOrders" style="margin: 0%; padding: 0%;">
+                        <h1 style="padding: 0%; text-align: center;">Quick Order Report</h1>
+                        <div id="myChart" style="max-width:800px; height:350px;"></div>  
+                    </div>
+
+                    <!-- ================= New Customers ================ -->
+                    <div class="containerProfile">
+                        <div class="cover-photo" id = "backgroundImage">
+                          <img id="profileImage" src="submeun/assets/images/no-image-icon-23492.png" class="profile">
+                        </div>
+                        <div class="profile-name" id="CompanyName"></div>
+
+                        <table>
+                            <tr>
+                                <td><b>Username</b></td>
+                                <td id="Username"></td>
+                            </tr>
+                            <tr>
+                                <td><b>Office</b></td>
+                                <td id="Email"></td>
+                            </tr>
+                            <tr>
+                              <td><b>Email</b></td>
+                              <td id="Email">Branchec@gmail.com</td>
+                            </tr>
+                            <tr>
+                              <td><b>Contacts</b></td>
+                              <td id="PhoneNumber"></td>
+                          </tr>
+                            <tr>
+                                <td><b>Address</b></td>
+                                <td id="Address"></td>
+                            </tr>
+                            <tr>
+                                <td id="StoreText" ></td>
+                                
+                                <td> <input id="storeButton" type="checkbox"></td>
+                            </tr>
+                        </table>
+                      </div>
+            </section>
+            <section id="section 2" style="margin-left: 20px;margin-right: 15px;"><iframe id = "iframeAddcategory" src="submeun/OderVeiwPage.html"></iframe></section>
+            <section id="section 3" style="margin-left: 20px;margin-right: 15px;"><iframe id = "iframeAddcategory" src="submeun/VeiwReport.html" >iframeAddcategory</iframe></section>
+            <section id="section 4" style="margin-left: 20px;margin-right: 15px;"><iframe id = "iframeAddcategory" src="submeun/AddCategorysub.html" ></iframe></section>
+            <section id="section 5" style="margin-left: 20px;margin-right: 15px;"><iframe id = "iframeAddcategory" src="submeun/AddProductsub.html"              >iframeAddcategory</iframe></section>
+            
+            </div>
+        </div>
+
+    
+    </div>
+
+    <!-- =========== Scripts =========  -->
+    <script src="assets/js/main.js"></script>
+
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>
+
+<script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+    
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+    // ...
+    apiKey: "AIzaSyDibpkuzUookkbMVIoHqe_rYu1umY1qF-4",
+    authDomain: "data-b93ed.firebaseapp.com",
+    databaseURL: "https://data-b93ed-default-rtdb.firebaseio.com",
+    projectId: "data-b93ed",
+    storageBucket: "data-b93ed.appspot.com",
+    messagingSenderId: "218236841715",
+    appId: "1:218236841715:web:e96bfd3174b08438701186"
+  };
+  
+    
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    
+    import {getDatabase, set,get,onValue, ref , child, update} from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
+    import {getStorage,ref as sRef,uploadBytesResumable,getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-storage.js";
+    import { getFirestore, doc, getDoc, getDocs , setDoc ,collection , onSnapshot , addDoc, updateDoc, deleteDoc , deleteField  } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js";
+    import {getAuth, createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged,signOut,signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js";
+
+    const realdb = getDatabase();
+    const db     = getFirestore();
+
+    var canvasImage = document.getElementById("canvasImage");
+    var storeButton = document.getElementById('storeButton');
+    var storeText = document.getElementById('StoreText');
+
+
+    storeButton.addEventListener('change', (e)=>{
+
+        updatefield('open','BusinessesData',sessionStorage.getItem("Position"),storeButton.checked);
+
+        
+    });
+
+
+    async function updatefield(key,collectionPath,docPth,value)
+    {
+    
+        const docRef = await doc(db, collectionPath, docPth);
+
+        // Update the 'name' field in the document
+        updateDoc( docRef,{
+            [key]: value,
+        });
+    }
+
+
+    //run get All category
+    getAllDate();
+   // getting all orders information
+   getAllOrder();
+
+     
+
+   
+  
+     //get all Date for table category
+     async function getAllDate(){
+
+        //alert(categoryPath);
+        await onSnapshot( collection(db, 'BusinessesData' ), (docSnap) => {
+            var url = "https://www.google.com/search?q=image&rlz=1C1GCEB_enZA1005ZA1005&sxsrf=APwXEdfpx293Aj721Cg_nRuDVHojuBxaQg:1681408814295&tbm=isch&source=iu&ictx=1&vet=1&fir=3eRt9lrXKzvA_M%252C0JWe7yDOKrVFAM%252C%252Fm%252F0jg24%253BYmDohMp4T5AODM%252CExDvm63D_wCvSM%252C_%253B9SPhZ2nyEGps3M%252CBa_eiczVaD9-zM%252C_%253BdDLJLDH24Qls4M%252CNMmM-IXyCkU2hM%252C_&usg=AI4_-kRZeZtaRugbrwwvcRkQw8pzVzi_EQ&sa=X&ved=2ahUKEwiZqeT4t6f-AhUXilwKHZ6JCUsQ_B16BAhfEAE#imgrc=3eRt9lrXKzvA_M";
+            docSnap.forEach(doc => {
+
+                if (doc.data().CompanyName == sessionStorage.getItem("CompanyName"))
+                {
+                    storeButton.checked = doc.data().open;
+                    if (storeButton.checked)
+                      document.getElementById('StoreText').innerHTML = '<b>Store open</b>';
+                    else
+                      document.getElementById('StoreText').innerHTML = '<b>Store close</b>';
+                    
+                    var imageProfile = document.getElementById("profileImage");
+                    var CompanyName = document.getElementById('CompanyName');
+
+                    
+                    document.getElementById('Username').innerHTML = sessionStorage.getItem("Username");
+                    imageProfile.src = sessionStorage.getItem("UserPhoto");
+                    var backgroundImage = document.getElementById("backgroundImage");
+                    backgroundImage.style.backgroundImage = "url('"+ doc.data().url +"')";
+                    backgroundImage.style.backgroundSize = "Cover";
+                    imageProfile.style.backgroundSize = "Cover";
+                    CompanyName.innerHTML = doc.data().CompanyName;
+                    document.getElementById('Email').innerHTML       =  doc.data().UserEmail;
+                    document.getElementById('Address').innerHTML     =  doc.data().UserAddress;
+                    document.getElementById('PhoneNumber').innerHTML = "+" + doc.data().UserNumber;
+                    document.getElementById('BrandName').innerHTML =  doc.data().MainAdnim;
+                    document.getElementById('imgIcon').src = doc.data().urlProfile;
+                    document.getElementById('imgIcon').style.backgroundSize = "Cover";
+                    if (!doc.data().status)
+                    document.getElementById('Status').innerHTML =  "Closed";
+                    else if (doc.data().status)
+                    document.getElementById('Status').innerHTML =  "Active"; 
+                    
+                }
+            });
+          
+        })
+    }    
+
+
+    
+    async function getAllOrder(){
+
+const starCountRef = await ref(realdb, sessionStorage.getItem("CompanyName"));
+
+  var orderCompletedNumbers = 0;
+  var orderRejected = 0;
+  var orderIncoming = 0;
+  var TotalEarning = 0;
+
+await onValue(starCountRef, (snapshot) => {
+  var orderCompletedNumbers = 0;
+  var orderRejected = 0;
+  var orderIncoming = 0;
+  var TotalEarning = 0;
+  snapshot.forEach((childSnapshot) => {
+    const childKey = childSnapshot.key;
+    const childData = childSnapshot.val();
+    const entries = Object.entries(childData);
+    var   ready = '';
+
+    for (const [key, value] of Object.entries(entries)) {
+
+      var valuefood = value;
+
+      if (`${value}`.toString().includes("ready"))
+        {
+          ready = `${value}`.toString().replace("ready,",'');
+        }
+    }
+    
+    
+
+    if (ready == "true")
+    {
+        orderCompletedNumbers++;
+        TotalEarning = TotalEarning + parseFloat(childData.Total);
+    }
+    else if (ready == "Reject")
+      orderRejected++;
+    else
+    orderIncoming++;
+
+    document.getElementById('orderCompletedNumbers').innerHTML = orderCompletedNumbers;
+    document.getElementById('orderRejected').innerHTML = orderRejected;
+    document.getElementById('orderIncoming').innerHTML = orderIncoming;
+    document.getElementById('TotalEarning').innerHTML = "R" + TotalEarning.toFixed(2);
+    
+  });
+  drawcCharts(orderCompletedNumbers,orderRejected,orderIncoming);
+});  
+}
+
+   function drawcCharts(orderCompletedNumbers,orderRejected,orderIncoming){
+
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Summary of Oders', 'Mhl'],
+          ['Total',0],
+          ['Rejected',orderRejected],
+          ['Incoming',orderIncoming],
+          ['Completed',orderCompletedNumbers]
+        ]);
+        
+        var options = {
+          is3D:true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('myChart'));
+          chart.draw(data, options);
+        }
+    }
+   
+    
+    document.getElementById("Change6").addEventListener("click",async function() {
+            const auth = getAuth();
+            await signOut(auth).then(() => {
+                window.location.replace("login.html");
+            });
+
+        });
+
+</script>
+
+<script>
+   mainSection();
+   
+    function mainSection(){
+
+        document.getElementById("Change1").addEventListener("click",function() {
+            changeSection(1);
+        });
+
+        document.getElementById("Change2").addEventListener("click",function() {
+            changeSection(2);
+
+            
+        });
+
+        document.getElementById("Change3").addEventListener("click",function() {
+            changeSection(3);
+        });
+
+        document.getElementById("Change4").addEventListener("click",function() {
+            changeSection(4);
+        });
+
+        document.getElementById("Change5").addEventListener("click",function() {
+            changeSection(5);
+        });
+
+        
+
+        changeSection(null);
+
+        function changeSection(section){
+           
+            if (section == null || section == 1)
+            {
+                document.getElementById("section 1").style.display = 'block';
+                document.getElementById("section 2").style.display = 'none';
+                document.getElementById("section 3").style.display = 'none';
+                document.getElementById("section 4").style.display = 'none';
+                document.getElementById("section 5").style.display = 'none';
+            
+            }else
+            {
+                
+                headLineChange(section);
+            }
+        }
+    }
+
+    function headLineChange(section)
+    {
+        var headLine = document.getElementById("headLine");
+
+        if (section == 2)
+        {
+          //headLine.innerHTML = "In-coming Orders";
+          document.getElementById("section 1").style.display = 'none';
+          document.getElementById("section 2").style.display = 'block';
+          document.getElementById("section 3").style.display = 'none';
+          document.getElementById("section 4").style.display = 'none';
+          document.getElementById("section 5").style.display = 'none';
+        }
+        else if (section == 3)
+        {
+          //headLine.innerHTML = "Complete Orders";
+          document.getElementById("section 1").style.display = 'none';
+          document.getElementById("section 2").style.display = 'none';
+          document.getElementById("section 3").style.display = 'block';
+          document.getElementById("section 4").style.display = 'none';
+          document.getElementById("section 5").style.display = 'none';
+
+        }
+        else if (section == 4)
+        {
+          //headLine.innerHTML = "Add category";
+          document.getElementById("section 1").style.display = 'none';
+          document.getElementById("section 2").style.display = 'none';
+          document.getElementById("section 3").style.display = 'none';
+          document.getElementById("section 4").style.display = 'block';
+          document.getElementById("section 5").style.display = 'none';
+        }
+        else if (section == 5)
+        {
+          //headLine.innerHTML = "Add Product";
+          document.getElementById("section 1").style.display = 'none';
+          document.getElementById("section 2").style.display = 'none';
+          document.getElementById("section 3").style.display = 'none';
+          document.getElementById("section 4").style.display = 'none';
+          document.getElementById("section 5").style.display = 'block';
+
+        }
+    }
+
+    function addRow(tableID) {  
+    var table = document.getElementById(tableID);  
+    var rowCount = table.rows.length;  
+    var row = table.insertRow(rowCount);  
+    //Column 1  
+    var cell1 = row.insertCell(0);  
+    var element1 = document.createElement("div");  
+    element1.type = "button";  
+    var btnName = "button" + (rowCount + 1);  
+    element1.className = "cardHeader";
+
+    element1.innerHTML += "<a href='#' class='btn'>View All</a> ";
+    element1.innerHTML += "<a href='#' class='btn'>View All</a>";
+    //element1.name = btnName;  
+    //element1.setAttribute('value', 'Delete'); // or element1.value = "button";  
+    element1.onclick = function() {  
+        removeRow(btnName);  
+    }  
+    cell1.appendChild(element1);  
+    //Column 2  
+    var cell2 = row.insertCell(1);  
+    cell2.innerHTML = rowCount + 1;  
+
+    //Column 3  
+    var cell3 = row.insertCell(2);  
+    var element3 = document.createElement("input");  
+    element3.type = "text";  
+    cell3.innerHTML = "Column 3";  
+
+    //Column 4  
+    var cell3 = row.insertCell(3);  
+    var element3 = document.createElement("input");  
+    element3.type = "text";  
+    cell3.innerHTML = "Column 3"; 
+
+    //Column 5 
+    var cell3 = row.insertCell(4);  
+    var element3 = document.createElement("input");  
+    element3.type = "text";  
+    cell3.innerHTML = "Column 3"; 
+
+    //Column 6 
+    var cell3 = row.insertCell(5);  
+    var element3 = document.createElement("input");  
+    element3.type = "text";  
+    cell3.appendChild(element3); 
+}  
+  
+function removeRow(btnName) {  
+    try {  
+        var table = document.getElementById('dataTable');  
+        var rowCount = table.rows.length;  
+        for (var i = 0; i < rowCount; i++) {  
+            var row = table.rows[i];  
+            var rowObj = row.cells[0].childNodes[0];  
+            if (rowObj.name == btnName) {  
+                table.deleteRow(i);  
+                rowCount--;  
+            }  
+        }  
+    } catch (e) {  
+        alert(e);  
+    }  
+} 
+    
+    </script>

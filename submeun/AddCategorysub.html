@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    
+
+</head>
+
+<style>
+  
+  .border {
+    border-width:3px !important;
+}
+
+tfoot tr, thead tr {
+	background: lightblue;
+}
+tfoot td {
+	font-weight:bold;
+}
+</style>
+
+<style>
+  .toast-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+  }
+  .toast-header {
+    background-color: #28a745;
+    color: #fff;
+  }
+  .toast-info .toast-header {
+    background-color: #17a2b8;
+  }
+  .toast-danger .toast-header {
+    background-color: #dc3545;
+  }
+  .toast-body {
+    background-color: #f8f9fa;
+  }
+  .toast-success .toast-body {
+    background-color: #f8f9fa;
+  }
+</style>
+<body >
+
+    <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container" style="width: 20%;"></div>
+
+        <div class="col-12">
+            <!-- Button trigger modal -->
+            <div class="row">
+                <div class="col-4">
+                    <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add category</button>
+                </div>
+    
+                <div class="col-4"></div>
+        
+                <div class="col-4">
+                    <label id = "upprogress"></label>
+                </div>
+            </div>
+        </div>
+    
+  
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Add Category</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+             <div class="modal-body">
+                <img src="img/1.jpg" class="modal-img" alt="modal img" hidden>
+                <form class="row g-3 needs-validation" id="myForm" onsubmit="return false" novalidate>
+                  <div class="row">
+                    
+                    <div class="col-md-6">
+                      <label for="">Name</label>
+                      <input type="text" class="form-control" value="" id = "NameCate" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="">Slug</label>
+                      <input type="text" class="form-control" value="" id = "slugCate" required>
+                    </div>
+  
+                    <div class="col-md-12">
+                      <label for="">Description</label>
+                      <textarea required class="form-control" name="Description" id="DescriptionCate" placeholder="Enter category Description" rows="2"></textarea>
+                    </div>
+  
+                    <div class="col-md-12">
+                      <label for="">Meta Title</label>
+                      <input type="text" value=""  id = "Meta_TitleCate" placeholder="Enter meta title" class="form-control">
+                    </div>
+  
+                    <div class="col-md-12">
+                      <label for="">Meta Description</label>
+                      <textarea class="form-control" name="Description" id="Meta_Description_Cate" placeholder="Enter meta description" rows="2"></textarea>
+                    </div>
+  
+                    <div class="col-md-12">
+                      <label for="">Meta Keywords</label>
+                      <textarea class="form-control" name="Keywords" id="Meta_Keywords_Caye" placeholder="Enter meta Keywords" rows="2"></textarea>
+                    </div>
+  
+                    <div class="col-md-6">
+                      <label for="">Status</label>
+                      <input type="checkbox" id="Status_Cate">
+                    </div>
+  
+                    <div class="col-md-6">
+                      <label for="">Popular</label>
+                      <input type="checkbox" id="Popula_Cater">
+                    </div>
+
+                    <div class="col-md-6">
+                      <img id = "myimg"> <br><br> 
+  
+                      <label hidden> image name </label> 
+                      <button  type="button" id = "selbtn" class="btn btn-primary" >Select Image</button>
+                      </div>
+                    
+                      <input hidden required class="form-control" id = "namebox" type = "text"> <label hidden id = "extlab"> </label>
+                    
+                    </div>
+                    <div class="col-6"><button hidden id="Submitform" class="btn btn-primary" type="submit" ></button></div>
+                  
+                </form>
+                  
+       
+             </div>
+          <div class="modal-footer">
+            <button type="button" id = "CloseModal" class="btn btn-secondary" >Close</button>
+            <button type="button" id = "CloseButton" class="Save btn btn-primary" >Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <table id="example" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th scope="col">Position</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Image</th>
+                <th scope="col">Srtatus</th>
+                <th scope="col">Action</th>
+              </tr>
+        </thead>
+        <tbody id = "addRow">
+            
+            
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Position</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Srtatus</th>
+                <th>Action</th>
+            </tr>
+        </tfoot>
+    </table>
+    
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+<script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+    
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      // ...
+      apiKey: "AIzaSyDibpkuzUookkbMVIoHqe_rYu1umY1qF-4",
+      authDomain: "data-b93ed.firebaseapp.com",
+      databaseURL: "https://data-b93ed-default-rtdb.firebaseio.com",
+      projectId: "data-b93ed",
+      storageBucket: "data-b93ed.appspot.com",
+      messagingSenderId: "218236841715",
+      appId: "1:218236841715:web:e96bfd3174b08438701186"
+    };
+    
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    
+    import {getDatabase, set,get, ref , child, update} from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
+    import {
+            getStorage,
+            ref as sRef,
+            uploadBytesResumable,
+            getDownloadURL, deleteObject
+        } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-storage.js";
+    
+        import { getFirestore, doc, getDoc, getDocs , setDoc ,collection , onSnapshot , addDoc, updateDoc, deleteDoc , deleteField  } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js";
+
+const db = getFirestore();
+//Run Add Validation
+AddValidation();
+
+//Add Validation
+function AddValidation(){
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+const forms = document.querySelectorAll('.needs-validation')
+var form = forms[0];
+
+
+function my_submit(ev) {
+if (!form.checkValidity()) {
+ev.preventDefault()
+ev.stopPropagation()
+} else {
+form.submit()
+}
+form.classList.add('was-validated')
+return false;
+}
+
+document.querySelector("#Submitform").addEventListener('click', my_submit)
+form.addEventListener('submit', my_submit);
+} 
+
+const realdb = getDatabase();
+    
+	var files = [];
+	
+	var   reader = new FileReader();
+    var   CategoryPosition = 0;
+    var   getUrl = "";
+
+    var namebox = document.getElementById('namebox');
+	var extlab = document.getElementById('extlab');
+	var myimg = document.getElementById('myimg');
+	var proglab = document.getElementById('upprogress');
+	var selbtn = document.getElementById('selbtn');
+	var DownBtn = document.getElementById('DownBtn');
+
+    var CategorySlug          = document.getElementById("slugCate");
+	var categoryDescription     = document.getElementById("DescriptionCate");
+	var CategoryMetaTitle       = document.getElementById("Meta_TitleCate");
+	var CategoryMetaDescription = document.getElementById("Meta_Description_Cate");
+	var CategoryMetaKeywords    = document.getElementById("Meta_Keywords_Caye");
+	var CategoryStatus          = document.getElementById("Status_Cate");
+	var CategoryPopular         = document.getElementById("Popula_Cater");
+	var CategoryUploadImage     = document.getElementById("namebox");
+	var CategoryName            = document.getElementById("NameCate");
+
+  var uploadingButton = document.getElementById('CloseButton');
+	
+	var input = document.createElement('input');
+	
+	input.type = "file";
+
+ 
+    var countLastPosition = 0;
+    //get data and put it in a table 
+    getAllDate(sessionStorage.getItem("CompanyName"));
+
+    //addEventListener for any button
+    document.addEventListener("click",function (e){
+
+        if (e.target.innerHTML == "Add category")
+        {
+            CategorySlug           .value = "";
+            categoryDescription    .value = "";
+            CategoryMetaTitle      .value = "";
+            CategoryMetaDescription.value = "";
+            CategoryMetaKeywords   .value = "";
+            CategoryStatus         .value = "";
+            CategoryPopular        .value = "";
+            CategoryUploadImage    .value = "";
+            CategoryName           .value = "";
+            document.getElementById("CloseButton").innerHTML = "Add";
+            document.getElementById('myimg').src = '';
+            document.getElementById('myimg').width = 80;
+            document.getElementById('myimg').height = 90;
+        }else if (e.target.innerHTML == "Add")
+        {
+          if (CategoryName.value == "")
+            {
+              //alert("Name is required");
+              //CategoryName.required = true;
+              document.getElementById("Submitform").click();
+              return;
+            }else if (CategorySlug.value == "")
+            {
+              //alert("Slug is required");
+              document.getElementById("Submitform").click();
+              return;
+            }else if (categoryDescription.value == "")
+            {
+              //alert("Description is required");
+              document.getElementById("Submitform").click();
+              return;
+            }else if (namebox.value == "")
+            {
+              document.getElementById('myimg').className += "border";
+              return;
+            }else{
+              uploadingButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
+            }
+
+          
+
+          UploadProcess(true, sessionStorage.getItem("CompanyName"));
+        }else if (e.target.innerHTML == "Edit")
+        {
+            //alert(e.target.id);
+            getDoumentWithGivenID("Category/" + sessionStorage.getItem("CompanyName") + "/CategoryList",e.target.id.toString());
+            document.getElementById("CloseButton").innerHTML = "Save";
+            namebox.value = "something";
+        }else if (e.target.innerHTML == "Save")
+        {
+          if (CategoryName.value == "")
+            {
+              document.getElementById("Submitform").click();
+              return;
+            }else if (CategorySlug.value == "")
+            {
+              document.getElementById("Submitform").click();
+              return;
+            }else if (categoryDescription.value == "")
+            {
+              document.getElementById("Submitform").click();
+              return;
+            }
+            UploadProcess(false, sessionStorage.getItem("CompanyName"));
+            
+            
+        }else if (e.target.innerText == "Delete"){
+          DeleteCategory("Category/" + sessionStorage.getItem("CompanyName") + "/CategoryList",e.target.id,document.getElementById(e.target.id).src);
+          
+        }else if (e.target.innerText == "Close"){
+
+          if (document.getElementById('upprogress').style.visibility.toString() != "visible")
+          {
+            $('#staticBackdrop').modal('hide');
+            document.getElementById("myForm").reset();
+          }
+        }
+    })
+    //-------------------------upload image-------------------------//
+    input.onchange = e => {
+		files = e.target.files;
+		
+		var extention = GetFileExt(files[0]);
+		var name = getFileName(files[0]);
+		
+		namebox.value = name;
+		extlab.innerHTML = extention;
+		
+		reader.readAsDataURL(files[0]);
+	
+	}
+	
+	reader.onload = function(){
+		myimg.src = reader.result;
+        myimg.width = 100;
+        myimg.height = 110;
+	}
+    //***************************SELECTION********************************************//
+	function validdateName() {
+	var regex = /[\.#$\[\]]/;
+	
+	return !(regex.test(namebox.value));
+	
+	}
+
+	selbtn.onclick = function(){
+    
+		input.click();
+	}
+
+	function GetFileExt(file){
+	
+		var temp = file.name.split('.');
+		var ext = temp.slice((temp.length - 1), (temp.length));
+	
+		return '.' + ext[0];
+		
+	}
+	
+	function getFileName(file){
+	
+		var temp = file.name.split('.');
+		var fName = temp.slice(0,-1).join('.');
+		
+		return fName;
+		
+	}
+
+  
+	async function UploadProcess(Add,pathCategory) {
+  
+  if (files.length == 0) {
+  
+    updateDoument_GivenID("Category/" + pathCategory + "/CategoryList",CategoryPosition,document.getElementById("myimg").src);
+    return};
+  
+
+  document.getElementById('upprogress').style.visibility="visible";
+
+      var ImageToUpLoad = files[0];
+      
+      var ImgName = namebox.value + extlab.innerHTML;
+      
+      if (!validdateName()){
+       //alert("name cannot contain . # $ ....");
+       createToast('Information', 'The image file name contain . # $ ...., please rename it!', 'toast-info');
+       if (uploadingButton.innerHTML.endsWith("Loading..."))
+       {
+          uploadingButton.innerHTML = "Add";
+          document.getElementById('upprogress').style.visibility="hidden";
+       }else {
+          document.getElementById('upprogress').style.visibility="hidden";
+       }
+       return;
+       
+       return;
+      }
+      
+      const metaData = {
+          contentType: ImageToUpLoad.type
+      }
+      
+      const storage    = getStorage();
+      const storageRef = sRef(storage , "Images/" + ImgName);
+      const UploadTask = uploadBytesResumable(storageRef, ImageToUpLoad, metaData);
+
+      UploadTask.on("state-changed", (snapshot) => {
+          var progess = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          proglab.innerHTML = 'Upload ' + progess + "%";
+      }, (error) => {
+      
+        //alert("error : image not uploaded");
+        createToast('Information', 'The new image for was not upload, please try upload the information!', 'toast-info');
+        uploadingButton.innerHTML = 'Add';
+      },
+      () =>
+      {
+          getDownloadURL(UploadTask.snapshot.ref).then((downloadURL) => {
+
+      if (Add == true)
+        AddCategory(sessionStorage.getItem("CompanyName"),downloadURL);
+      else
+        updateDoument_GivenID("Category/" + sessionStorage.getItem("CompanyName") + "/CategoryList",CategoryPosition,downloadURL);
+        });
+      }
+      
+      );
+      
+  }
+  
+    // Add category
+   async function AddCategory(NameBus,CategoryImageUrl){
+
+    countLastPosition++;
+
+	  var refCol = doc(db,'Category/' + NameBus + "/CategoryList", countLastPosition.toString());
+	  const DocRef = await setDoc( refCol, {
+			CategoryName            : CategoryName.value,
+			CategorySlug            : CategorySlug.value,
+			categoryDescription     : categoryDescription.value,
+			CategoryMetaTitle       : CategoryMetaTitle.value,
+			CategoryMetaDescription : CategoryMetaDescription.value,
+			CategoryMetaKeywords    : CategoryMetaKeywords.value,
+			CategoryStatus          : CategoryStatus.checked,
+			CategoryPopular         : CategoryPopular.checked,
+			CategoryImageUrl        : CategoryImageUrl,
+      Position                : countLastPosition,
+        }).then(() => {               
+          uploadingButton.innerHTML = 'Add';
+          document.getElementById('myimg').src = '';
+          document.getElementById("myForm").reset();
+          document.getElementById('upprogress').style.visibility="hidden";
+          createToast('Success', 'The store was added success!', 'toast-success');
+         
+        }).catch((error) => {
+		  	//alert("bad " +  error);
+        createToast('Information', 'The new store was not Added!', 'toast-info');
+        uploadingButton.innerHTML = 'Add';
+        
+		});
+	}
+
+    //getting date on the Database 
+   async function getDoumentWithGivenID(collectionName,Position){
+    
+    var refCol = doc(db,collectionName,Position.toString());
+  
+    const docSnap = await getDoc( refCol);
+  
+    CategoryPosition = Position;
+  
+    if (docSnap.exists()){
+
+        var img = document.getElementById("myimg"); 
+   
+       document.getElementById("slugCate").value              = docSnap.data().CategorySlug;
+       document.getElementById("DescriptionCate").value       = docSnap.data().categoryDescription;
+       document.getElementById("Meta_TitleCate").value        = docSnap.data().CategoryMetaTitle;  
+       document.getElementById("Meta_Description_Cate").value = docSnap.data().CategoryMetaDescription;              
+       document.getElementById("Meta_Keywords_Caye").value    = docSnap.data().CategoryMetaKeywords;       
+       document.getElementById("Status_Cate").value           = docSnap.data().CategoryStatus;
+       document.getElementById("Popula_Cater").value          = docSnap.data().CategoryPopular;
+       img.src                                                = docSnap.data().CategoryImageUrl;
+
+       img.width = 90;
+       img.height = 90;
+       document.getElementById("NameCate").value              = docSnap.data().CategoryName;      
+       
+    }else
+    {
+    //info("The category does not exist or was not found");
+    }
+ 
+}
+
+   //updating Data on the Database
+   async function updateDoument_GivenID(collectionPath,CategoryPosition,CategoryUploadImage){
+  
+  var refCol = doc(db,collectionPath, CategoryPosition);
+
+  updateDoc( refCol, {
+  CategoryName            : document.getElementById("NameCate").value              ,
+        CategorySlug            : document.getElementById("slugCate").value              ,
+        categoryDescription     : document.getElementById("DescriptionCate").value       ,
+        CategoryMetaTitle       : document.getElementById("Meta_TitleCate").value        ,
+        CategoryMetaDescription : document.getElementById("Meta_Description_Cate").value ,              
+        CategoryMetaKeywords    : document.getElementById("Meta_Keywords_Caye").value    ,       
+        CategoryStatus          : document.getElementById("Status_Cate").checked           ,
+        CategoryPopular         : document.getElementById("Popula_Cater").checked          ,     
+        CategoryImageUrl        : CategoryUploadImage,
+  }).then(() => {
+     
+     ////success("successful","category updated successful");
+     document.getElementById('upprogress').style.visibility="hidden";
+     $('#staticBackdrop').modal('hide');
+     document.getElementById("myForm").reset();
+     uploadingButton.innerHTML = 'Add';
+     createToast('Success', 'The new information for the store was updated success!', 'toast-success');
+  }).catch((error) => {
+     //alert("bad " +  error);
+     uploadingButton.innerHTML = 'Add';
+     document.getElementById("CloseModal").disabled = false;
+     createToast('Information', 'The new information for the store was not updated!', 'toast-info');
+     //danger("Error","category didn't updated successful");
+     
+  });
+
+}
+
+  //delete data form the database
+  async function DeleteCategory(path,position,url) {
+    
+    const result = await b_confirm('Are you sure you want to delete this item?');
+     
+    if (!result)
+      return;
+  
+  const docRef = await doc(db, path, position.toString());
+  
+  await DeleteImageOnDatabaseWithUrl(url);
+  
+  await deleteDoc(docRef).then(() => {
+          //alert("Entire Document has been deleted successfully.");
+          
+        }).catch(error => {
+          console.log(error);
+          //alert(error);
+          createToast('Danger', 'The image was not deleted!', 'toast-danger');
+        });
+
+  
+}
+
+async function DeleteImageOnDatabaseWithUrl(url){
+
+const storage = getStorage();
+const httpsReference = sRef(storage, url);
+
+deleteObject(httpsReference).then(() => {
+  // File deleted successfully
+  createToast('Success', 'This file was deleted successfully!', 'toast-success');
+
+}).catch((error) => {
+  createToast('Danger', 'This Image was not Deleted!', 'toast-danger');
+});
+}
+  
+async function b_confirm(msg) {
+      const modalElem = document.createElement('div')
+      modalElem.id = "modal-confirm"
+      modalElem.className = "modal"
+      modalElem.innerHTML = `
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">             
+            <div class="modal-body fs-6">
+              <p>${msg}</p>
+          </div>    <!-- modal-body -->
+          <div class="modal-footer" style="border-top:0px">             
+            <button id="modal-btn-descartar" type="button" class="btn btn-secondary">Cancel</button>
+            <button id="modal-btn-aceptar" type="button" class="btn btn-primary">Accept</button>
+          </div>
+        </div>
+      </div>
+      `
+      const myModal = new bootstrap.Modal(modalElem, {
+        keyboard: false,
+        backdrop: 'static'
+      })
+      myModal.show()
+    
+      return new Promise((resolve, reject) => {
+        document.body.addEventListener('click', response)
+    
+        function response(e) {
+          let bool = false
+          if (e.target.id == 'modal-btn-descartar') bool = false
+          else if (e.target.id == 'modal-btn-aceptar') bool = true
+          else return
+    
+          document.body.removeEventListener('click', response)
+          document.body.querySelector('.modal-backdrop').remove()
+          modalElem.remove()
+          resolve(bool)
+        }
+      })
+    }
+   
+
+//get all Date for table category
+   async function getAllDate(categoryPath){
+    
+      await onSnapshot( collection(db, 'Category/' + categoryPath + "/CategoryList"), (docSnap) => {
+        
+         var dataTable = [];
+         var count = 0;
+         let tab = "";
+         $('#example').DataTable().bDestroy = true;
+	      docSnap.forEach(doc => {
+
+          if (countLastPosition < doc.data().Position)
+            countLastPosition = doc.data().Position;
+          count++;
+          var newPosition = doc.data().Position;
+
+            var imgUrl = '<img id = ' + newPosition + ' src= ' + doc.data().CategoryImageUrl  + ' alt= ' + doc.data().CategoryName  + ' style="width:40%;height:70px;">';
+            var Action = '<button id = ' + newPosition + ' type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Edit</button>'
+                       + '<button type="button" id = ' + newPosition + ' class="btn btn-danger">Delete</button>';
+
+        
+            var CategoryStatus = "";
+            if (doc.data().CategoryStatus.toString() == "false")
+              CategoryStatus = "hidden";
+            else
+              CategoryStatus = "visible";
+            
+            dataTable.push([count,doc.data().CategoryName,doc.data().categoryDescription,imgUrl,CategoryStatus,Action]);
+
+                
+                       
+	      });
+        document.getElementById("addRow").innerHTML += tab;
+          $(document).ready(function () {
+            $('#example').DataTable({
+              "bDestroy": true,
+              paging: true,
+		            autoWidth: true,
+              data: dataTable,
+              columns: [
+                  { title: 'Position' },
+                  { title: 'Name' },
+                  { title: 'Description' },
+                  { title: 'Image.' },
+                  { title: 'Status' },
+                  { title: 'Action' },
+              ],
+            });
+          });
+      })
+      
+
+   }
+
+   function createToast(title, message, toastId) {
+      // Create a new Toast element
+      var toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.classList.add(toastId);
+      toast.id = toastId;
+      toast.style.position = 'absolute';
+      toast.style.top = '1rem';
+      toast.style.right = '1rem';
+
+      // Create the Toast's content
+      var toastHeader = document.createElement('div');
+      toastHeader.className = 'toast-header text-white';
+      var titleElement = document.createElement('strong');
+      titleElement.className = 'mr-auto';
+      titleElement.textContent = title;
+      var closeBtn = document.createElement('button');
+      closeBtn.className = 'ml-2 mb-1 close text-white';
+      closeBtn.type = 'button';
+      closeBtn.setAttribute('data-dismiss', 'toast');
+      closeBtn.setAttribute('aria-label', 'Close');
+      closeBtn.innerHTML = '<span aria-hidden="true">&times;</span>';
+      toastHeader.appendChild(titleElement);
+      
+
+      var toastBody = document.createElement('div');
+      toastBody.className = 'toast-body';
+      toastBody.textContent = message;
+
+      toast.appendChild(toastHeader);
+      toast.appendChild(toastBody);
+
+      // Append the Toast to the container
+      document.getElementById('toastContainer').appendChild(toast);
+
+      // Show the Toast
+      var toastInstance = new bootstrap.Toast(toast);
+      toastInstance.show();
+    }
+ 
+
+  
+</script>
+
+</html>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+<style>
+  img{
+    width: 60px;
+    height: 70px;
+  }
+
+  /* CSS */
+.buttons-copy,
+.buttons-csv,
+.buttons-excel,
+.buttons-pdf,
+.buttons-print {
+  appearance: none;
+  background-color: #2ea44f;
+  border: 1px solid rgba(27, 31, 35, .15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.buttons-copy:focus:not(:focus-visible):not(.focus-visible),
+.buttons-csv:focus:not(:focus-visible):not(.focus-visible),
+.buttons-excel:focus:not(:focus-visible):not(.focus-visible),
+.buttons-pdf:focus:not(:focus-visible):not(.focus-visible),
+.buttons-print:focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
+}
+
+.buttons-copy:hover,
+.buttons-csv:hover,
+.buttons-excel:hover,
+.buttons-pdf:hover,
+.buttons-print:hover {
+  background-color: #2c974b;
+}
+
+.buttons-copy:focus,
+.buttons-csv:focus,
+.buttons-excel:focus,
+.buttons-pdf:focus,
+.buttons-print:focus {
+  box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+  outline: none;
+}
+
+.buttons-copy:disabled,
+.buttons-csv:disabled,
+.buttons-excel:disabled,
+.buttons-pdf:disabled,
+.buttons-print:disabled {
+  background-color: #94d3a2;
+  border-color: rgba(27, 31, 35, .1);
+  color: rgba(255, 255, 255, .8);
+  cursor: default;
+}
+
+.buttons-copy:active,
+.buttons-csv:active,
+.buttons-excel:active,
+.buttons-pdf:active,
+.buttons-print:disabled {
+  background-color: #298e46;
+  box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+}
+
+tfoot tr, thead tr {
+	background: lightblue;
+}
+tfoot td {
+	font-weight:bold;
+}
+  
+</style>
+</head>
+<body>
+
+    
+        <div class="col-12">
+            <!-- Button trigger modal -->
+            <div class="row">
+                <div class="col-4 mb-2">
+                  <div class="btn-group">
+                    <button type="button" id="All orders" class="btn btn-info">All orders</button>
+                    <button type="button" id="Completed" class="btn btn-light">Completed</button>
+                    <button type="button" id="Rejected" class="btn btn-light">Rejected</button>  
+                  </div>
+                </div>
+    
+                <div class="col-4"></div>
+            </div>
+        </div>
+    
+  
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Add Category</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <img src="img/1.jpg" class="modal-img" alt="modal img" hidden>
+   
+            <div class="row">
+
+               <div class="col-md-12">
+                 <label class="mb-0" for="">Select Category</label> <br>
+                 <select class="form-select" id="SelectCategory" >
+                   <option value="">No Category Selected</option>
+                 </select>
+               </div>
+               
+               <div class="col-md-6">
+                 <label for="">Name</label>
+                 <input type="text" class="form-control" value="" id = "ProductName">
+               </div>
+               <div class="col-md-6">
+                 <label for="">Slug</label>
+                 <input type="text" class="form-control" value="" id = "ProductSlug">
+               </div>
+
+               <div class="col-md-12">
+                 <label for="">Short Description</label>
+                 <textarea class="form-control" name="Description" id="ProductShortDescription" placeholder="Enter short Description" rows="2"></textarea>
+               </div>
+
+               <div class="col-md-12">
+                 <label for="">Description</label>
+                 <textarea class="form-control" name="Description" id="ProductDescription" placeholder="Enter category Description" rows="2"></textarea>
+               </div>
+
+               <div class="col-md-6">
+                 <label for="">Original Price</label>
+                 <input type="number" class="form-control" value="" id = "ProductOriginal">
+               </div>
+               <div class="col-md-6">
+                 <label for="">Selling Price</label>
+                 <input type="number" class="form-control" value="" id = "ProductSelling">
+               </div>
+
+               <div class="row">
+
+                 <div class="col-md-6">
+                   <label for="">Quantity</label><br> 
+                   <input type="number" class="form-control" value="" id = "ProductQuantity">
+                 </div>
+
+                 <div class="col-md-1"></div>
+
+                 <div class="col-md-3">
+                   <label for="">Status</label> <br> 
+                   <input type="checkbox" id="Status_Product">
+                 </div>
+
+                 <div class="col-md-2">
+                   <label for="">Trending</label> <br> 
+                   <input type="checkbox" id="Trending_Product">
+                 </div>
+               </div>
+
+               <div class="col-md-12">
+                 <label for="">Meta Title</label>
+                 <input type="text" value=""  id = "Meta_TitleProduct" placeholder="Enter meta title" class="form-control">
+               </div>
+
+               <div class="col-md-12">
+                 <label for="">Meta Description</label>
+                 <textarea class="form-control" name="Description" id="Meta_Description_Product" placeholder="Enter meta description" rows="2"></textarea>
+               </div>
+
+               <div class="col-md-12">
+                 <label for="">Meta Keywords</label>
+                 <textarea class="form-control" name="Keywords" id="Meta_Keywords_Product" placeholder="Enter meta Keywords" rows="2"></textarea>
+                 <label for=""></label>
+               </div>
+
+               
+
+               <div class="row">
+
+                 <div class="col-md-10">
+                   
+                   <div id = "ControlDiv" > 
+                     <div class="row">
+                       <div id = "imagesDiv" > </div>
+                     </div>
+                     <label></label><span id="progress"></span><label id = "loadlab">Uploading 0 of 3</label>
+                     <progress class="progress-bar" id="myProgress" value="0" max="100">
+                       
+                     </progress> <label id="progress"> </label>
+                   </div>
+                 </div>
+               </div>
+
+             
+               <div class="col-md-10">
+                 
+
+                 <button type="button" id = "selimgsbtn" class="btn btn-primary" >Select Images</button>
+                 <button type="button" id = "addproductbtn" class="btn btn-primary" >Upload Images</button>
+                </div>
+               
+               <input hidden id = "namebox" type = "text"> <label hidden id = "extlab"> </label> <br><br>
+               
+            </div>
+   
+         </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" id = "CloseButton" class=" Save btn btn-primary" data-bs-dismiss="modal">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <table id="example" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Order List</th>
+              <th scope="col">Order Number</th>
+              <th scope="col">Total Price</th>
+              <th scope="col">Order Type</th>
+              <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody id = "addRow">
+            
+            
+        </tbody>
+        <tfoot>
+            <tr>
+              <th >Date</th>
+              <th >Order List</th>
+              <th >Order Number</th>
+              <th >Total Price</th>
+              <th >Order Type</th>
+              <th >Status</th>
+            </tr>
+        </tfoot>
+    </table>
+    
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+
+
+
+
+
+
+
+
+<script type="module">
+
+  import {initializeApp} from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+    apiKey: "AIzaSyDibpkuzUookkbMVIoHqe_rYu1umY1qF-4",
+    authDomain: "data-b93ed.firebaseapp.com",
+    databaseURL: "https://data-b93ed-default-rtdb.firebaseio.com",
+    projectId: "data-b93ed",
+    storageBucket: "data-b93ed.appspot.com",
+    messagingSenderId: "218236841715",
+    appId: "1:218236841715:web:e96bfd3174b08438701186"
+  };
+  
+      import {getDatabase, set,get,onValue, ref , child, update} from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
+  
+      // Initialize Firebase
+      const app    = initializeApp(firebaseConfig);
+      const realdb = getDatabase();
+      var buttonText;
+      var reload = false;
+
+      //addEventListener for any button
+    document.addEventListener("click",function (e){
+
+      //alert(e.target.innerHTML);
+      updateOrder(sessionStorage.getItem("CompanyName"),e.target.id,e);
+
+      if (e.target.innerHTML == "All orders")
+        changeButton("All orders","Completed","Rejected");
+      else if (e.target.innerHTML == "Completed")
+        changeButton("Completed","All orders","Rejected");
+      else if (e.target.innerHTML == "Rejected")
+        changeButton("Rejected","Completed","All orders");
+      
+
+    });
+
+      //get all orders from the Database
+      getAllOrder(sessionStorage.getItem("CompanyName"),"All orders");
+      
+      function changeButton(id,changeIdElement1,changeIdElement2){
+          document.getElementById(id).classList = "btn btn-info";
+          document.getElementById(changeIdElement1).classList = "btn btn-light";
+          document.getElementById(changeIdElement2).classList = "btn btn-light";
+          getAllOrder(sessionStorage.getItem("CompanyName"),id);
+      }
+
+      async function getAllOrder(companyName,valueOnChange){
+
+          const starCountRef = await ref(realdb, companyName);
+          
+          await onValue(starCountRef, (snapshot) => {
+            //var tbodyRef = document.getElementsByTagName('tbody')[0];
+            
+            var data = [];
+            var tbodyRef = document.getElementsByTagName('tbody')[0];
+  
+            
+    
+           while(tbodyRef.rows.length > 0) {
+              tbodyRef.deleteRow(0);
+           }
+
+           let tab = "";
+
+            snapshot.forEach((childSnapshot) => {
+              const childKey = childSnapshot.key;
+              const childData = childSnapshot.val();
+              const entries = Object.entries(childData);
+              var foodList = "";
+              var businessName = "";
+              var PreparingFood;
+              var Action = '';
+              var View = '';
+              var ready = '';
+              var Reject = '';
+              var reload = false; 
+
+
+              
+
+              for (const [key, value] of Object.entries(entries)) {
+
+                var valuefood = value;
+
+                //console.log("key :" + `${key}`);
+                //console.log("value :" + valuefood);
+                if (`${value}`.toString().includes("Food List"))
+                {
+                  foodList = `${value}`.toString().replace("Food List",'');
+                  foodList = foodList.replace(",",'');
+                  foodList = foodList.replace(",",'');
+                }
+                else if (`${value}`.toString().includes("Preparing Food"))
+                {
+                  PreparingFood = `${value}`.toString().replace("Preparing Food,",'');  
+                  //console.log("value :" + `${value}` + " " + PreparingFood);
+                }else if (`${value}`.toString().includes("ready"))
+                {
+                  ready = `${value}`.toString().replace("ready,",'');  
+                  //console.log("value :" + `${value}` + " " + ready);
+                }
+              }
+              
+              console.log(ready);
+
+              if (ready == "true")
+                Action = '<span class="badge bg-success badge-font-size: 1.75em;" style=  "width:100%;">Completed</span>';
+              else if (ready == "Reject")
+                Action = "<span class='badge bg-danger badge-font-size: 1.75em;' style=  'width:100%;'>Rejected</span>";
+              else 
+                return;
+
+              //View = '<button id = ' + childData.path + ' type="button" class="btn btn-info m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Veiw</button>';
+              
+              if (valueOnChange != "All orders")
+              {
+                if (ready == "Reject" && valueOnChange == "Completed")
+                  return;
+                if (ready == "true" && valueOnChange == "Rejected")
+                  return;
+              }
+                
+              data.push([childData.Date,foodList,childData.Order_number,childData.Total,childData.type,Action]);
+
+            });
+            
+            $(document).ready(function () {
+              document.title = "View " + sessionStorage.getItem("CompanyName") + " Order Report";
+              $('#example').DataTable({
+                "bDestroy": true,
+                data: data,
+                columnDefs: [{
+                  "defaultContent": "",
+                  "targets": "_all"
+                }],
+                dom: '<"dt-buttons"Bf><"clear">lrtpi',
+		            paging: true,
+		            autoWidth: true,
+		            buttons: [
+                  'report',
+		            	"colvis",
+		            	"copyHtml5",
+		            	"csvHtml5",
+		            	"excelHtml5",
+                  'print',
+		            	
+				{
+					text: 'PDF',
+					extend: 'pdfHtml5',
+					filename: sessionStorage.getItem("CompanyName") + ' Report',
+					orientation: 'portrait', //portrait
+					pageSize: 'A6', //A3 , A5 , A6 , legal , letter
+					exportOptions: {
+						columns: ':visible',
+						search: 'applied',
+						order: 'applied'
+					},
+					customize: function (doc) {
+						//Remove the title created by datatTables
+						doc.content.splice(0,1);
+						//Create a date string that we use in the footer. Format is dd-mm-yyyy
+						var now = new Date();
+						var jsDate = now.getDate()+'-'+(now.getMonth()+1)+'-'+now.getFullYear();
+						// Logo converted to base64
+						// var logo = getBase64FromImageUrl('https://datatables.net/media/images/logo.png');
+						// The above call should work, but not when called from codepen.io
+						// So we use a online converter and paste the string in.
+						// Done on http://codebeautify.org/image-to-base64-converter
+						// It's a LONG string scroll down to see the rest of the code !!!
+						var logo = 'data:image/jpeg;base64,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ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA=';
+						// A documentation reference can be found at
+						// https://github.com/bpampuch/pdfmake#getting-started
+						// Set page margins [left,top,right,bottom] or [horizontal,vertical]
+						// or one number for equal spread
+						// It's important to create enough space at the top for a header !!!
+						doc.pageMargins = [20,60,20,30];
+						// Set the font size fot the entire document
+						doc.defaultStyle.fontSize = 7;
+						// Set the fontsize for the table header
+						doc.styles.tableHeader.fontSize = 7;
+						// Create a header object with 3 columns
+						// Left side: Logo
+						// Middle: brandname
+						// Right side: A document title
+						doc['header']=(function() {
+							return {
+								columns: [
+		
+									{
+										alignment: 'center',
+										//italics: true,
+										text: "View " + sessionStorage.getItem("CompanyName") + " Order Report",
+										fontSize: 20,
+										
+									}
+								],
+								margin: 20
+							}
+						});
+						doc['footer']=(function(page, pages) {
+							return {
+								columns: [
+									{
+										alignment: 'center',
+										text: ['Created on: ', { text: jsDate.toString() }]
+									},
+									{
+										alignment: 'center',
+										text: ['page ', { text: page.toString() },	' of ',	{ text: pages.toString() }]
+									}
+								],
+								margin: 10
+							}
+						});
+						// Change dataTable layout (Table styling)
+						// To use predefined layouts uncomment the line below and comment the custom lines below
+						// doc.content[0].layout = 'lightHorizontalLines'; // noBorders , headerLineOnly
+						var objLayout = {};
+						objLayout['hLineWidth'] = function(i) { return .5; };
+						objLayout['vLineWidth'] = function(i) { return .5; };
+						objLayout['hLineColor'] = function(i) { return '#aaa'; };
+						objLayout['vLineColor'] = function(i) { return '#aaa'; };
+						objLayout['paddingLeft'] = function(i) { return 4; };
+						objLayout['paddingRight'] = function(i) { return 4; };
+						doc.content[0].layout = objLayout;
+				}
+				}],
+                columns: [
+                    { title: 'Date' },
+                    { title: 'Order List' },
+                    { title: 'Order Number' },
+                    { title: 'Total Price' },
+                    { title: 'Order Type' },
+                    { title: 'Status' },
+                    
+                ],
+            });
+          });
+
+          
+          
+          });  
+      }
+
+      //clear Table
+      function updateOrder(companyName,OrderPath,e)
+    {
+       //alert(e.target.innerHTML);
+      
+      if (e.target.innerHTML == "Accept")
+        {
+          update(ref(realdb,companyName + "/" + OrderPath),{
+            'Preparing Food': true 
+          }).then(()=>{
+            
+            //Toast_success("Successsful Accepted order");
+            
+          })
+          .catch(()=>{
+            //Toast_danger("Fail to accept order"); 
+            //alert("Fail Accepted order");
+          });
+        }else if (e.target.innerHTML == "Reject" ){
+          update(ref(realdb,companyName + "/" + OrderPath),{
+            'ready': "Reject" 
+          }).then(()=>{
+            //Toast_success("Successsful rejected order");
+            //alert("Successsful rejected order");
+          })
+          .catch(()=>{
+            //Toast_danger("Fail to reject order"); 
+            //alert("Fail to reject order");
+          });
+        }else if (e.target.innerHTML == " Ready" ) {
+          update(ref(realdb,companyName + "/" + OrderPath),{
+            'ready': true 
+          }).then(()=>{
+            //Toast_success("Successsful updated order");
+            //alert("Successsful updated order");
+          })
+          .catch(()=>{
+            //Toast_danger("Fail to updated order"); 
+            //alert("Fail updated order");
+          });
+        }
+    }
+      </script>
+
+</html>

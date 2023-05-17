@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- For google icons  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <title>Login form</title>
+
+</head>
+<style>
+  /* Styles for the popup module */
+  .popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+  .email-icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+  }
+  .email-icon i {
+    color: blue;
+  }
+  .message {
+    font-size: 18px;
+  }
+</style>
+<script type="text/javascript">
+  window.history.forward();
+  function noBack()
+  {
+      window.history.forward();
+  }
+</script>
+
+<style>
+  /* Styles for the popup module */
+  .popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+  .email-icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+  }
+  .email-icon i {
+    color: blue;
+  }
+  .message {
+    font-size: 18px;
+  }
+</style>
+<!-- Loading message icons  -->
+<style>
+  .showLoadingToast {
+      visibility: hidden;
+      max-width: 250px;
+      background-color: #17a2b8;
+      color: #fff;
+      text-align: center;
+      border-radius: 5px;
+      padding: 16px;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+  }
+
+  .showLoadingToast.show {
+      visibility: visible;
+      opacity: 1;
+  }
+
+  .showLoadingToast i {
+      margin-right: 8px;
+  }
+
+  .loading {
+      animation: rotate 1s linear infinite;
+  }
+
+  @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+  }
+
+  @keyframes fade-out {
+      from {opacity: 1;}
+      to {opacity: 0;}
+  }
+</style>
+<style>
+  .toast {
+      visibility: hidden;
+      max-width: 250px;
+      background-color: #dc3545;
+      color: #fff;
+      text-align: center;
+      border-radius: 5px;
+      padding: 16px;
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+  }
+
+  .toast.show {
+      visibility: visible;
+      opacity: 1;
+  }
+
+  .toast i {
+      margin-right: 8px;
+  }
+
+  @keyframes fade-out {
+      from {opacity: 1;}
+      to {opacity: 0;}
+  }
+</style>
+<body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
+
+  <div id="toast" class="toast"></div>
+  <div id="showLoadingToast" class="showLoadingToast"></div>
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closePopup()">&times;</span>
+      <div class="email-icon">
+        <i class="fa fa-envelope"></i>
+      </div>
+      <div class="message">
+        <p>Please verify your email to continue.</p>
+        <p>Click on the link sent to your email to complete the verification process.</p>
+      </div>
+    </div>
+  </div>
+
+
+    <div class="box">
+        <h2>Login</h2>
+        <form id="loginform">
+          <div class="inputBox">
+            <input type="email" id="Username" name="email" required onkeyup="this.setAttribute('value', this.value);" value="">
+            <label>Username</label>
+          </div>
+          <div class="inputBox">
+            <input type="password" id="Password" name="password" required value=""
+                   onkeyup="this.setAttribute('value', this.value);"
+                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                   title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+            <label>Password</label>
+          </div>
+         
+        
+          <input id="submit" type="submit" hidden name="sign-in" value="Sign In">
+        </form>
+          <input  type="submit" style="margin-top: 5%; width: 100%;" id="Sign In" name="sign-in" value="Sign In">
+          
+      </div>
+</body>
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import {initializeApp} from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
+
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+const firebaseConfig = {
+// ...
+apiKey: "AIzaSyDibpkuzUookkbMVIoHqe_rYu1umY1qF-4",
+authDomain: "data-b93ed.firebaseapp.com",
+databaseURL: "https://data-b93ed-default-rtdb.firebaseio.com",
+projectId: "data-b93ed",
+storageBucket: "data-b93ed.appspot.com",
+messagingSenderId: "218236841715",
+appId: "1:218236841715:web:e96bfd3174b08438701186"
+};
+
+
+
+  // Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+import {getAuth, createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged,signOut,signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js";
+
+import {getDatabase, set,get, ref , child, update}                                                                            from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
+import {getStorage,ref as sRef,uploadBytesResumable,getDownloadURL, deleteObject }                                                          from "https://www.gstatic.com/firebasejs/9.1.3/firebase-storage.js";
+import { getFirestore, doc, getDoc, getDocs , setDoc ,collection , onSnapshot , addDoc, updateDoc, deleteDoc , deleteField  } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js";
+
+const db     = getFirestore();
+const auth   = getAuth();
+const realdb = getDatabase();
+
+
+var SignIn   = document.getElementById('Sign In');
+var Username = document.getElementById('Username');
+var Password = document.getElementById('Password');
+var submit   = document.getElementById('submit');
+var loginform = document.getElementById('loginform');
+var toastshowLoadingToast = document.getElementById("showLoadingToast");
+
+
+SignIn.onclick = function(){
+  if (Username.value == '' || Password.value == '')
+  {
+    submit.click();
+    return;
+  }
+  //SignIn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
+  Login(Username.value, Password.value);
+  showLoadingToast();
+}
+
+async function Login(email, password)
+    {
+      getUserDetails(email,password);
+      
+    }
+
+    function showPopup() {
+      var popup = document.getElementById('popup');
+      popup.style.display = 'flex';
+    }
+
+    function closePopup() {
+  var popup = document.getElementById('popup');
+   popup.style.display = 'none';
+}
+
+  async function getUserDetails(Username,password){
+    var found = false;
+    const citiesRef = await collection(db, "UsersSubAdnim");
+
+    const querySnapshot = await getDocs(citiesRef);
+      querySnapshot.forEach((doc) => {
+        
+      if (Username == doc.data().Username && doc.data().Password == password)
+      {
+        sessionStorage.setItem("Username", doc.data().Username);
+        sessionStorage.setItem("UserPhoto", doc.data().ProfileImage);
+        sessionStorage.setItem("Position", doc.data().Position);
+        sessionStorage.setItem("CompanyName", doc.data().SubStore);
+        window.location.replace("mainIndex.html");
+        found = true;
+      }
+    });
+
+    if (!found)
+    {
+      showToast("fas fa-exclamation-triangle",'No User was found');
+      toastshowLoadingToast.classList.remove("show");
+    }
+
+   // if (querySnapshot.exists()) {
+   //   alert("Ok document!");
+   //   //localStorage.setItem("CompanyName", docSnap.data().CompanyName);
+   //   //localStorage.setItem("UserId", docSnap.data().UserId);
+   //   //localStorage.setItem("reload", 1);
+////
+   //   /
+   // 
+   // } else {
+   //   // docSnap.data() will be undefined in this case
+   //   alert("No such document!");
+   // }
+  }
+
+  function showToast(icon,message) {
+        var toast = document.getElementById("toast");
+        toast.innerHTML = '<p><i class= "' + icon + '"></i></p><p>' + message + '</p>';
+        toast.classList.add("show");
+        setTimeout(function() {
+            toast.classList.remove("show");
+        }, 10000);
+    }
+
+
+    
+    function showLoadingToast() {
+            
+            var message = "Loading...";
+            toastshowLoadingToast.innerHTML = '<i class="fas fa-spinner fa-spin loading"></i>' + message;
+            toastshowLoadingToast.classList.add("show");
+            //setTimeout(function() {
+            //    toast.classList.remove("show");
+            //}, 3000);
+        }
+
+
+</script>
+
+</html>

@@ -111,23 +111,23 @@ tfoot td {
 
                 <div class="col-md-12">
                   <label class="mb-0" for="">Select Category</label> <br>
-                  <select class="form-select" id="SelectCategory" required>
+                  <select class="form-select" name="Select Category" id="SelectCategory" required>
                     <option value="">No Category Selected</option>
                   </select>
                 </div>
                 
                 <div class="col-md-6">
                   <label for="">Name</label>
-                  <input type="text" class="form-control" value="" id = "ProductName" required>
+                  <input type="text" name="Name" class="form-control" value="" id = "ProductName" required>
                 </div>
                 <div class="col-md-6">
                   <label for="">Slug</label>
-                  <input type="text" class="form-control" value="" id = "ProductSlug" required>
+                  <input type="text" name="Slug" class="form-control" value="" id = "ProductSlug" required>
                 </div>
  
                 <div class="col-md-12">
                   <label for="">Short Description</label>
-                  <textarea class="form-control" required name="Description" id="ProductShortDescription" placeholder="Enter short Description" rows="2"></textarea>
+                  <textarea class="form-control" required name="Short Description" id="ProductShortDescription" placeholder="Enter short Description" rows="2"></textarea>
                 </div>
  
                 <div class="col-md-12">
@@ -137,46 +137,46 @@ tfoot td {
  
                 <div class="col-md-6">
                   <label for="">Original Price</label>
-                  <input type="number" class="form-control" required value="" id = "ProductOriginal">
+                  <input type="number" required name="Original Price" class="form-control" required value="" id = "ProductOriginal">
                 </div>
                 <div class="col-md-6">
                   <label for="">Selling Price</label>
-                  <input type="number" required class="form-control" value="" id = "ProductSelling">
+                  <input type="number" required name="Selling Price" required class="form-control" value="" id = "ProductSelling">
                 </div>
  
                 <div class="row">
  
                   <div class="col-md-6">
                     <label for="">Quantity</label><br> 
-                    <input type="number" class="form-control" value="" id = "ProductQuantity">
+                    <input type="number" required name="Quantity" class="form-control" value="" id = "ProductQuantity">
                   </div>
  
                   <div class="col-md-1"></div>
  
                   <div class="col-md-3">
                     <label for="">Status</label> <br> 
-                    <input type="checkbox" id="Status_Product">
+                    <input type="checkbox" name="Status" id="Status_Product">
                   </div>
  
                   <div class="col-md-2">
                     <label for="">Trending</label> <br> 
-                    <input type="checkbox" id="Trending_Product">
+                    <input type="checkbox" name="Trending" id="Trending_Product">
                   </div>
                 </div>
  
                 <div class="col-md-12">
                   <label for="">Meta Title</label>
-                  <input type="text" value=""  id = "Meta_TitleProduct" placeholder="Enter meta title" class="form-control">
+                  <input type="text" name="Meta Title" value=""  id = "Meta_TitleProduct" placeholder="Enter meta title" class="form-control">
                 </div>
  
                 <div class="col-md-12">
                   <label for="">Meta Description</label>
-                  <textarea class="form-control" name="Description" id="Meta_Description_Product" placeholder="Enter meta description" rows="2"></textarea>
+                  <textarea class="form-control" name="Meta Description" id="Meta_Description_Product" placeholder="Enter meta description" rows="2"></textarea>
                 </div>
  
                 <div class="col-md-12">
                   <label for="">Meta Keywords</label>
-                  <textarea class="form-control" name="Keywords" id="Meta_Keywords_Product" placeholder="Enter meta Keywords" rows="2"></textarea>
+                  <textarea class="form-control" name="Meta Keywords" id="Meta_Keywords_Product" placeholder="Enter meta Keywords" rows="2"></textarea>
                   <label for=""></label>
                 </div>
  
@@ -300,8 +300,11 @@ tfoot td {
   var updateImageExtention = '';
   var updateImageName      = '';
   var checkEditButtonClick = false;
+  var checkAddButtonClick = false;
   var reload = false;
   var imageToDelete = [];
+  var productList = [];
+  var originalProduct = '';
   
     const imgdiv     = document.getElementById("imagesDiv");
     const selBtn     = document.getElementById("selimgsbtn");
@@ -319,6 +322,7 @@ tfoot td {
     const Meta_TitleProduct        = document.getElementById("Meta_TitleProduct");
     const Meta_Description_Product = document.getElementById("Meta_Description_Product");
     const Meta_Keywords_Product    = document.getElementById("Meta_Keywords_Product");
+    const SubCategory              = document.getElementById('SelectCategory');
 
     //addEventListener for any button
     document.addEventListener("click",function (e){
@@ -339,25 +343,69 @@ tfoot td {
         Meta_Description_Product.value = "";
         Meta_Keywords_Product   .value = "";
         removeAndShowElement(['showButton'],'block',false);
+        checkEditButtonClick = true;
+        checkAddButtonClick = true;
         
       }else if (e.target.innerHTML == "Add")
       {
         if (name.value == "")
             {
+              createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
               document.getElementById("Submitform").click();
               return;
             }else if (ProductSlug.value == "")
             {
+              createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
               document.getElementById("Submitform").click();
               return;
             }else if (ProductShortDescription.value == "")
             {
+              createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
               document.getElementById("Submitform").click();
               return;
+            }else if (SubCategory.value == "")
+            {
+              createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
+              document.getElementById("Submitform").click();
+              return;
+            }else if (ProductDescription.value == "")
+            {
+              createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
+              document.getElementById("Submitform").click();
+              return;
+            }else if (ProductOriginal.value.toString() == "" || ProductOriginal.value.toString() == "0")
+            {
+              if (ProductOriginal.value.toString() == "")
+                createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
+              else if (ProductOriginal.value.toString() == "0")
+                createToast('Danger', 'Zero is not a valid value on field Product Original!', 'toast-danger');
+              ProductOriginal.value = "";
+              document.getElementById("Submitform").click();
+              return;
+            }else if (ProductSelling.value.toString() == "" || ProductSelling.value.toString() == "0")
+            {
+              
+              if (ProductSelling.value.toString() == "")
+                createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
+              else if (ProductSelling.value.toString() == "0")
+                createToast('Danger', 'Zero is not a valid value on field Product Selling!', 'toast-danger');
+              ProductSelling.value = "";
+              document.getElementById("Submitform").click();
+              return;
+            }else if (ProductQuantity.value.toString() == "")
+            {
+              createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
+              document.getElementById("Submitform").click();
+              return;
+            }else if (productList.includes(name.value)  == true){
+              createToast('Danger', 'This product already exist!', 'toast-danger');
+              return;
+            }else{
+              
+              UploadAllImage();
+              
             }
-        AddProduct(sessionStorage.getItem("CompanyName"));
-        $('#staticBackdrop').modal('hide');
-        document.getElementById("myForm").reset();
+        
       }else if (e.target.innerHTML == "Edit")
       {
         removeAndShowElement([,'showButton'],'none',false);
@@ -368,26 +416,69 @@ tfoot td {
 
       }else if (e.target.innerHTML == "Update")
       {
-
+        
         if (name.value == "")
         {
+          createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
           document.getElementById("Submitform").click();
           return;
         }else if (ProductSlug.value == "")
         {
+          createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
           document.getElementById("Submitform").click();
           return;
         }else if (ProductShortDescription.value == "")
         {
+          createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
           document.getElementById("Submitform").click();
           return;
+        }else if (SubCategory.value == "")
+          {
+            createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
+            document.getElementById("Submitform").click();
+            return;
+          }else if (ProductDescription.value == "")
+          {
+            createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
+            document.getElementById("Submitform").click();
+            return;
+          }else if (ProductOriginal.value.toString() == "" || ProductOriginal.value.toString() == "0")
+          {
+            if (ProductOriginal.value.toString() == "")
+              createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
+            else if (ProductOriginal.value.toString() == "0")
+              createToast('Danger', 'Zero is not a valid value on field Product Original!', 'toast-danger');
+            ProductOriginal.value = "";
+            document.getElementById("Submitform").click();
+            return;
+          }else if (ProductSelling.value.toString() == "" || ProductSelling.value.toString() == "0")
+          {
+            
+            if (ProductSelling.value.toString() == "")
+              createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
+            else if (ProductSelling.value.toString() == "0")
+              createToast('Danger', 'Zero is not a valid value on field Product Selling!', 'toast-danger');
+            ProductSelling.value = "";
+            document.getElementById("Submitform").click();
+            return;
+          }else if (ProductQuantity.value.toString() == "")
+          {
+            createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
+            document.getElementById("Submitform").click();
+            return;
+          }else if (originalProduct != name.value){
+          if (productList.includes(name.value)  == false){
+            document.getElementById('CloseButton').innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
+            updateDoument_GivenID("imageURLs/" + sessionStorage.getItem("CompanyName") + "/meun",sessionStorage.getItem("CompanyName"));
+          }else if (productList.includes(name.value)  == true)
+            createToast('Danger', 'This Category already exist!', 'toast-danger');
+        }else{
+          updateDoument_GivenID("imageURLs/" + sessionStorage.getItem("CompanyName") + "/meun",sessionStorage.getItem("CompanyName"));
+          document.getElementById("CloseButton").innerHTML = "Add";
+          removeAndShowElement(['newId0','newId1','newId2'],"",true);
+          $('#staticBackdrop').modal('hide');
+          document.getElementById("myForm").reset();
         }
-        
-        updateDoument_GivenID("imageURLs/" + sessionStorage.getItem("CompanyName") + "/meun",sessionStorage.getItem("CompanyName"));
-        document.getElementById("CloseButton").innerHTML = "Add";
-        removeAndShowElement(['newId0','newId1','newId2'],"",true);
-        $('#staticBackdrop').modal('hide');
-        document.getElementById("myForm").reset();
       }else if (e.target.innerHTML == "Delete")
       {
         DeleteProuct("imageURLs/" + sessionStorage.getItem("CompanyName") + "/meun",e.target.id);
@@ -397,16 +488,20 @@ tfoot td {
         ChangeImage('Are you sure you want to remove this Image?',e,false);
         
       }else if (e.target.innerHTML == "Update Image"){
-
+        
         ChangeImage('Are you sure you want to upload a Image?',e,true);
  
       }else if (e.target.innerHTML == "Close" && checkEditButtonClick){
-        
-        removeAndShowElement(['newId0','newId1','newId2'],"",true);
+
+        if (!checkAddButtonClick)
+          removeAndShowElement(['newId0','newId1','newId2'],"",true);
+        else 
+          checkAddButtonClick = false;
         
         checkEditButtonClick = false;
         $('#staticBackdrop').modal('hide');
         document.getElementById("myForm").reset();
+        
       }
     })
 
@@ -438,14 +533,14 @@ form.addEventListener('submit', my_submit);
 
     async function ChangeImage(mag,e,value)
     {
-      //const result = await b_confirm(mag);
-    //
-    //  //  if (!result)
-      //    return;
-      //  else
-          if (value)
-            selectNewImage(e.target.id);
-          else
+      const result = await b_confirm(mag);
+    
+      if (!result)
+        return;
+      else
+        if (value)
+          selectNewImage(e.target.id);
+        else
           removeImageUrl(e.target.id);
     }
 
@@ -494,6 +589,7 @@ form.addEventListener('submit', my_submit);
             else
               CategoryStatus = "visible";
             
+            productList.push(doc.data().Name);
             data.push([count,doc.data().Name,doc.data().dec,imgUrl,CategoryStatus,Action]);
           });
 
@@ -530,8 +626,7 @@ form.addEventListener('submit', my_submit);
           comboBox.remove(1);
         }
         docSnap.forEach(doc => {
-          document.getElementById("SelectCategory").innerHTML += "<option value=''>" + doc.data().CategoryName + "</option>";
-          
+          document.getElementById("SelectCategory").innerHTML += "<option value= '" + doc.data().CategoryName.toString() +"' >" + doc.data().CategoryName + "</option>";
         })
 
       
@@ -566,7 +661,8 @@ form.addEventListener('submit', my_submit);
 
           }).then(() => {
             RestoreBack();
-        //success("successful","category added successful");
+            createToast('Success', 'New product was added successfully!', 'toast-success');
+            
          // name.value                     = "";            
          // ProductSlug.value              = "";                   
          // ProductShortDescription.value  = "";                               
@@ -630,7 +726,8 @@ form.addEventListener('submit', my_submit);
           ProductUploadImage[0]             = docSnap.data().url;
           ProductUploadImage[1]             = docSnap.data().url1;
           ProductUploadImage[2]             = docSnap.data().url2;
-          document.getElementById('imagesDiv').innerHTML              = '<div id = "newId0" class="container"><img src= ' + ProductUploadImage[0] + ' alt="Snow" style="width:33.33%" id = "image0"><button class="btn btn-danger m-1" id = ' + "0," + docSnap.data().Position + '>remove</button><button class="btn btn-success m-1" id = ' + "0," + docSnap.data().Position + ',upload >Update Image</button></div>';
+          originalProduct = name;
+          document.getElementById('imagesDiv').innerHTML             = '<div id = "newId0" class="container"><img src= ' + ProductUploadImage[0] + ' alt="Snow" style="width:33.33%" id = "image0"><button class="btn btn-danger m-1" id = ' + "0," + docSnap.data().Position + '>remove</button><button class="btn btn-success m-1" id = ' + "0," + docSnap.data().Position + ',upload >Update Image</button></div>';
           document.getElementById('imagesDiv').innerHTML             += '<div id = "newId1" class="container"><img src= ' + ProductUploadImage[1] + ' alt="Snow" style="width:33.33%" id = "image1"><button class="btn btn-danger m-1" id = ' + "1," + docSnap.data().Position + '>remove</button><button class="btn btn-success m-1" id = ' + "1," + docSnap.data().Position + ',upload >Update Image</button></div>';
           document.getElementById('imagesDiv').innerHTML             += '<div id = "newId2" class="container"><img src= ' + ProductUploadImage[2] + ' alt="Snow" style="width:33.33%" id = "image2"><button class="btn btn-danger m-1" id = ' + "2," + docSnap.data().Position + '>remove</button><button class="btn btn-success m-1" id = ' + "2," + docSnap.data().Position + ',upload >Update Image</button></div>';
           //console.log(ProductUploadImage);
@@ -680,11 +777,13 @@ form.addEventListener('submit', my_submit);
    }).then(() => {
       RestoreBack();
       //success("successful","category updated successful");
-      
+      checkEditButtonClick = true;
+      createToast('Success', 'The product was successfully update!', 'toast-success');
       //alert("category updated successful");
       
    }).catch((error) => {
       //alert("bad " +  error);
+      checkEditButtonClick = true;
       createToast('Danger', 'Rocord was not found!', 'toast-danger');
       //danger("Error","category didn't updated successful");
       
@@ -741,25 +840,30 @@ form.addEventListener('submit', my_submit);
         keyboard: false,
         backdrop: 'static'
       })
-      myModal.show()
+      
+      myModal.show();
+      myModal.id = "DeletemyModal";
     
       return new Promise((resolve, reject) => {
         document.body.addEventListener('click', response)
     
         function response(e) {
           let bool = false
-          if (e.target.id == 'modal-btn-descartar') bool = false
-          else if (e.target.id == 'modal-btn-aceptar') bool = true
+          if (e.target.id == 'modal-btn-descartar') {
+            
+            bool = false}
+          else if (e.target.id == 'modal-btn-aceptar') {
+            bool = true;}
           else return
-    
-          document.body.removeEventListener('click', response)
-          document.body.querySelector('.modal-backdrop').remove()
-          modalElem.remove()
+          myModal.hide();
+          document.body.removeEventListener('click', response);
+          //document.body.querySelector('.modal-backdrop').remove();
+          modalElem.remove();
+          //document.body.querySelector('.modal-backdrop').remove();
           resolve(bool)
         }
       })
     }
-
     function OpenFileDialog(){
       let inp      = document.createElement("input");
       inp.type     = "file";
@@ -849,6 +953,9 @@ form.addEventListener('submit', my_submit);
   function RestoreBack(){
   
     selBtn.disabled = false;
+    checkEditButtonClick = true;
+    document.getElementById("CloseButton").disabled = false;
+    document.getElementById("myForm").reset();
     addBtn.disabled = false;
     
   
@@ -873,15 +980,21 @@ form.addEventListener('submit', my_submit);
   //--------------------------------------------------------------------------
     
     selBtn.addEventListener('click',OpenFileDialog);
-    addBtn.addEventListener('click',UploadAllImage);
+    //addBtn.addEventListener('click',UploadAllImage);
     
     //--------------------------------------------------------------------------
     
     function UploadAllImage(){
       selBtn.disabled = true;
+      document.getElementById("CloseButton").disabled = true;
       addBtn.disabled = true;
       
       ImageLinksArray = [];
+
+      if (Files.length != 3){
+        createToast('Danger', 'Please select a three pictures!', 'toast-danger');
+        return;
+      }
       
       for(let i = 0; i < Files.length; i++){
         UploadAnImage(Files[i],i);
@@ -893,7 +1006,7 @@ form.addEventListener('submit', my_submit);
     
     function UploadAnImage(imgToUpload, imgNo){
 
-      var uploadingButton = document.getElementById('addproductbtn');
+      var uploadingButton = document.getElementById('CloseButton');
 
       uploadingButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
     
@@ -903,7 +1016,7 @@ form.addEventListener('submit', my_submit);
       
       const storage = getStorage();
       
-      const ImageAddress = "TheImages/" + getShortTitle() + "/img#" + (imgNo + 1);
+      const ImageAddress = "ProductImageList/" + name.value + '/' + getShortTitle() + "/img#" + (imgNo + 1);
       
       const storageRef = sRef(storage,ImageAddress);
       
@@ -927,7 +1040,8 @@ form.addEventListener('submit', my_submit);
           ImageLinksArray.push(downloadURL);
         
             if (IsAllImageUploaded()){
-              uploadingButton.innerHTML = "Upload Images";
+              document.getElementById("CloseButton").innerHTML = "Add";
+              AddProduct(sessionStorage.getItem("CompanyName"));
             }
           });
       }
@@ -1003,8 +1117,10 @@ function GetFileExt(file){
   }
   
   const storage = getStorage();
+
+  const ImageAddress = "ProductImageList/" + name.value + '/' + getShortTitle() + "/img#" + id;
   
-  const storageRef = sRef(storage , "Images/" + ImgName);
+  const storageRef = sRef(storage , ImageAddress);
 
   var loadingButton = document.getElementById( id + "," + productPosition + ',upload');
   loadingButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
@@ -1085,6 +1201,48 @@ function validdateName() {
 	return !(regex.test(namebox.value));
 	
 	}
+
+  function createToast(title, message, toastId) {
+      // Create a new Toast element
+      var toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.classList.add(toastId);
+      toast.id = toastId;
+      toast.style.position = 'absolute';
+      toast.style.top = '1rem';
+      toast.style.right = '1rem';
+
+      // Create the Toast's content
+      var toastHeader = document.createElement('div');
+      toastHeader.className = 'toast-header text-white';
+      var titleElement = document.createElement('strong');
+      titleElement.className = 'mr-auto';
+      titleElement.textContent = title;
+      var closeBtn = document.createElement('button');
+      closeBtn.className = 'ml-2 mb-1 close text-white';
+      closeBtn.type = 'button';
+      closeBtn.setAttribute('data-dismiss', 'toast');
+      closeBtn.setAttribute('aria-label', 'Close');
+      closeBtn.innerHTML = '<span aria-hidden="true">&times;</span>';
+      toastHeader.appendChild(titleElement);
+      
+
+      var toastBody = document.createElement('div');
+      toastBody.className = 'toast-body';
+      toastBody.textContent = message;
+
+      toast.appendChild(toastHeader);
+      toast.appendChild(toastBody);
+
+      // Append the Toast to the container
+      document.getElementById('toastContainer').appendChild(toast);
+
+      // Show the Toast
+      var toastInstance = new bootstrap.Toast(toast);
+      toastInstance.show();
+    }
+ 
+
 
   </script>
 

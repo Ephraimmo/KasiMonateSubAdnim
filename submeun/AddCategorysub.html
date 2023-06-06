@@ -87,11 +87,11 @@ tfoot td {
                     
                     <div class="col-md-6">
                       <label for="">Name</label>
-                      <input type="text" class="form-control" value="" id = "NameCate" required>
+                      <input type="text" name="Name" class="form-control" value="" id = "NameCate" required>
                     </div>
                     <div class="col-md-6">
                       <label for="">Slug</label>
-                      <input type="text" class="form-control" value="" id = "slugCate" required>
+                      <input type="text" name="Slug" class="form-control" value="" id = "slugCate" required>
                     </div>
   
                     <div class="col-md-12">
@@ -101,27 +101,27 @@ tfoot td {
   
                     <div class="col-md-12">
                       <label for="">Meta Title</label>
-                      <input type="text" value=""  id = "Meta_TitleCate" placeholder="Enter meta title" class="form-control">
+                      <input type="text" name="Meta Title" value=""  id = "Meta_TitleCate" placeholder="Enter meta title" class="form-control">
                     </div>
   
                     <div class="col-md-12">
                       <label for="">Meta Description</label>
-                      <textarea class="form-control" name="Description" id="Meta_Description_Cate" placeholder="Enter meta description" rows="2"></textarea>
+                      <textarea class="form-control" name="Meta Description" id="Meta_Description_Cate" placeholder="Enter meta description" rows="2"></textarea>
                     </div>
   
                     <div class="col-md-12">
                       <label for="">Meta Keywords</label>
-                      <textarea class="form-control" name="Keywords" id="Meta_Keywords_Caye" placeholder="Enter meta Keywords" rows="2"></textarea>
+                      <textarea class="form-control" name="Meta Keywords" id="Meta_Keywords_Caye" placeholder="Enter meta Keywords" rows="2"></textarea>
                     </div>
   
                     <div class="col-md-6">
                       <label for="">Status</label>
-                      <input type="checkbox" id="Status_Cate">
+                      <input type="checkbox" name="Status" id="Status_Cate">
                     </div>
   
                     <div class="col-md-6">
                       <label for="">Popular</label>
-                      <input type="checkbox" id="Popula_Cater">
+                      <input type="checkbox" name="Popular" id="Popula_Cater">
                     </div>
 
                     <div class="col-md-6">
@@ -244,6 +244,8 @@ const realdb = getDatabase();
 	var   reader = new FileReader();
     var   CategoryPosition = 0;
     var   getUrl = "";
+    var CategoryListName = [];
+    var originalCategory = '';
 
     var namebox = document.getElementById('namebox');
 	var extlab = document.getElementById('extlab');
@@ -297,29 +299,34 @@ const realdb = getDatabase();
             {
               //alert("Name is required");
               //CategoryName.required = true;
+              createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
               document.getElementById("Submitform").click();
               return;
             }else if (CategorySlug.value == "")
             {
               //alert("Slug is required");
+              createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
               document.getElementById("Submitform").click();
               return;
             }else if (categoryDescription.value == "")
             {
               //alert("Description is required");
+              createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
               document.getElementById("Submitform").click();
               return;
             }else if (namebox.value == "")
             {
+              createToast('Danger', 'Please provide an Image!', 'toast-danger');
               document.getElementById('myimg').className += "border";
+              return;
+            }else if (CategoryListName.includes(CategoryName.value)  == true){
+              createToast('Danger', 'This Category already exist!', 'toast-danger');
               return;
             }else{
               uploadingButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
+              UploadProcess(true, sessionStorage.getItem("CompanyName"));
             }
 
-          
-
-          UploadProcess(true, sessionStorage.getItem("CompanyName"));
         }else if (e.target.innerHTML == "Edit")
         {
             //alert(e.target.id);
@@ -330,18 +337,30 @@ const realdb = getDatabase();
         {
           if (CategoryName.value == "")
             {
+              createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
               document.getElementById("Submitform").click();
               return;
             }else if (CategorySlug.value == "")
             {
+              createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
               document.getElementById("Submitform").click();
               return;
             }else if (categoryDescription.value == "")
             {
+              createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
               document.getElementById("Submitform").click();
               return;
+            }else if (originalCategory != CategoryName.value){
+              if (CategoryListName.includes(CategoryName.value)  == false){
+                uploadingButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
+                UploadProcess(false, sessionStorage.getItem("CompanyName"));
+              }else if (CategoryListName.includes(CategoryName.value)  == true)
+                createToast('Danger', 'This Category already exist!', 'toast-danger');
+            }else{
+              uploadingButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
+              UploadProcess(false, sessionStorage.getItem("CompanyName"));
             }
-            UploadProcess(false, sessionStorage.getItem("CompanyName"));
+            
             
             
         }else if (e.target.innerText == "Delete"){
@@ -410,7 +429,6 @@ const realdb = getDatabase();
 	async function UploadProcess(Add,pathCategory) {
   
   if (files.length == 0) {
-  
     updateDoument_GivenID("Category/" + pathCategory + "/CategoryList",CategoryPosition,document.getElementById("myimg").src);
     return};
   
@@ -441,7 +459,8 @@ const realdb = getDatabase();
       }
       
       const storage    = getStorage();
-      const storageRef = sRef(storage , "Images/" + ImgName);
+      var imagePosition =  CategoryPosition + 1; 
+      const storageRef = sRef(storage , "CategoryImage/" + CategoryName.value + '/' + ImgName);
       const UploadTask = uploadBytesResumable(storageRef, ImageToUpLoad, metaData);
 
       UploadTask.on("state-changed", (snapshot) => {
@@ -521,10 +540,11 @@ const realdb = getDatabase();
        document.getElementById("Status_Cate").value           = docSnap.data().CategoryStatus;
        document.getElementById("Popula_Cater").value          = docSnap.data().CategoryPopular;
        img.src                                                = docSnap.data().CategoryImageUrl;
-
+       
        img.width = 90;
        img.height = 90;
-       document.getElementById("NameCate").value              = docSnap.data().CategoryName;      
+       document.getElementById("NameCate").value              = docSnap.data().CategoryName;   
+       originalCategory   = docSnap.data().CategoryName;
        
     }else
     {
@@ -535,11 +555,11 @@ const realdb = getDatabase();
 
    //updating Data on the Database
    async function updateDoument_GivenID(collectionPath,CategoryPosition,CategoryUploadImage){
-  
+    
   var refCol = doc(db,collectionPath, CategoryPosition);
 
   updateDoc( refCol, {
-  CategoryName            : document.getElementById("NameCate").value              ,
+        CategoryName            : document.getElementById("NameCate").value              ,
         CategorySlug            : document.getElementById("slugCate").value              ,
         categoryDescription     : document.getElementById("DescriptionCate").value       ,
         CategoryMetaTitle       : document.getElementById("Meta_TitleCate").value        ,
@@ -558,10 +578,10 @@ const realdb = getDatabase();
      createToast('Success', 'The new information for the store was updated success!', 'toast-success');
   }).catch((error) => {
      //alert("bad " +  error);
-     uploadingButton.innerHTML = 'Add';
+     //uploadingButton.innerHTML = 'Add';
      document.getElementById("CloseModal").disabled = false;
      createToast('Information', 'The new information for the store was not updated!', 'toast-info');
-     //danger("Error","category didn't updated successful");
+     //danger("Error","'The new information for the store was not updated!");
      
   });
 
@@ -580,7 +600,6 @@ const realdb = getDatabase();
   await DeleteImageOnDatabaseWithUrl(url);
   
   await deleteDoc(docRef).then(() => {
-          //alert("Entire Document has been deleted successfully.");
           
         }).catch(error => {
           console.log(error);
@@ -626,20 +645,26 @@ async function b_confirm(msg) {
         keyboard: false,
         backdrop: 'static'
       })
-      myModal.show()
+
+      myModal.show();
+      myModal.id = "DeletemyModal";
     
       return new Promise((resolve, reject) => {
         document.body.addEventListener('click', response)
     
         function response(e) {
           let bool = false
-          if (e.target.id == 'modal-btn-descartar') bool = false
-          else if (e.target.id == 'modal-btn-aceptar') bool = true
+          if (e.target.id == 'modal-btn-descartar') {
+            
+            bool = false}
+          else if (e.target.id == 'modal-btn-aceptar') {
+            bool = true;}
           else return
-    
-          document.body.removeEventListener('click', response)
-          document.body.querySelector('.modal-backdrop').remove()
-          modalElem.remove()
+          myModal.hide();
+          document.body.removeEventListener('click', response);
+          //document.body.querySelector('.modal-backdrop').remove();
+          modalElem.remove();
+          //document.body.querySelector('.modal-backdrop').remove();
           resolve(bool)
         }
       })
@@ -673,6 +698,7 @@ async function b_confirm(msg) {
             else
               CategoryStatus = "visible";
             
+            CategoryListName.push(doc.data().CategoryName);
             dataTable.push([count,doc.data().CategoryName,doc.data().categoryDescription,imgUrl,CategoryStatus,Action]);
 
                 

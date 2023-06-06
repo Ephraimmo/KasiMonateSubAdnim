@@ -283,12 +283,13 @@ async function Login(email, password)
 
   async function getUserDetails(Username,password){
     var found = false;
+    var activate = false;
     const citiesRef = await collection(db, "UsersSubAdnim");
 
     const querySnapshot = await getDocs(citiesRef);
       querySnapshot.forEach((doc) => {
-        
-      if (Username == doc.data().Username && doc.data().Password == password)
+      
+      if (Username == doc.data().Username && doc.data().Password == password && doc.data().Adnim != false)
       {
         sessionStorage.setItem("Username", doc.data().Username);
         sessionStorage.setItem("UserPhoto", doc.data().ProfileImage);
@@ -296,6 +297,12 @@ async function Login(email, password)
         sessionStorage.setItem("CompanyName", doc.data().SubStore);
         window.location.replace("mainIndex.html");
         found = true;
+       
+      }else if (Username == doc.data().Username && doc.data().Password == password && doc.data().Adnim == false)
+      {
+        found = true;
+        showToast("fas fa-exclamation-triangle",'Please contact your administrator to activate your user');
+        toastshowLoadingToast.classList.remove("show");
       }
     });
 
@@ -304,19 +311,6 @@ async function Login(email, password)
       showToast("fas fa-exclamation-triangle",'No User was found');
       toastshowLoadingToast.classList.remove("show");
     }
-
-   // if (querySnapshot.exists()) {
-   //   alert("Ok document!");
-   //   //localStorage.setItem("CompanyName", docSnap.data().CompanyName);
-   //   //localStorage.setItem("UserId", docSnap.data().UserId);
-   //   //localStorage.setItem("reload", 1);
-////
-   //   /
-   // 
-   // } else {
-   //   // docSnap.data() will be undefined in this case
-   //   alert("No such document!");
-   // }
   }
 
   function showToast(icon,message) {

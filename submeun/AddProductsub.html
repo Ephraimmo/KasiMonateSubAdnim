@@ -345,6 +345,7 @@ tfoot td {
         removeAndShowElement(['showButton'],'block',false);
         checkEditButtonClick = true;
         checkAddButtonClick = true;
+        RestoreBack();
         
       }else if (e.target.innerHTML == "Add")
       {
@@ -589,8 +590,8 @@ form.addEventListener('submit', my_submit);
             else
               CategoryStatus = "visible";
             
-            productList.push(doc.data().Name);
-            data.push([count,doc.data().Name,doc.data().dec,imgUrl,CategoryStatus,Action]);
+            productList.push(doc.data().ProductName);
+            data.push([count,doc.data().ProductName,doc.data().ProductDescription,imgUrl,CategoryStatus,Action]);
           });
 
           document.getElementById("addRow").innerHTML += tab;
@@ -641,13 +642,13 @@ form.addEventListener('submit', my_submit);
       
       await setDoc( refCol, {
 
-        Name                     : name.value,
+        ProductName              : name.value,
+        store                    : NameBus,
         ProductSlug              : ProductSlug.value,
         ProductShortDescription  : ProductShortDescription.value,
-        dec                      : ProductDescription.value,
+        ProductDescription       : ProductDescription.value,
         ProductOriginal          : ProductOriginal.value,
-        Price                    : ProductSelling.value,
-        store                    : NameBus,
+        ProductSelling           : ProductSelling.value,
         ProductQuantity          : ProductQuantity.value,
         Status_Product           : Status_Product.checked,
         Trending_Product         : Trending_Product.checked,
@@ -658,6 +659,7 @@ form.addEventListener('submit', my_submit);
         url                      : ImageLinksArray[0],
         url1                     : ImageLinksArray[1],
         url2                     : ImageLinksArray[2],
+
 
           }).then(() => {
             RestoreBack();
@@ -711,12 +713,12 @@ form.addEventListener('submit', my_submit);
       
       if (docSnap.exists()){
       
-          name                     .value   =  docSnap.data().Name;
+          name                     .value   =  docSnap.data().ProductName;
           ProductSlug              .value   =  docSnap.data().ProductSlug;
           ProductShortDescription  .value   =  docSnap.data().ProductShortDescription;
-          ProductDescription       .value   =  docSnap.data().dec;
+          ProductDescription       .value   =  docSnap.data().ProductDescription;
           ProductOriginal          .value   =  docSnap.data().ProductOriginal;
-          ProductSelling           .value   =  docSnap.data().Price;
+          ProductSelling           .value   =  docSnap.data().ProductSelling;
           ProductQuantity          .value   =  docSnap.data().ProductQuantity;
           Status_Product           .checked =  docSnap.data().Status_Product;
           Trending_Product         .checked =  docSnap.data().Trending_Product;
@@ -746,12 +748,12 @@ form.addEventListener('submit', my_submit);
    var refCol = doc(db,collectionPath, productPosition.toString());
    
    updateDoc( refCol, {
-      Name                     : name.value,
+      ProductName              : name.value,
       ProductSlug              : ProductSlug.value,
       ProductShortDescription  : ProductShortDescription.value,
-      dec                      : ProductDescription.value,
+      ProductDescription       : ProductDescription.value,
       ProductOriginal          : ProductOriginal.value,
-      Price                    : ProductSelling.value,
+      ProductSelling           : ProductSelling.value,
       store                    : NameBus,
       ProductQuantity          : ProductQuantity.value,
       Status_Product           : Status_Product.checked,
@@ -760,24 +762,12 @@ form.addEventListener('submit', my_submit);
       Meta_Description_Product : Meta_Description_Product.value,
       Meta_Keywords_Product    : Meta_Keywords_Product.value,
 
-      //ProductName              : name.value,
-      //ProductSlug              : ProductSlug.value,
-      //ProductShortDescription  : ProductShortDescription.value,
-      //ProductDescription       : ProductDescription.value,
-      //ProductOriginal          : ProductOriginal.value,
-      //ProductSelling           : ProductSelling.value,
-      //ProductQuantity          : ProductQuantity.value,
-      //Status_Product           : Status_Product.checked,
-      //Trending_Product         : Trending_Product.checked,
-      //Meta_TitleProduct        : Meta_TitleProduct.value,
-      //Meta_Description_Product : Meta_Description_Product.value,
-      //Meta_Keywords_Product    : Meta_Keywords_Product.value,
-      //Position                 : count,
-      //ImageLinksArray          : ImageLinksArray.length == 0 ? ProductUploadImage : ImageLinksArray
+      
    }).then(() => {
       RestoreBack();
       //success("successful","category updated successful");
       checkEditButtonClick = true;
+      $('#staticBackdrop').modal('hide');
       createToast('Success', 'The product was successfully update!', 'toast-success');
       //alert("category updated successful");
       
@@ -957,7 +947,8 @@ form.addEventListener('submit', my_submit);
     document.getElementById("CloseButton").disabled = false;
     document.getElementById("myForm").reset();
     addBtn.disabled = false;
-    
+    imagesDiv.innerHTML = '';
+    Files = [];
   
   }
  
@@ -1163,7 +1154,6 @@ function updateNewImageToDatabase(id,collectionPath,productPosition,downloadURL)
           //RestoreBack();
           createToast('Success', 'Image updated successful!', 'toast-success');
         }).catch((error) => {
-          alert("bad " +  error);
           //danger("Error","category didn't updated successful");
           createToast('Danger', 'Image was not updated successful!!', 'toast-danger');
         });

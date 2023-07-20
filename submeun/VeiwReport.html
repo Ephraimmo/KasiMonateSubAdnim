@@ -393,12 +393,14 @@ tfoot td {
                   //console.log("value :" + `${value}` + " " + ready);
                 }
               }
+
+              
               
               console.log(ready);
 
-              if (ready == "true")
+              if (childData.process == 'Delivery' || childData.process == "Pickup")
                 Action = '<span class="badge bg-success badge-font-size: 1.75em;" style=  "width:100%;">Completed</span>';
-              else if (ready == "Reject")
+              else if (childData.process == "Reject")
                 Action = "<span class='badge bg-danger badge-font-size: 1.75em;' style=  'width:100%;'>Rejected</span>";
               else 
                 return;
@@ -407,13 +409,15 @@ tfoot td {
               
               if (valueOnChange != "All orders")
               {
-                if (ready == "Reject" && valueOnChange == "Completed")
+                if (childData.process == "Reject" && valueOnChange == "Completed")
                   return;
-                if (ready == "true" && valueOnChange == "Rejected")
+                if (childData.process == "Pickup" && valueOnChange == "Rejected")
+                  return;
+                if (childData.process == "Delivery" && valueOnChange == "Rejected")
                   return;
               }
                 
-              data.push([childData.Date,foodList,childData.Order_number,childData.Total,childData.type,Action]);
+              data.push([childData.Date,foodList,"#" + childData.Order_number,"R" + childData.Total + ".00",childData.type,Action]);
 
             });
             

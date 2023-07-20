@@ -35,7 +35,9 @@ tfoot td {
                   <div class="btn-group">
                     <button type="button" id="All orders" class="btn btn-info">All orders</button>
                     <button type="button" id="Accept orders" class="btn btn-light">Accept orders</button>
-                    <button type="button" id="Ready orders" class="btn btn-light">Ready orders</button>  
+                    <button type="button" id="Accepted orders" class="btn btn-light">Accepted orders</button>
+                    <button type="button" id="Delivery orders" class="btn btn-light">Delivery orders</button> 
+                    <button type="button" id="Pickup orders" class="btn btn-light">Pickup orders</button>  
                   </div>
                 </div>
     
@@ -239,11 +241,16 @@ tfoot td {
      
 
       if (e.target.innerHTML == "All orders")
-        changeButton("All orders","Accept orders","Ready orders");
+        changeButton("All orders","Accept orders","Pickup orders","Delivery orders","Accepted orders");
       else if (e.target.innerHTML == "Accept orders")
-        changeButton("Accept orders","All orders","Ready orders");
-      else if (e.target.innerHTML == "Ready orders")
-        changeButton("Ready orders","Accept orders","All orders");
+        changeButton("Accept orders","All orders","Delivery orders","Pickup orders","Accepted orders");
+      else if (e.target.innerHTML == "Accepted orders")
+        changeButton("Accepted orders","Accept orders","All orders","Delivery orders","Pickup orders");
+      else if (e.target.innerHTML == "Pickup orders")
+        changeButton("Pickup orders","Delivery orders","All orders","Accept orders","Accepted orders");
+      else if (e.target.innerHTML == "Delivery orders")
+        changeButton("Delivery orders","Pickup orders","All orders","Accept orders","Accepted orders");
+        
       
 
     });
@@ -251,10 +258,12 @@ tfoot td {
       //get all orders from the Database
       getAllOrder(sessionStorage.getItem("CompanyName"),"All orders");
       
-      function changeButton(id,changeIdElement1,changeIdElement2){
+      function changeButton(id,changeIdElement1,changeIdElement2,changeIdElement3,changeIdElement4){
           document.getElementById(id).classList = "btn btn-info";
           document.getElementById(changeIdElement1).classList = "btn btn-light";
           document.getElementById(changeIdElement2).classList = "btn btn-light";
+          document.getElementById(changeIdElement3).classList = "btn btn-light";
+          document.getElementById(changeIdElement4).classList = "btn btn-light";
           getAllOrder(sessionStorage.getItem("CompanyName"),id);
       }
 
@@ -281,67 +290,57 @@ tfoot td {
               const childData = childSnapshot.val();
               const entries = Object.entries(childData);
               var foodList = "";
-              var businessName = "";
-              var PreparingFood;
+              var showDelivery = false;
+              var showPickup = false;
               var Action = '';
-              var View = '';
-              var ready = '';
-              var Reject = '';
-              
-
-
-              
-
+            
               for (const [key, value] of Object.entries(entries)) {
-
                 var valuefood = value;
-
-                //console.log("key :" + `${key}`);
-                //console.log("value :" + valuefood);
                 if (`${value}`.toString().includes("Food List"))
                 {
                   foodList = `${value}`.toString().replace("Food List",'');
                   foodList = foodList.replace(",",'');
                   foodList = foodList.replace(",",'');
                 }
-                else if (`${value}`.toString().includes("Preparing Food"))
-                {
-                  PreparingFood = `${value}`.toString().replace("Preparing Food,",'');  
-                  //console.log("value :" + `${value}` + " " + PreparingFood);
-                }else if (`${value}`.toString().includes("ready"))
-                {
-                  ready = `${value}`.toString().replace("ready,",'');  
-                  //console.log("value :" + `${value}` + " " + ready);
-                }
               }
 
-
-              if (PreparingFood == "false")
+            
+              if (childData.process == 'pending')
               {
-                Action = '<button type="button" id = ' + childData.path + ' style= "width:40%; height:30%;" class="btn btn-success m-1">Accept</button>'
+                Action = '<button type="button" id = ' + childData.path + ' style= "width:45%; height:30%;" class="btn btn-success m-1">Accept</button>'
                        + '<button type="button" id = ' + childData.path + ' style= "width:40%; height:30%;" class="btn btn-danger m-1">Reject</button>';
-              }else if (PreparingFood == "true")
+              }else if (childData.process == 'Accepted')
               {
-                Action =  '<button type="button" id = ' + childData.path + ' style=  "width:40%; " class="btn btn-success m-1" > Ready</button>'
+                Action =  '<button type="button" id = ' + childData.path + ' style=  "width:45%; " class="btn btn-success m-1" > Ready</button>'
                          + '<button type="button" id = ' + childData.path + ' style= "width:40%;" class="btn btn-danger m-1">Reject</button>';
+              }else if (childData.process == 'Ready' && childData.type == 'Pickup')
+              {
+                showPickup = true;
+                Action =  '<button type="button" id = ' + childData.path + ' style=  "width:40%; " class="btn btn-success m-1" >Pickup</button>'
+                         + '<button type="button" id = ' + childData.path + ' style= "width:40%;" class="btn btn-danger m-1">Reject</button>';
+              }else if (childData.process == 'Ready' && childData.type == 'Delivery')
+              {
+                showDelivery = true;
+                Action =  '<span class="badge bg-success badge-font-size: 1.75em;" style=  "width:100%;">Waitting for delivery</span>'
               }
 
               //View = '<button id = ' + childData.path + ' type="button" class="btn btn-info m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Veiw</button>';
-              if (ready == "Reject" || ready == "true")
+              if (childData.process == "Reject" || childData.process == 'Delivery' || childData.process == 'Pickup')
                 return;
               
               if (valueOnChange != "All orders")
               {
-                if (PreparingFood == "false" && valueOnChange == "Accept orders")
+                if (childData.process != 'pending' && valueOnChange == "Accept orders")
                   return;
-                if (PreparingFood == "true" && valueOnChange == "Accept orders")
+                if (childData.process != 'Accepted' && valueOnChange == "Accepted orders")
                   return;
-                
-
+                if (!showDelivery && valueOnChange == "Delivery orders")
+                  return;
+                if (!showPickup && valueOnChange == "Pickup orders")
+                  return;
               }
                 
-                
-              data.push([childData.Date,foodList,childData.Order_number,childData.Total,childData.type,Action]);
+              data.push([childData.Date,foodList,"#" + childData.Order_number,"R" + childData.Total + ".00",childData.type,Action]);
 
             });
             
@@ -382,15 +381,24 @@ tfoot td {
       if (e.target.innerHTML == "Accept")
         {
           update(ref(realdb,companyName + "/" + OrderPath),{
-            'Preparing Food': true 
+            'process': 'Accepted' 
           }).then(()=>{
-            
             //Toast_success("Successsful Accepted order");
-            
           })
           .catch(()=>{
-            //Toast_danger("Fail to accept order"); 
-            //alert("Fail Accepted order");
+            //Toast_danger("Fail to accept order");
+            createToast('Danger', 'Fail to accept order!', 'toast-danger'); 
+          });
+        }else if (e.target.innerHTML == "Pickup")
+        {
+          update(ref(realdb,companyName + "/" + OrderPath),{
+            'process': 'Pickup' 
+          }).then(()=>{
+            //Toast_success("Successsful Accepted order");
+          })
+          .catch(()=>{
+            //Toast_danger("Fail to accept order");
+            createToast('Danger', 'Fail to accept order!', 'toast-danger'); 
           });
         }else if (e.target.innerHTML == "Reject" ){
         
@@ -405,13 +413,13 @@ tfoot td {
 
               //alert("companyName + "/" + RejectPath : " + companyName + "/" + RejectPath.target.id);
               update(ref(realdb,companyName + "/" + RejectPath.target.id),{
-                 'ready': "Reject" 
+                 'process': "Reject" 
               }).then(()=>{
             //Toast_success("Successsful rejected order");
             //alert("Successsful rejected order");
               })
               .catch(()=>{
-            //Toast_danger("Fail to reject order"); 
+                //Toast_danger("Fail to reject order"); 
             //alert("Fail to reject order");
                createToast('Danger', 'Fail updated order!', 'toast-danger');
              });
@@ -419,11 +427,11 @@ tfoot td {
             }
         }else if (e.target.innerHTML == " Ready" ) {
           update(ref(realdb,companyName + "/" + OrderPath),{
-            'ready': true 
+            'process': 'Ready' 
           }).then(()=>{
             //Toast_success("Successsful updated order");
             //alert("Successsful updated order");
-            createToast('Success', 'Order was successful!', 'toast-success');
+            //createToast('Success', 'Order was successful!', 'toast-success');
           })
           .catch(()=>{
             //Toast_danger("Fail to updated order"); 

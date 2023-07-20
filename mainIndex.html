@@ -503,10 +503,6 @@ input[type="checkbox"]:checked {
         await onSnapshot( collection(db, 'BusinessesData' ), (docSnap) => {
             var url = "https://www.google.com/search?q=image&rlz=1C1GCEB_enZA1005ZA1005&sxsrf=APwXEdfpx293Aj721Cg_nRuDVHojuBxaQg:1681408814295&tbm=isch&source=iu&ictx=1&vet=1&fir=3eRt9lrXKzvA_M%252C0JWe7yDOKrVFAM%252C%252Fm%252F0jg24%253BYmDohMp4T5AODM%252CExDvm63D_wCvSM%252C_%253B9SPhZ2nyEGps3M%252CBa_eiczVaD9-zM%252C_%253BdDLJLDH24Qls4M%252CNMmM-IXyCkU2hM%252C_&usg=AI4_-kRZeZtaRugbrwwvcRkQw8pzVzi_EQ&sa=X&ved=2ahUKEwiZqeT4t6f-AhUXilwKHZ6JCUsQ_B16BAhfEAE#imgrc=3eRt9lrXKzvA_M";
             docSnap.forEach(doc => {
-
-              alert("doc.data().CompanyName : " + doc.data().CompanyName + ", sessionStorage.getItem('CompanyName')" + sessionStorage.getItem("CompanyName"));
-
-              alert(doc.data().CompanyName.toString().trim() == sessionStorage.getItem("CompanyName").toString().trim());
               
                 if (doc.data().CompanyName == sessionStorage.getItem("CompanyName"))
                 {
@@ -534,10 +530,10 @@ input[type="checkbox"]:checked {
                     document.getElementById('BrandName').innerHTML =  doc.data().MainAdnim;
                     document.getElementById('imgIcon').src = doc.data().urlProfile;
                     document.getElementById('imgIcon').style.backgroundSize = "Cover";
-                    if (!doc.data().status)
-                    document.getElementById('Status').innerHTML =  "Closed";
-                    else if (doc.data().status)
-                    document.getElementById('Status').innerHTML =  "Active"; 
+                    if (!doc.data().open)
+                      document.getElementById('Status').innerHTML =  "Closed";
+                    else if (doc.data().open)
+                      document.getElementById('Status').innerHTML =  "Active"; 
                     
                 }
             });
@@ -579,12 +575,12 @@ await onValue(starCountRef, (snapshot) => {
     
     
 
-    if (ready == "true")
+    if (childData.process == 'Delivery' || childData.process == "Pickup")
     {
         orderCompletedNumbers++;
         TotalEarning = TotalEarning + parseFloat(childData.Total);
     }
-    else if (ready == "Reject")
+    else if (childData.process == "Reject")
       orderRejected++;
     else
     orderIncoming++;

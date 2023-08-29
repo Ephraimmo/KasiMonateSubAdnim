@@ -51,6 +51,188 @@ tfoot td {
     background-color: #f8f9fa;
   }
 </style>
+
+
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    color: #333;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    text-align: left;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  } 
+
+  div.dataTables_info, div.dataTables_length{
+    font-weight: bold;
+  padding: 10px;
+  letter-spacing: 1px;
+  
+  }
+
+  input[type="search"]{
+    font-size: 16px;
+    width: 100%;
+    line-height: 40px;
+    height: 5%;
+    border: 1px solid #333;
+    border-radius: 20px;
+    outline: none;
+    color: #333;
+    box-shadow: 1px 2px 8px rgba(0,0,0,0.2);
+} 
+
+.btn, .btn:hover {
+  color: #88a5b1;
+}
+
+.btn-primary, .btn-primary:hover, .btn-info, .btn-info:hover, .btn-success, .btn-success:hover, .btn-warning, .btn-warning:hover, .btn-danger, .btn-danger:hover, .btn-inverse, .btn-inverse:hover {
+  color: #fff;
+}
+
+.btn {
+  font: 14px Helvetica;
+  padding: 12px 22px 10px;
+  margin: 0;
+  border: none;
+  border-bottom: 3px #aacedd solid;
+  text-decoration: none;
+  background-image: -moz-linear-gradient(#ffffff, #f8f8f8);
+  background-image: -webkit-linear-gradient(#ffffff, #f8f8f8);
+  background-image: linear-gradient(#ffffff, #f8f8f8);
+  position: relative;
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 0 25px -5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 0 25px -5px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0 25px -5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+.btn:active {
+  position: relative;
+  top: 3px;
+  border: none;
+}
+
+.btn-primary {
+  border-bottom: 3px #000609 solid;
+  background-image: -moz-linear-gradient(#0079bb, #005888);
+  background-image: -webkit-linear-gradient(#0079bb, #005888);
+  background-image: linear-gradient(#0079bb, #005888);
+}
+.btn-primary:hover {
+  background-image: -moz-linear-gradient(#009aee, #005888);
+  background-image: -webkit-linear-gradient(#009aee, #005888);
+  background-image: linear-gradient(#009aee, #005888);
+}
+
+.btn-info {
+  border-bottom: 3px #206376 solid;
+  background-image: -moz-linear-gradient(#71c1d8, #49afcd);
+  background-image: -webkit-linear-gradient(#71c1d8, #49afcd);
+  background-image: linear-gradient(#71c1d8, #49afcd);
+}
+.btn-info:hover {
+  background-image: -moz-linear-gradient(#99d2e3, #49afcd);
+  background-image: -webkit-linear-gradient(#99d2e3, #49afcd);
+  background-image: linear-gradient(#99d2e3, #49afcd);
+}
+
+.btn-success {
+  border-bottom: 3px #2d662d solid;
+  background-image: -moz-linear-gradient(#7ec77e, #5bb75b);
+  background-image: -webkit-linear-gradient(#7ec77e, #5bb75b);
+  background-image: linear-gradient(#7ec77e, #5bb75b);
+}
+.btn-success:hover {
+  background-image: -moz-linear-gradient(#a2d6a2, #5bb75b);
+  background-image: -webkit-linear-gradient(#a2d6a2, #5bb75b);
+  background-image: linear-gradient(#a2d6a2, #5bb75b);
+}
+
+.btn-warning {
+  border-bottom: 3px #a86404 solid;
+  background-image: -moz-linear-gradient(#fbbc64, #faa732);
+  background-image: -webkit-linear-gradient(#fbbc64, #faa732);
+  background-image: linear-gradient(#fbbc64, #faa732);
+}
+.btn-warning:hover {
+  background-image: -moz-linear-gradient(#fcd296, #faa732);
+  background-image: -webkit-linear-gradient(#fcd296, #faa732);
+  background-image: linear-gradient(#fcd296, #faa732);
+}
+
+.btn-danger {
+  border-bottom: 3px #88201c solid;
+  background-image: -moz-linear-gradient(#e37873, #da4f49);
+  background-image: -webkit-linear-gradient(#e37873, #da4f49);
+  background-image: linear-gradient(#e37873, #da4f49);
+}
+.btn-danger:hover {
+  background-image: -moz-linear-gradient(#eba19e, #da4f49);
+  background-image: -webkit-linear-gradient(#eba19e, #da4f49);
+  background-image: linear-gradient(#eba19e, #da4f49);
+}
+
+.btn-inverse {
+  border-bottom: 3px black solid;
+  background-image: -moz-linear-gradient(#505050, #363636);
+  background-image: -webkit-linear-gradient(#505050, #363636);
+  background-image: linear-gradient(#505050, #363636);
+}
+.btn-inverse:hover {
+  background-image: -moz-linear-gradient(#696969, #363636);
+  background-image: -webkit-linear-gradient(#696969, #363636);
+  background-image: linear-gradient(#696969, #363636);
+}
+
+.btn-large {
+  font-size: 18px;
+  padding: 12px 22px 10px;
+}
+
+.btn-small {
+  font-size: 11px;
+  padding: 8px 16px 6px;
+}
+
+.btn-primary{
+  margin: 2px;
+}
+
+
+  table th {
+  background-color: #ff9800;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #ccc;
+}
+
+table tr:nth-child(even) td {
+  background-color: #f2f2f2;
+}
+
+table tr:hover td {
+  background-color: #ffedcc;
+}
+
+table td {
+  background-color: #fff;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  font-weight: bold;
+}
+</style>
 <body >
 
     <!-- Toast Container -->
@@ -99,21 +281,6 @@ tfoot td {
                       <textarea required class="form-control" name="Description" id="DescriptionCate" placeholder="Enter category Description" rows="2"></textarea>
                     </div>
   
-                    <div class="col-md-12">
-                      <label for="">Meta Title</label>
-                      <input type="text" name="Meta Title" value=""  id = "Meta_TitleCate" placeholder="Enter meta title" class="form-control">
-                    </div>
-  
-                    <div class="col-md-12">
-                      <label for="">Meta Description</label>
-                      <textarea class="form-control" name="Meta Description" id="Meta_Description_Cate" placeholder="Enter meta description" rows="2"></textarea>
-                    </div>
-  
-                    <div class="col-md-12">
-                      <label for="">Meta Keywords</label>
-                      <textarea class="form-control" name="Meta Keywords" id="Meta_Keywords_Caye" placeholder="Enter meta Keywords" rows="2"></textarea>
-                    </div>
-  
                     <div class="col-md-6">
                       <label for="">Status</label>
                       <input type="checkbox" name="Status" id="Status_Cate">
@@ -141,7 +308,7 @@ tfoot td {
        
              </div>
           <div class="modal-footer">
-            <button type="button" id = "CloseModal" class="btn btn-secondary" >Close</button>
+            <button type="button" id = "CloseModal" class="btn btn-danger" >Close</button>
             <button type="button" id = "CloseButton" class="Save btn btn-primary" >Add</button>
           </div>
         </div>
@@ -155,7 +322,6 @@ tfoot td {
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
                 <th scope="col">Image</th>
-                <th scope="col">Srtatus</th>
                 <th scope="col">Action</th>
               </tr>
         </thead>
@@ -169,7 +335,6 @@ tfoot td {
                 <th>Name</th>
                 <th>Description</th>
                 <th>Image</th>
-                <th>Srtatus</th>
                 <th>Action</th>
             </tr>
         </tfoot>
@@ -256,9 +421,6 @@ const realdb = getDatabase();
 
     var CategorySlug          = document.getElementById("slugCate");
 	var categoryDescription     = document.getElementById("DescriptionCate");
-	var CategoryMetaTitle       = document.getElementById("Meta_TitleCate");
-	var CategoryMetaDescription = document.getElementById("Meta_Description_Cate");
-	var CategoryMetaKeywords    = document.getElementById("Meta_Keywords_Caye");
 	var CategoryStatus          = document.getElementById("Status_Cate");
 	var CategoryPopular         = document.getElementById("Popula_Cater");
 	var CategoryUploadImage     = document.getElementById("namebox");
@@ -282,9 +444,6 @@ const realdb = getDatabase();
         {
             CategorySlug           .value = "";
             categoryDescription    .value = "";
-            CategoryMetaTitle      .value = "";
-            CategoryMetaDescription.value = "";
-            CategoryMetaKeywords   .value = "";
             CategoryStatus         .value = "";
             CategoryPopular        .value = "";
             CategoryUploadImage    .value = "";
@@ -320,7 +479,7 @@ const realdb = getDatabase();
               document.getElementById('myimg').className += "border";
               return;
             }else if (CategoryListName.includes(CategoryName.value)  == true){
-              createToast('Danger', 'This Category already exist!', 'toast-danger');
+              createToast('Danger', 'This ' + CategoryName.value + ' already exist!', 'toast-danger');
               return;
             }else{
               uploadingButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
@@ -355,7 +514,7 @@ const realdb = getDatabase();
                 uploadingButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
                 UploadProcess(false, sessionStorage.getItem("CompanyName"));
               }else if (CategoryListName.includes(CategoryName.value)  == true)
-                createToast('Danger', 'This Category already exist!', 'toast-danger');
+                createToast('Danger', 'This ' + CategoryName.value + ' already exist!', 'toast-danger');
             }else{
               uploadingButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
               UploadProcess(false, sessionStorage.getItem("CompanyName"));
@@ -497,9 +656,6 @@ const realdb = getDatabase();
 			CategoryName            : CategoryName.value,
 			CategorySlug            : CategorySlug.value,
 			categoryDescription     : categoryDescription.value,
-			CategoryMetaTitle       : CategoryMetaTitle.value,
-			CategoryMetaDescription : CategoryMetaDescription.value,
-			CategoryMetaKeywords    : CategoryMetaKeywords.value,
 			CategoryStatus          : CategoryStatus.checked,
 			CategoryPopular         : CategoryPopular.checked,
 			CategoryImageUrl        : CategoryImageUrl,
@@ -533,10 +689,7 @@ const realdb = getDatabase();
         var img = document.getElementById("myimg"); 
    
        document.getElementById("slugCate").value              = docSnap.data().CategorySlug;
-       document.getElementById("DescriptionCate").value       = docSnap.data().categoryDescription;
-       document.getElementById("Meta_TitleCate").value        = docSnap.data().CategoryMetaTitle;  
-       document.getElementById("Meta_Description_Cate").value = docSnap.data().CategoryMetaDescription;              
-       document.getElementById("Meta_Keywords_Caye").value    = docSnap.data().CategoryMetaKeywords;       
+       document.getElementById("DescriptionCate").value       = docSnap.data().categoryDescription;      
        document.getElementById("Status_Cate").value           = docSnap.data().CategoryStatus;
        document.getElementById("Popula_Cater").value          = docSnap.data().CategoryPopular;
        img.src                                                = docSnap.data().CategoryImageUrl;
@@ -561,10 +714,7 @@ const realdb = getDatabase();
   updateDoc( refCol, {
         CategoryName            : document.getElementById("NameCate").value              ,
         CategorySlug            : document.getElementById("slugCate").value              ,
-        categoryDescription     : document.getElementById("DescriptionCate").value       ,
-        CategoryMetaTitle       : document.getElementById("Meta_TitleCate").value        ,
-        CategoryMetaDescription : document.getElementById("Meta_Description_Cate").value ,              
-        CategoryMetaKeywords    : document.getElementById("Meta_Keywords_Caye").value    ,       
+        categoryDescription     : document.getElementById("DescriptionCate").value       ,      
         CategoryStatus          : document.getElementById("Status_Cate").checked           ,
         CategoryPopular         : document.getElementById("Popula_Cater").checked          ,     
         CategoryImageUrl        : CategoryUploadImage,
@@ -594,6 +744,8 @@ const realdb = getDatabase();
      
     if (!result)
       return;
+
+    CategoryListName = [];
   
   const docRef = await doc(db, path, position.toString());
   
@@ -635,8 +787,8 @@ async function b_confirm(msg) {
               <p>${msg}</p>
           </div>    <!-- modal-body -->
           <div class="modal-footer" style="border-top:0px">             
-            <button id="modal-btn-descartar" type="button" class="btn btn-secondary">Cancel</button>
-            <button id="modal-btn-aceptar" type="button" class="btn btn-primary">Accept</button>
+            <button id="modal-btn-descartar" type="button" class="btn btn-danger m-1">Cancel</button>
+            <button id="modal-btn-aceptar" type="button" class="btn btn-primary m-1">Accept</button>
           </div>
         </div>
       </div>
@@ -679,6 +831,8 @@ async function b_confirm(msg) {
          var dataTable = [];
          var count = 0;
          let tab = "";
+         var CategoryName = '';
+         var categoryDescription = "";
          $('#example').DataTable().bDestroy = true;
 	      docSnap.forEach(doc => {
 
@@ -687,9 +841,9 @@ async function b_confirm(msg) {
           count++;
           var newPosition = doc.data().Position;
 
-            var imgUrl = '<img id = ' + newPosition + ' src= ' + doc.data().CategoryImageUrl  + ' alt= ' + doc.data().CategoryName  + ' style="width:40%;height:70px;">';
-            var Action = '<button id = ' + newPosition + ' type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Edit</button>'
-                       + '<button type="button" id = ' + newPosition + ' class="btn btn-danger">Delete</button>';
+            var imgUrl = '<img id = ' + newPosition + ' src= ' + doc.data().CategoryImageUrl  + ' style= "width:48%; height:30%;" alt= ' + doc.data().CategoryName  + ' style="width:40%;height:70px;">';
+            var Action = '<button id = ' + newPosition + ' type="button" style= "width:40%;" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Edit</button>'
+                       + '<button type="button" id = ' + newPosition + ' class="btn btn-danger" style= "width:50%;">Delete</button>';
 
         
             var CategoryStatus = "";
@@ -699,24 +853,42 @@ async function b_confirm(msg) {
               CategoryStatus = "visible";
             
             CategoryListName.push(doc.data().CategoryName);
-            dataTable.push([count,doc.data().CategoryName,doc.data().categoryDescription,imgUrl,CategoryStatus,Action]);
+
+            if (doc.data().CategoryName.length > 8){
+              CategoryName = doc.data().CategoryName.toString().substring(0,8) + "...";
+            }else{
+              CategoryName = doc.data().CategoryName;
+            }
+
+            if (doc.data().categoryDescription.length > 20){
+              categoryDescription = doc.data().categoryDescription.toString().substring(0,20) + "...";
+            }else{
+              categoryDescription = doc.data().categoryDescription;
+            }
+
+            dataTable.push([count,CategoryName,categoryDescription,imgUrl,Action]);
 
                 
                        
 	      });
         document.getElementById("addRow").innerHTML += tab;
-          $(document).ready(function () {
-            $('#example').DataTable({
-              "bDestroy": true,
-              paging: true,
+        $(document).ready(function () {
+              document.title = "View " + sessionStorage.getItem("CompanyName") + " Order Report";
+              $('#example').DataTable({
+                "bDestroy": true,
+                columnDefs: [{
+                  "defaultContent": "",
+                  "targets": "_all"
+                }],
+                dom: '<"dt-buttons"Bf><"clear">lrtp',
+		            paging: true,
 		            autoWidth: true,
-              data: dataTable,
+		            data: dataTable,
               columns: [
                   { title: 'Position' },
                   { title: 'Name' },
                   { title: 'Description' },
                   { title: 'Image.' },
-                  { title: 'Status' },
                   { title: 'Action' },
               ],
             });

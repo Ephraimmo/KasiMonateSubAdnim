@@ -199,6 +199,8 @@ td.text-right {
 }
 
 </style>
+
+
 <script type="text/javascript">
     window.history.forward();
     function noBack()
@@ -269,27 +271,27 @@ input[type="checkbox"]:checked {
                 </li>
 
                 <li>
+                  <a href="#" id="Change7">
+                      <span class="icon">
+                          <ion-icon name="bag-outline"></ion-icon>
+                      </span>
+                      <span class="title">Place Order</span>
+                  </a>
+              </li>
+
+                <li>
                     <a href="#" id="Change2">
                         <span class="icon">
-                            <ion-icon name="albums-outline"></ion-icon>
+                          <ion-icon name="fast-food-outline"></ion-icon>
                         </span>
                         <span class="title">Order</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#"- id="Change3">
-                        <span class="icon">
-                            <ion-icon name="podium-outline"></ion-icon>
-                        </span>
-                        <span class="title">Completed</span>
-                    </a>
-                </li>
-
-                <li>
                     <a href="#" id="Change4">
                         <span class="icon">
-                            <ion-icon name="add-circle-outline"></ion-icon>
+                          <ion-icon name="add-outline"></ion-icon>
                         </span>
                         <span class="title">Category</span>
                     </a>
@@ -298,11 +300,20 @@ input[type="checkbox"]:checked {
                 <li>
                     <a href="#" id="Change5">
                         <span class="icon">
-                            <ion-icon name="bag-add-outline"></ion-icon>
+                          <ion-icon name="bag-add-outline"></ion-icon>
                         </span>
                         <span class="title">Product</span>
                     </a>
                 </li>
+
+                <li>
+                  <a href="#"- id="Change3">
+                      <span class="icon">
+                        <ion-icon name="receipt-outline"></ion-icon>
+                      </span>
+                      <span class="title">Report</span>
+                  </a>
+              </li>
 
                 <li>
                     <a href="#" id="Change6">
@@ -334,7 +345,7 @@ input[type="checkbox"]:checked {
                         </div>
 
                         <div class="iconBx">
-                            <ion-icon name="podium-outline"></ion-icon>
+                          <ion-icon name="eye-outline"></ion-icon>
                         </div>
                     </div>
 
@@ -345,7 +356,7 @@ input[type="checkbox"]:checked {
                         </div>
 
                         <div class="iconBx">
-                            <ion-icon name="cart-outline"></ion-icon>
+                          <ion-icon name="eye-off-outline"></ion-icon>
                         </div>
                     </div>
 
@@ -373,7 +384,7 @@ input[type="checkbox"]:checked {
                 </div>
 
                 <!-- ================ Order Details List ================= -->
-                <div class="details">
+                <div class="details" id="details">
                     <div class="recentOrders" style="margin: 0%; padding: 0%;">
                         <h1 style="padding: 0%; text-align: center;">Quick Order Report</h1>
                         <div id="myChart" style="max-width:800px; height:350px;"></div>  
@@ -415,7 +426,8 @@ input[type="checkbox"]:checked {
                         </table>
                       </div>
             </section>
-            <section id="section 2" style="margin-left: 20px;margin-right: 15px;"><iframe id = "iframeAddcategory" src="submeun/OderVeiwPage.html"></iframe></section>
+            <section id="section 7" style="margin-left: 20px;margin-right: 15px;"><iframe id = "iframeAddcategory" src="submeun/order_now.html"></iframe></section>
+            <section id="section 2" style="margin-left: 20px;margin-right: 15px;"><iframe id = "iframeOtder" src="submeun/OderVeiwPage.html"></iframe></section>
             <section id="section 3" style="margin-left: 20px;margin-right: 15px;"><iframe id = "iframeAddcategory" src="submeun/VeiwReport.html" >iframeAddcategory</iframe></section>
             <section id="section 4" style="margin-left: 20px;margin-right: 15px;"><iframe id = "iframeAddcategory" src="submeun/AddCategorysub.html" ></iframe></section>
             <section id="section 5" style="margin-left: 20px;margin-right: 15px;"><iframe id = "iframeAddcategory" src="submeun/AddProductsub.html"              >iframeAddcategory</iframe></section>
@@ -469,6 +481,11 @@ input[type="checkbox"]:checked {
     var canvasImage = document.getElementById("canvasImage");
     var storeButton = document.getElementById('storeButton');
     var storeText = document.getElementById('StoreText');
+
+    var orderCompletedNumbers = 0;
+    var orderRejected = 0;
+    var orderIncoming = 0;
+    var TotalEarning = 0;
 
 
     storeButton.addEventListener('change', (e)=>{
@@ -530,10 +547,10 @@ input[type="checkbox"]:checked {
                     document.getElementById('BrandName').innerHTML =  doc.data().MainAdnim;
                     document.getElementById('imgIcon').src = doc.data().urlProfile;
                     document.getElementById('imgIcon').style.backgroundSize = "Cover";
-                    if (!doc.data().open)
-                      document.getElementById('Status').innerHTML =  "Closed";
-                    else if (doc.data().open)
-                      document.getElementById('Status').innerHTML =  "Active"; 
+                    //if (!doc.data().open)
+                    //  document.getElementById('Status').innerHTML =  "Closed";
+                    //else if (doc.data().open)
+                    //  document.getElementById('Status').innerHTML =  "Active"; 
                     
                 }
             });
@@ -547,16 +564,12 @@ input[type="checkbox"]:checked {
 
 const starCountRef = await ref(realdb, sessionStorage.getItem("CompanyName"));
 
-  var orderCompletedNumbers = 0;
-  var orderRejected = 0;
-  var orderIncoming = 0;
-  var TotalEarning = 0;
 
 await onValue(starCountRef, (snapshot) => {
-  var orderCompletedNumbers = 0;
-  var orderRejected = 0;
-  var orderIncoming = 0;
-  var TotalEarning = 0;
+  orderCompletedNumbers = 0;
+  orderRejected = 0;
+  orderIncoming = 0;
+  TotalEarning = 0;
   snapshot.forEach((childSnapshot) => {
     const childKey = childSnapshot.key;
     const childData = childSnapshot.val();
@@ -635,12 +648,14 @@ await onValue(starCountRef, (snapshot) => {
     function mainSection(){
 
         document.getElementById("Change1").addEventListener("click",function() {
-            changeSection(1);
+          changeSection(1); 
+          document.getElementById("myChart").innerHTML = document.getElementById("myChart").innerHTML ;
         });
 
         document.getElementById("Change2").addEventListener("click",function() {
+            var iframe = document.getElementById('iframeOtder');
+            iframe.src = iframe.src;
             changeSection(2);
-
             
         });
 
@@ -656,6 +671,10 @@ await onValue(starCountRef, (snapshot) => {
             changeSection(5);
         });
 
+        document.getElementById("Change7").addEventListener("click",function() {
+            changeSection(7);
+        });
+
         
 
         changeSection(null);
@@ -669,6 +688,7 @@ await onValue(starCountRef, (snapshot) => {
                 document.getElementById("section 3").style.display = 'none';
                 document.getElementById("section 4").style.display = 'none';
                 document.getElementById("section 5").style.display = 'none';
+                document.getElementById("section 7").style.display = 'none';
             
             }else
             {
@@ -678,10 +698,11 @@ await onValue(starCountRef, (snapshot) => {
         }
     }
 
+
     function headLineChange(section)
     {
         var headLine = document.getElementById("headLine");
-
+        
         if (section == 2)
         {
           //headLine.innerHTML = "In-coming Orders";
@@ -690,6 +711,7 @@ await onValue(starCountRef, (snapshot) => {
           document.getElementById("section 3").style.display = 'none';
           document.getElementById("section 4").style.display = 'none';
           document.getElementById("section 5").style.display = 'none';
+          document.getElementById("section 7").style.display = 'none';
         }
         else if (section == 3)
         {
@@ -699,6 +721,7 @@ await onValue(starCountRef, (snapshot) => {
           document.getElementById("section 3").style.display = 'block';
           document.getElementById("section 4").style.display = 'none';
           document.getElementById("section 5").style.display = 'none';
+          document.getElementById("section 7").style.display = 'none';
 
         }
         else if (section == 4)
@@ -709,6 +732,7 @@ await onValue(starCountRef, (snapshot) => {
           document.getElementById("section 3").style.display = 'none';
           document.getElementById("section 4").style.display = 'block';
           document.getElementById("section 5").style.display = 'none';
+          document.getElementById("section 7").style.display = 'none';
         }
         else if (section == 5)
         {
@@ -718,6 +742,17 @@ await onValue(starCountRef, (snapshot) => {
           document.getElementById("section 3").style.display = 'none';
           document.getElementById("section 4").style.display = 'none';
           document.getElementById("section 5").style.display = 'block';
+          document.getElementById("section 7").style.display = 'none';
+
+        }else if (section == 7)
+        {
+          //headLine.innerHTML = "Add Product";
+          document.getElementById("section 1").style.display = 'none';
+          document.getElementById("section 2").style.display = 'none';
+          document.getElementById("section 3").style.display = 'none';
+          document.getElementById("section 4").style.display = 'none';
+          document.getElementById("section 5").style.display = 'none';
+          document.getElementById("section 7").style.display = 'block';
 
         }
     }
@@ -770,7 +805,7 @@ await onValue(starCountRef, (snapshot) => {
     cell3.appendChild(element3); 
 }  
   
-function removeRow(btnName) {  
+    function removeRow(btnName) {  
     try {  
         var table = document.getElementById('dataTable');  
         var rowCount = table.rows.length;  
@@ -787,4 +822,5 @@ function removeRow(btnName) {
     }  
 } 
     
+    function reloadDIV () {document.getElementById("details").innerHTML.reload}
     </script>

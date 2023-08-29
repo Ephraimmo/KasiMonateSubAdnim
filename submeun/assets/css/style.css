@@ -35,11 +35,14 @@ html ::-webkit-scrollbar-thumb:hover {
 
 body {
     background: #eee;
+    font-family: Arial, sans-serif;
     font-family: 'Raleway', sans-serif;
     font-family: 'Roboto', sans-serif;
     font-family: 'Poppins', sans-serif;
     font-family: 'Rubik', sans-serif;
     padding: 100px 0;
+    line-height: 1.6;
+    background-color: #f8f8f8;
 }
 
 h1,

@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to FreshBites</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Add custom styles here if needed */
+        .product-item {
+            margin-bottom: 0px;
+        }
+        
+        .product-description{
+          height: 40px;
+          padding-top: 5px;
+        }
+        .product-name{
+          height: 40px;
+        }
+    </style>
+
+<style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      color: #333;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      text-align: left;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      margin: auto;
+      margin-top: 50px;
+      margin-bottom: 50px;
+    } 
+  
+    div.dataTables_info, div.dataTables_length{
+      font-weight: bold;
+    padding: 10px;
+    letter-spacing: 1px;
+    
+    }
+  
+    input[type="search"]{
+      font-size: 16px;
+      width: 100%;
+      line-height: 40px;
+      height: 5%;
+      border: 1px solid #333;
+      border-radius: 20px;
+      outline: none;
+      color: #333;
+      box-shadow: 1px 2px 8px rgba(0,0,0,0.2);
+  } 
+  
+  .btn, .btn:hover, .add-to-cart-btn, .add-to-cart-btn:hover, .remove-from-cart-btn, .remove-from-cart-btn:hover {
+    color: #88a5b1;
+  }
+  
+  .btn-primary, .btn-primary:hover, .btn-info, .btn-info:hover,.remove-from-cart-btn,.remove-from-cart-btn:hover,.add-to-cart-btn,.add-to-cart-btn:hover, .btn-success, .btn-success:hover, .btn-warning, .btn-warning:hover, .btn-danger, .btn-danger:hover, .btn-inverse, .btn-inverse:hover {
+    color: #fff;
+  }
+  
+  .btn, .add-to-cart-btn, .remove-from-cart-btn {
+    font: 14px Helvetica;
+    padding: 12px 22px 10px;
+    margin: 0;
+    border: none;
+    border-bottom: 3px #aacedd solid;
+    text-decoration: none;
+    background-image: -moz-linear-gradient(#ffffff, #f8f8f8);
+    background-image: -webkit-linear-gradient(#ffffff, #f8f8f8);
+    background-image: linear-gradient(#ffffff, #f8f8f8);
+    position: relative;
+    -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 0 25px -5px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 0 25px -5px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 0 25px -5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+  }
+  .btn:active, .remove-from-cart-btn:active {
+    position: relative;
+    top: 3px;
+    border: none;
+  }
+  
+  .btn-primary {
+    border-bottom: 3px #000609 solid;
+    background-image: -moz-linear-gradient(#0079bb, #005888);
+    background-image: -webkit-linear-gradient(#0079bb, #005888);
+    background-image: linear-gradient(#0079bb, #005888);
+  }
+  .btn-primary:hover {
+    background-image: -moz-linear-gradient(#009aee, #005888);
+    background-image: -webkit-linear-gradient(#009aee, #005888);
+    background-image: linear-gradient(#009aee, #005888);
+  }
+  
+  .btn-info {
+    border-bottom: 3px #206376 solid;
+    background-image: -moz-linear-gradient(#71c1d8, #49afcd);
+    background-image: -webkit-linear-gradient(#71c1d8, #49afcd);
+    background-image: linear-gradient(#71c1d8, #49afcd);
+  }
+  .btn-info:hover {
+    background-image: -moz-linear-gradient(#99d2e3, #49afcd);
+    background-image: -webkit-linear-gradient(#99d2e3, #49afcd);
+    background-image: linear-gradient(#99d2e3, #49afcd);
+  }
+  
+  .btn-success, .add-to-cart-btn {
+    border-bottom: 3px #2d662d solid;
+    background-image: -moz-linear-gradient(#7ec77e, #5bb75b);
+    background-image: -webkit-linear-gradient(#7ec77e, #5bb75b);
+    background-image: linear-gradient(#7ec77e, #5bb75b);
+  }
+  .btn-success:hover, .add-to-cart-btn:hover {
+    background-image: -moz-linear-gradient(#a2d6a2, #5bb75b);
+    background-image: -webkit-linear-gradient(#a2d6a2, #5bb75b);
+    background-image: linear-gradient(#a2d6a2, #5bb75b);
+  }
+  
+  .btn-warning {
+    border-bottom: 3px #a86404 solid;
+    background-image: -moz-linear-gradient(#fbbc64, #faa732);
+    background-image: -webkit-linear-gradient(#fbbc64, #faa732);
+    background-image: linear-gradient(#fbbc64, #faa732);
+  }
+  .btn-warning:hover {
+    background-image: -moz-linear-gradient(#fcd296, #faa732);
+    background-image: -webkit-linear-gradient(#fcd296, #faa732);
+    background-image: linear-gradient(#fcd296, #faa732);
+  }
+  
+  .btn-danger, .remove-from-cart-btn {
+    border-bottom: 3px #88201c solid;
+    background-image: -moz-linear-gradient(#e37873, #da4f49);
+    background-image: -webkit-linear-gradient(#e37873, #da4f49);
+    background-image: linear-gradient(#e37873, #da4f49);
+  }
+  .btn-danger:hover, .remove-from-cart-btn:hover {
+    background-image: -moz-linear-gradient(#eba19e, #da4f49);
+    background-image: -webkit-linear-gradient(#eba19e, #da4f49);
+    background-image: linear-gradient(#eba19e, #da4f49);
+  }
+
+  .remove-from-cart-btn{
+    margin-top: 5px;
+  }
+  
+  .btn-inverse {
+    border-bottom: 3px black solid;
+    background-image: -moz-linear-gradient(#505050, #363636);
+    background-image: -webkit-linear-gradient(#505050, #363636);
+    background-image: linear-gradient(#505050, #363636);
+  }
+  .btn-inverse:hover {
+    background-image: -moz-linear-gradient(#696969, #363636);
+    background-image: -webkit-linear-gradient(#696969, #363636);
+    background-image: linear-gradient(#696969, #363636);
+  }
+  
+  .btn-large {
+    font-size: 18px;
+    padding: 12px 22px 10px;
+  }
+  
+  .btn-small {
+    font-size: 11px;
+    padding: 8px 16px 6px;
+  }
+  
+  .btn-primary{
+    margin: 2px;
+  }
+  
+  
+    table th {
+    background-color: #ff9800;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  table tr:nth-child(even) td {
+    background-color: #f2f2f2;
+  }
+  
+  table tr:hover td {
+    background-color: #ffedcc;
+  }
+  
+  table td {
+    background-color: #fff;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;
+  }
+  </style>
+</head>
+
+<body>
+
+    <main class="container">
+
+        <section id="explore">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h2>Explore Our Selection</h2>
+                </div>
+                <div class="col-12 col-md-6 cart-info">
+                    <button id="cart-button" class="btn btn-primary">
+                        <span>place order(<span id="cart-count">0</span>)</span>
+                    </button>
+                    <button id="clear-cart-button" class="btn btn-danger">Clear Cart</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="input-group mb-3 search-bar">
+                        <input type="text" class="form-control" id="search-input" placeholder="Search for products...">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Display three product items in one row -->
+            <div class="row" id="product-list-row">
+            
+                <!-- Add more product items as needed -->
+            </div>
+        </section>
+
+        <!-- ... (the rest of your content remains the same) ... -->
+    </main>
+
+    <div id="loading-overlay" class="overlay">
+        <div class="loader"></div>
+    </div>
+
+
+
+    <!-- Bootstrap Modal for Popup Messages -->
+    <div class="modal fade" id="popupModal" tabindex="-1" role="dialog" aria-labelledby="popupModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="popupModalLabel">Error Message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"  id="popupMessage"></div>
+                <div class="modal-footer">
+                    <button type="button" id="Close" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import {initializeApp} from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
+      
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+      const firebaseConfig = {
+      // ...
+      apiKey: "AIzaSyDibpkuzUookkbMVIoHqe_rYu1umY1qF-4",
+      authDomain: "data-b93ed.firebaseapp.com",
+      databaseURL: "https://data-b93ed-default-rtdb.firebaseio.com",
+      projectId: "data-b93ed",
+      storageBucket: "data-b93ed.appspot.com",
+      messagingSenderId: "218236841715",
+      appId: "1:218236841715:web:e96bfd3174b08438701186"
+      };
+      
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      
+      import {getAuth, createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged,signOut,signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js";
+      
+      import {getDatabase, set,get, ref, onValue , child, update}                                                                            from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
+      import {getStorage,ref as sRef,uploadBytesResumable,getDownloadURL, deleteObject }                                                          from "https://www.gstatic.com/firebasejs/9.1.3/firebase-storage.js";
+      import { getFirestore, doc, getDoc, getDocs , setDoc ,collection , onSnapshot , addDoc, updateDoc, deleteDoc , deleteField  } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js";
+      
+      const realdb = getDatabase();
+      const db     = getFirestore();
+
+      var products = [];
+
+      getAllProduct(sessionStorage.getItem("CompanyName"));
+      //sessionStorage.getItem("CompanyName"));
+
+      // Function to get all products from Firebase
+      async function getAllProduct(getProductPath){
+  
+        await onSnapshot( collection(db, 'imageURLs/' + getProductPath + "/meun"), async (docSnap) => {
+            var counter = 0;
+            products = [];
+
+            await docSnap.forEach(doc => {
+                if (doc.data().Status_Product)
+                  counter++;
+            });
+
+            await docSnap.forEach(doc => {
+                if (doc.data().Status_Product)
+                  products.push({ image: doc.data().url, name: doc.data().ProductName,description: doc.data().ProductDescription, price: doc.data().ProductSelling, quantity: doc.data().ProductQuantity, rating: 3 });
+            
+                if (counter == products.length){
+                    displayProducts();
+                }
+            });
+
+        });
+      } 
+
+// Function to display products in the product list
+function displayProducts() {
+    const productList = document.getElementById("product-list-row");
+    productList.innerHTML = "";
+    var rowCounter = 0;
+
+    products.forEach((product) => {
+        const listItem = document.createElement("div");
+        listItem.classList = 'col-12 col-md-4';
+    
+        var price = "price-" + product.name;
+
+        if (product.name.length > 20){
+          product.name = product.name.substring(0,20) + "...";
+        }else{
+          for (let index = product.name.length; index < 20; index++) {
+            product.name += " "; 
+          }
+        }
+        if (product.description.length > 28){
+          product.description = product.description.substring(0,48) + "...";
+          
+        
+        } 
+
+        listItem.innerHTML = `
+                <ul class="list-group product-list" id="product-list"><li class="list-group-item product-item">
+                <img src=${product.image} alt="${product.name}">
+                <h4 class="product-name" >${product.name}</h4>
+                <p class="product-description" id ="description-${product.name}">${product.description}</p>
+                <div class="product-details">
+                    <p class="price" id = 'price-${product.name}' >R ${parseFloat(product.price).toFixed(2)}</p>
+                    <div class="quantity-select">
+                <select id = 'select-${product.name}'>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <!-- Add more options as needed -->
+                </select>
+                </div>
+                    <div class="rating">${generateRatingStars(product.rating)}</div>
+                    <button class="add-to-cart-btn" id='${product.name}'>Add to Cart</button>
+                    <button class="remove-from-cart-btn" id='${product.name}'>Remove from Cart</button>
+                    </div><li></ul>
+                    `;
+        
+        productList.appendChild(listItem);
+    });
+    
+}
+
+      
+// Function to generate rating stars based on the rating value
+function generateRatingStars(rating) {
+    const maxRating = 5;
+    const fullStars = "★".repeat(rating);
+    const emptyStars = "☆".repeat(maxRating - rating);
+    return fullStars + emptyStars;
+}
+
+// Function to add a product to the cart (you can implement cart logic here)
+  var delayInMilliseconds = 1000; //1 second
+        
+        // Function to show popup message
+        function showPopupMessage(message) {
+            const popupMessageElement = document.getElementById("popupMessage");
+            popupMessageElement.textContent = message;
+            $('#popupModal').modal('show');
+        }
+
+        // Function to add a product to the cart
+        function addToCart(productName) {
+            // Check if the product is already in the cart
+            if (cartItems.includes(productName)) {
+                showPopupMessage(`${productName} is already in the cart.`);
+            } else {
+                
+                var price = document.getElementById(`price-${productName}`);
+                var select = document.getElementById(`select-${productName}`);
+                alert(select);
+                cartItems.push(`${productName}`);
+                priceItems.push(`${price.innerText.replace('R ', "")}`);
+                quantityItems.push(`${select.value}`);
+                updateCartCount();
+                displayProducts();
+                //showPopupMessage(`${productName} added to the cart.`);
+            }
+        }
+
+        // Function to remove a product from the cart
+        function removeFromCart(productName) {
+            const productIndex = cartItems.indexOf(`${productName}`);
+            if (productIndex !== -1) {
+                cartItems.splice(productIndex, 1);
+                priceItems.splice(productIndex, 1);
+                quantityItems.splice(productIndex, 1);
+                updateCartCount();
+                displayProducts();
+                //showPopupMessage(`${productName} removed from the cart.`);
+            }else{
+                showPopupMessage(`${productName} was not found from the cart.`);
+            }
+        }
+// Function to handle the search input change event
+document.getElementById("search-input").addEventListener("input", searchProducts);
+
+
+// Function to filter products based on the search input
+function searchProducts() {
+    const searchInput = document.getElementById("search-input").value.toLowerCase();
+    console.log("searchInput : " + searchInput);
+    const filteredProducts = products.filter((product) =>
+        product.name.toLowerCase().includes(searchInput.toLowerCase())
+    );
+
+    displayFilteredProducts(filteredProducts);
+}
+
+// Function to display filtered products in the product list
+function displayFilteredProducts(filteredProducts) {
+    const productList = document.getElementById("product-list-row");
+    productList.innerHTML = "";
+
+    if (filteredProducts.length == 0){
+        productList.innerHTML = "No product found";
+    }else
+    {
+        filteredProducts.forEach((product) => {
+            const listItem = document.createElement("div");
+            listItem.classList = 'col-12 col-md-4';
+
+            var price = "price-" + product.name;
+            
+            listItem.innerHTML = `
+                <ul class="list-group product-list" id="product-list"><li class="list-group-item product-item">
+                <img src=${product.image} alt="${product.name}">
+                <h3>${product.name}</h3>
+                <p class="product-description" id ="'description-${product.name}'">${product.description}</p>
+                <div class="product-details">
+                    <p id = 'price-${product.name}' >R ${parseFloat(product.price).toFixed(2)}</p>
+                    <div class="quantity-select">
+                    <select id = 'select-${product.name}'>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <!-- Add more options as needed -->
+                </select>
+                </div>
+                    <div class="rating">${generateRatingStars(product.rating)}</div>
+                    <button class="add-to-cart-btn" id='${product.name}'>Add to Cart</button>
+                    <button class="remove-from-cart-btn" id='${product.name}'>Remove from Cart</button>
+                    </div><li></ul>
+                    `;
+            productList.appendChild(listItem);
+       });
+    }
+}
+
+
+//Add to cart 
+let cartItems = [];
+let placeOrderItems = [];
+let priceItems = [];
+let quantityItems = [];
+var orderNumber = 0;
+
+// Function to update the cart count in the UI
+function updateCartCount() {
+    const cartCountElement = document.getElementById("cart-count");
+    cartCountElement.textContent = cartItems.length;
+}
+
+// Function to handle the search input change event
+document.getElementById("search-input").addEventListener("input", searchProducts);
+
+
+// Function to remove all products from the cart
+function clearCart() {
+    cartItems     = [];
+    priceItems    = [];
+    placeOrderItems = [];
+    quantityItems = [];
+    updateCartCount();
+    displayProducts();
+}
+
+
+function placeOrder(Items, Itemsprices, total,number,datetime) {
+
+    
+  
+    set(ref(realdb, sessionStorage.getItem("CompanyName") + '/' + number), {
+        'Date'           : datetime,
+        'Food List'      : placeOrderItems,
+        'Food_List_image': "no url",
+        'Order_number'   : number,
+        'Total'          : total,
+        'companyName'    : sessionStorage.getItem("CompanyName"),
+        'ready'          : false,
+        'Placed Order'   : true,
+        'path'           : number,
+        'type'           : 'Pickup',
+        'process'        : 'Accepted',
+        'user'           : sessionStorage.getItem("Username"),
+        'payWithCash'    : paymentType,
+        'Preparing Food' : false
+    }).then(()=>{
+        hideLoadingOverlay();
+        showPopupMessage(`The order was placed with order number : #${number}`);
+        clearCart();
+        
+    });
+}
+
+function printOrder(Items, Itemsprices, total,number,datetime) {
+  set(ref(realdb, 'printOrder/' + sessionStorage.getItem("CompanyName")), {
+    Items: Items,
+    Itemsprices : Itemsprices,
+    total       : String(total),
+    orderNumber : String(number),
+    date        : String(datetime),
+    payWithCash : paymentType,
+    user        : sessionStorage.getItem("Username")
+  }).then(()=>{
+    placeOrder(Items, Itemsprices, total,orderNumber,datetime);
+  });
+}
+
+function getOrderNumber() {
+    const starCountRef = ref(realdb, 'OrderNumber/' + sessionStorage.getItem("CompanyName"));
+    onValue(starCountRef, (snapshot) => {
+        if (snapshot.exists()) {
+            orderNumber = snapshot.val().orderNumber
+        }
+    });
+}
+
+function setOrderNumber(number) {
+  
+  set(ref(realdb, 'OrderNumber/' + sessionStorage.getItem("CompanyName")), {
+    orderNumber: number,
+  });
+}
+var paymentType = '';
+document.addEventListener('click',async (e)=>{
+
+    if (e.target.innerHTML == "Add to Cart"){
+        addToCart(e.target.id); 
+    }else if (e.target.innerHTML == "Remove from Cart"){
+        removeFromCart(e.target.id);
+    }else if (e.target.innerHTML == "Clear Cart"){
+        clearCart();
+    }else if (e.target.innerHTML.includes('place order')){
+
+        if (cartItems.length == 0){
+            showPopupMessage(`Your cart is empty, please add iteams to cart.`);
+            return;
+        }
+
+        const result = await b_confirm('is the customer paying with card?');
+
+        if (result){
+            paymentType = "card";
+        }else{
+            paymentType = "cash";
+        }
+        var total = 0;
+        var Items = '';
+        var Itemsprices = '';
+
+        showLoadingOverlay();
+
+        for (let index = 0; index < cartItems.length; index++) {
+            
+            Items       = Items       + "|" + cartItems[index] + "x" + quantityItems[index];
+            placeOrderItems = placeOrderItems + "," + cartItems[index] + "x" + quantityItems[index];
+            Itemsprices = Itemsprices + "|" + priceItems[index] * quantityItems[index];
+            total       = total       + priceItems[index] * quantityItems[index];
+
+            
+
+            if (index + 1 == cartItems.length){
+
+                let current = new Date();
+                let cDate = current.getFullYear() + '-';
+                
+                if ((current.getMonth() + 1).toString().length == 2){
+                    cDate = cDate + (current.getMonth() + 1) + '-';
+                }else{
+                    cDate = cDate + "0" + (current.getMonth() + 1) + '-';
+                }
+
+                if (current.getDate().toString().length == 2){
+                    cDate = cDate + current.getDate();
+                }else{
+                    cDate = cDate + "0" + current.getDate();
+                }
+
+
+                let cTime = current.getHours() + ":" ;
+
+                if (current.getMinutes().toString().length == 2){
+                    cTime = cTime + + current.getMinutes() + ":"
+                }else{
+                    cTime = cTime + '0' + + current.getMinutes() + ":";
+                }
+
+                if (current.getSeconds().toString().length == 2){
+                    cTime = cTime + current.getSeconds();
+                }else{
+                    cTime = cTime + '0' + current.getSeconds();
+                }
+                let datetime = cDate + ' ' + cTime;
+
+                if (orderNumber == 0){
+                    setOrderNumber(1);
+                    printOrder(Items, Itemsprices, total,1,datetime);
+                }else {
+                    orderNumber++;
+                    setOrderNumber(orderNumber);
+                    printOrder(Items, Itemsprices, total,orderNumber,datetime);
+                }
+                
+                
+            }
+        }
+    }
+   });
+
+   async function b_confirm(msg) {
+      const modalElem = document.createElement('div')
+      modalElem.id = "modal-confirm"
+      modalElem.className = "modal"
+      modalElem.innerHTML = `
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">             
+            <div class="modal-body fs-6">
+              <p style="font-size: 30px; border: 3em;">${msg}</p>
+          </div>    <!-- modal-body -->
+          <div class="modal-footer" style="border-top:0px">             
+            <button id="modal-btn-descartar" type="button" class="btn btn-primary">No</button>
+            <button id="modal-btn-aceptar" type="button" class="btn btn-primary">Yes</button>
+          </div>
+        </div>
+      </div>
+      `
+      const myModal = new bootstrap.Modal(modalElem, {
+        keyboard: false,
+        backdrop: 'static'
+      })
+      
+      myModal.show();
+      myModal.id = "DeletemyModal";
+    
+      return new Promise((resolve, reject) => {
+        document.body.addEventListener('click', response)
+    
+        function response(e) {
+          let bool = false
+          if (e.target.id == 'modal-btn-descartar') {
+            
+            bool = false}
+          else if (e.target.id == 'modal-btn-aceptar') {
+            bool = true;}
+          else return
+          myModal.hide();
+          document.body.removeEventListener('click', response);
+          //document.body.querySelector('.modal-backdrop').remove();
+          modalElem.remove();
+          //document.body.querySelector('.modal-backdrop').remove();
+          resolve(bool)
+        }
+      })
+    }
+
+    // Function to show the loading overlay
+function showLoadingOverlay() {
+    var loadingOverlay = document.getElementById('loading-overlay');
+    loadingOverlay.style.display = 'block';
+}
+
+// Function to hide the loading overlay
+function hideLoadingOverlay() {
+    var loadingOverlay = document.getElementById('loading-overlay');
+    loadingOverlay.style.display = 'none';
+}
+   getOrderNumber();
+
+    </script>
+    <!-- Add more Firebase modules if needed -->
+
+</body>
+
+</html>

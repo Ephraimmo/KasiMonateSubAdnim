@@ -47,6 +47,8 @@ tfoot td {
   .toast-success .toast-body {
     background-color: #f8f9fa;
   }
+
+  
 </style>
 
 <style>
@@ -60,6 +62,188 @@ tfoot tr, thead tr {
 }
 tfoot td {
 	font-weight:bold;
+}
+</style>
+
+
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    color: #333;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    text-align: left;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  } 
+
+  div.dataTables_info, div.dataTables_length{
+    font-weight: bold;
+  padding: 10px;
+  letter-spacing: 1px;
+  
+  }
+
+  input[type="search"]{
+    font-size: 16px;
+    width: 100%;
+    line-height: 40px;
+    height: 5%;
+    border: 1px solid #333;
+    border-radius: 20px;
+    outline: none;
+    color: #333;
+    box-shadow: 1px 2px 8px rgba(0,0,0,0.2);
+} 
+
+.btn, .btn:hover {
+  color: #88a5b1;
+}
+
+.btn-primary, .btn-primary:hover, .btn-info, .btn-info:hover, .btn-success, .btn-success:hover, .btn-warning, .btn-warning:hover, .btn-danger, .btn-danger:hover, .btn-inverse, .btn-inverse:hover {
+  color: #fff;
+}
+
+.btn {
+  font: 14px Helvetica;
+  padding: 12px 22px 10px;
+  margin: 0;
+  border: none;
+  border-bottom: 3px #aacedd solid;
+  text-decoration: none;
+  background-image: -moz-linear-gradient(#ffffff, #f8f8f8);
+  background-image: -webkit-linear-gradient(#ffffff, #f8f8f8);
+  background-image: linear-gradient(#ffffff, #f8f8f8);
+  position: relative;
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 0 25px -5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 0 25px -5px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0 25px -5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+.btn:active {
+  position: relative;
+  top: 3px;
+  border: none;
+}
+
+.btn-primary {
+  border-bottom: 3px #000609 solid;
+  background-image: -moz-linear-gradient(#0079bb, #005888);
+  background-image: -webkit-linear-gradient(#0079bb, #005888);
+  background-image: linear-gradient(#0079bb, #005888);
+}
+.btn-primary:hover {
+  background-image: -moz-linear-gradient(#009aee, #005888);
+  background-image: -webkit-linear-gradient(#009aee, #005888);
+  background-image: linear-gradient(#009aee, #005888);
+}
+
+.btn-info {
+  border-bottom: 3px #206376 solid;
+  background-image: -moz-linear-gradient(#71c1d8, #49afcd);
+  background-image: -webkit-linear-gradient(#71c1d8, #49afcd);
+  background-image: linear-gradient(#71c1d8, #49afcd);
+}
+.btn-info:hover {
+  background-image: -moz-linear-gradient(#99d2e3, #49afcd);
+  background-image: -webkit-linear-gradient(#99d2e3, #49afcd);
+  background-image: linear-gradient(#99d2e3, #49afcd);
+}
+
+.btn-success {
+  border-bottom: 3px #2d662d solid;
+  background-image: -moz-linear-gradient(#7ec77e, #5bb75b);
+  background-image: -webkit-linear-gradient(#7ec77e, #5bb75b);
+  background-image: linear-gradient(#7ec77e, #5bb75b);
+}
+.btn-success:hover {
+  background-image: -moz-linear-gradient(#a2d6a2, #5bb75b);
+  background-image: -webkit-linear-gradient(#a2d6a2, #5bb75b);
+  background-image: linear-gradient(#a2d6a2, #5bb75b);
+}
+
+.btn-warning {
+  border-bottom: 3px #a86404 solid;
+  background-image: -moz-linear-gradient(#fbbc64, #faa732);
+  background-image: -webkit-linear-gradient(#fbbc64, #faa732);
+  background-image: linear-gradient(#fbbc64, #faa732);
+}
+.btn-warning:hover {
+  background-image: -moz-linear-gradient(#fcd296, #faa732);
+  background-image: -webkit-linear-gradient(#fcd296, #faa732);
+  background-image: linear-gradient(#fcd296, #faa732);
+}
+
+.btn-danger {
+  border-bottom: 3px #88201c solid;
+  background-image: -moz-linear-gradient(#e37873, #da4f49);
+  background-image: -webkit-linear-gradient(#e37873, #da4f49);
+  background-image: linear-gradient(#e37873, #da4f49);
+}
+.btn-danger:hover {
+  background-image: -moz-linear-gradient(#eba19e, #da4f49);
+  background-image: -webkit-linear-gradient(#eba19e, #da4f49);
+  background-image: linear-gradient(#eba19e, #da4f49);
+}
+
+.btn-inverse {
+  border-bottom: 3px black solid;
+  background-image: -moz-linear-gradient(#505050, #363636);
+  background-image: -webkit-linear-gradient(#505050, #363636);
+  background-image: linear-gradient(#505050, #363636);
+}
+.btn-inverse:hover {
+  background-image: -moz-linear-gradient(#696969, #363636);
+  background-image: -webkit-linear-gradient(#696969, #363636);
+  background-image: linear-gradient(#696969, #363636);
+}
+
+.btn-large {
+  font-size: 18px;
+  padding: 12px 22px 10px;
+}
+
+.btn-small {
+  font-size: 11px;
+  padding: 8px 16px 6px;
+}
+
+.btn-primary{
+  margin: 2px;
+}
+
+
+  table th {
+  background-color: #ff9800;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #ccc;
+}
+
+table tr:nth-child(even) td {
+  background-color: #f2f2f2;
+}
+
+table tr:hover td {
+  background-color: #ffedcc;
+}
+
+table td {
+  background-color: #fff;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  font-weight: bold;
 }
 </style>
 
@@ -100,7 +284,7 @@ tfoot td {
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Add Category</h5>
+            <h5 class="modal-title" id="staticBackdropLabel">Add Product</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -164,22 +348,6 @@ tfoot td {
                   </div>
                 </div>
  
-                <div class="col-md-12">
-                  <label for="">Meta Title</label>
-                  <input type="text" name="Meta Title" value=""  id = "Meta_TitleProduct" placeholder="Enter meta title" class="form-control">
-                </div>
- 
-                <div class="col-md-12">
-                  <label for="">Meta Description</label>
-                  <textarea class="form-control" name="Meta Description" id="Meta_Description_Product" placeholder="Enter meta description" rows="2"></textarea>
-                </div>
- 
-                <div class="col-md-12">
-                  <label for="">Meta Keywords</label>
-                  <textarea class="form-control" name="Meta Keywords" id="Meta_Keywords_Product" placeholder="Enter meta Keywords" rows="2"></textarea>
-                  <label for=""></label>
-                </div>
- 
                 
  
                 <div class="row">
@@ -202,14 +370,13 @@ tfoot td {
                   
  
                   <button type="button" id = "selimgsbtn" class="btn btn-primary" >Select Images</button>
-                  <button type="button" id = "addproductbtn" class="btn btn-primary" >Upload Images</button>
                  </div>
                 
                 <input hidden id = "namebox" type = "text"> <label hidden id = "extlab"> </label> <br><br>
                 
              </div>
  
-             <div class="col-6"><button id="Submitform" class="btn btn-primary" type="submit" ></button></div>
+             <div class="col-6"><button hidden id="Submitform" class="btn btn-primary" type="submit" ></button></div>
                   
             </form> 
                 
@@ -217,7 +384,7 @@ tfoot td {
    
          </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" >Close</button>
+            <button type="button" class="btn btn-danger" >Close</button>
             <button type="button" id = "CloseButton" class=" Save btn btn-primary" >Add</button>
           </div>
         </div>
@@ -308,7 +475,7 @@ tfoot td {
   
     const imgdiv     = document.getElementById("imagesDiv");
     const selBtn     = document.getElementById("selimgsbtn");
-    const addBtn     = document.getElementById("addproductbtn");
+   
   
     const name                     = document.getElementById("ProductName");
     const ProductSlug              = document.getElementById("ProductSlug");
@@ -319,9 +486,6 @@ tfoot td {
     const ProductQuantity          = document.getElementById("ProductQuantity");
     const Status_Product           = document.getElementById("Status_Product");
     const Trending_Product         = document.getElementById("Trending_Product");
-    const Meta_TitleProduct        = document.getElementById("Meta_TitleProduct");
-    const Meta_Description_Product = document.getElementById("Meta_Description_Product");
-    const Meta_Keywords_Product    = document.getElementById("Meta_Keywords_Product");
     const SubCategory              = document.getElementById('SelectCategory');
 
     //addEventListener for any button
@@ -339,9 +503,7 @@ tfoot td {
         ProductQuantity         .value = "";
         Status_Product          .value = "";
         Trending_Product        .value = "";
-        Meta_TitleProduct       .value = "";
-        Meta_Description_Product.value = "";
-        Meta_Keywords_Product   .value = "";
+        
         removeAndShowElement(['showButton'],'block',false);
         checkEditButtonClick = true;
         checkAddButtonClick = true;
@@ -467,12 +629,12 @@ tfoot td {
             createToast('Danger', 'Please complete all mandatory Fields!', 'toast-danger');
             document.getElementById("Submitform").click();
             return;
-          }else if (originalProduct != name.value){
-          if (productList.includes(name.value)  == false){
-            document.getElementById('CloseButton').innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
-            updateDoument_GivenID("imageURLs/" + sessionStorage.getItem("CompanyName") + "/meun",sessionStorage.getItem("CompanyName"));
-          }else if (productList.includes(name.value)  == true)
-            createToast('Danger', 'This Category already exist!', 'toast-danger');
+          }else if (originalProduct.value != name.value){
+            if (productList.includes(name.value)  == false){
+              document.getElementById('CloseButton').innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
+              updateDoument_GivenID("imageURLs/" + sessionStorage.getItem("CompanyName") + "/meun",sessionStorage.getItem("CompanyName"));
+            }else if (productList.includes(name.value)  == true)
+              createToast('Danger', 'This ' + name.value + ' already exist!', 'toast-danger');
         }else{
           updateDoument_GivenID("imageURLs/" + sessionStorage.getItem("CompanyName") + "/meun",sessionStorage.getItem("CompanyName"));
           document.getElementById("CloseButton").innerHTML = "Add";
@@ -575,15 +737,17 @@ form.addEventListener('submit', my_submit);
            let tab = "";
            var count = 0;
            var data  = [];
+           var ProductName = '';
+           var ProductDescription = '';
   
           docSnap.forEach(doc => {
 
             countLastPosition = doc.data().Position;
             count++;
 
-            var imgUrl = '<img src= ' + doc.data().url.toString() + ' alt= ' + doc.data().Name  + ' style="width:60px;height:70px;">';
-            var Action = '<button id = ' + countLastPosition + ' type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Edit</button>'
-                       + '<button type="button" id = ' + countLastPosition + ' class="btn btn-danger" data-toggle="confirmation" data-title="Are your sure you want to delete this product?">Delete</button>';
+            var imgUrl = '<img src= ' + doc.data().url.toString() + ' alt= ' + doc.data().Name  + ' style= "width:50px; height:50px;"  >';
+            var Action = '<button id = ' + countLastPosition + ' type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style= "width:48%; margin:auto;" >Edit</button>'
+                       + '<button type="button" id = ' + countLastPosition + ' class="btn btn-danger" data-toggle="confirmation" data-title="Are your sure you want to delete this product?" style= "width:48%; margin:auto;">Delete</button>';
                        var CategoryStatus = "";
             if (doc.data().Status_Product.toString() == "false")
               CategoryStatus = "hidden";
@@ -591,16 +755,35 @@ form.addEventListener('submit', my_submit);
               CategoryStatus = "visible";
             
             productList.push(doc.data().ProductName);
-            data.push([count,doc.data().ProductName,doc.data().ProductDescription,imgUrl,CategoryStatus,Action]);
+
+            if (doc.data().ProductName.length > 8){
+              ProductName = doc.data().ProductName.toString().substring(0,8) + "...";
+            }else{
+              ProductName = doc.data().ProductName;
+            }
+
+            if (doc.data().ProductDescription.length > 8){
+              ProductDescription = doc.data().ProductDescription.toString().substring(0,8) + "...";
+            }else{
+              ProductDescription = doc.data().ProductDescription;
+            }
+
+            data.push([count,ProductName,ProductDescription,imgUrl,CategoryStatus,Action]);
           });
 
           document.getElementById("addRow").innerHTML += tab;
-            $(document).ready(function () {
-          $('#example').DataTable({
-            "bDestroy": true,
-              data: data,
-              paging: true,
-		          autoWidth: true,
+          $(document).ready(function () {
+              document.title = "View " + sessionStorage.getItem("CompanyName") + " Order Report";
+              $('#example').DataTable({
+                "bDestroy": true,
+                data: data,
+                columnDefs: [{
+                  "defaultContent": "",
+                  "targets": "_all"
+                }],
+                dom: '<"dt-buttons"Bf><"clear">lrtp',
+		            paging: true,
+		            autoWidth: true,
               columns: [
                   { title: 'Position' },
                   { title: 'Name' },
@@ -652,9 +835,6 @@ form.addEventListener('submit', my_submit);
         ProductQuantity          : ProductQuantity.value,
         Status_Product           : Status_Product.checked,
         Trending_Product         : Trending_Product.checked,
-        Meta_TitleProduct        : Meta_TitleProduct.value,
-        Meta_Description_Product : Meta_Description_Product.value,
-        Meta_Keywords_Product    : Meta_Keywords_Product.value,
         Position                 : countLastPosition,
         url                      : ImageLinksArray[0],
         url1                     : ImageLinksArray[1],
@@ -673,10 +853,7 @@ form.addEventListener('submit', my_submit);
          // ProductSelling.value           = "";                      
          // ProductQuantity.value          = "";                       
          // Status_Product.value           = false;                      
-         // Trending_Product.value         = false;                        
-         // Meta_TitleProduct.value        = "";                         
-         // Meta_Description_Product.value = "";                                
-         // Meta_Keywords_Product.value    = "";                             
+         // Trending_Product.value         = false;                            
                                            
                   
           }).catch((error) => {
@@ -722,9 +899,6 @@ form.addEventListener('submit', my_submit);
           ProductQuantity          .value   =  docSnap.data().ProductQuantity;
           Status_Product           .checked =  docSnap.data().Status_Product;
           Trending_Product         .checked =  docSnap.data().Trending_Product;
-          Meta_TitleProduct        .value   =  docSnap.data().Meta_TitleProduct;
-          Meta_Description_Product .value   =  docSnap.data().Meta_Description_Product;
-          Meta_Keywords_Product    .value   =  docSnap.data().Meta_Keywords_Product;
           ProductUploadImage[0]             = docSnap.data().url;
           ProductUploadImage[1]             = docSnap.data().url1;
           ProductUploadImage[2]             = docSnap.data().url2;
@@ -758,9 +932,6 @@ form.addEventListener('submit', my_submit);
       ProductQuantity          : ProductQuantity.value,
       Status_Product           : Status_Product.checked,
       Trending_Product         : Trending_Product.checked,
-      Meta_TitleProduct        : Meta_TitleProduct.value,
-      Meta_Description_Product : Meta_Description_Product.value,
-      Meta_Keywords_Product    : Meta_Keywords_Product.value,
 
       
    }).then(() => {
@@ -792,6 +963,9 @@ form.addEventListener('submit', my_submit);
         return;
         
       await getDoumentWithGivenID(path,position);
+
+      
+      productList = [];
         
       const docRef = await doc(db, path, position);
 
@@ -820,8 +994,8 @@ form.addEventListener('submit', my_submit);
               <p style="font-size: 30px; border: 3em;">${msg}</p>
           </div>    <!-- modal-body -->
           <div class="modal-footer" style="border-top:0px">             
-            <button id="modal-btn-descartar" type="button" class="btn btn-secondary">Cancel</button>
-            <button id="modal-btn-aceptar" type="button" class="btn btn-primary">Accept</button>
+            <button id="modal-btn-descartar" type="button" class="btn btn-danger m-1">Cancel</button>
+            <button id="modal-btn-aceptar" type="button" class="btn btn-primary m-1">Accept</button>
           </div>
         </div>
       </div>
@@ -854,6 +1028,7 @@ form.addEventListener('submit', my_submit);
         }
       })
     }
+    
     function OpenFileDialog(){
       let inp      = document.createElement("input");
       inp.type     = "file";
@@ -946,7 +1121,7 @@ form.addEventListener('submit', my_submit);
     checkEditButtonClick = true;
     document.getElementById("CloseButton").disabled = false;
     document.getElementById("myForm").reset();
-    addBtn.disabled = false;
+   
     imagesDiv.innerHTML = '';
     Files = [];
   
@@ -978,7 +1153,7 @@ form.addEventListener('submit', my_submit);
     function UploadAllImage(){
       selBtn.disabled = true;
       document.getElementById("CloseButton").disabled = true;
-      addBtn.disabled = true;
+      
       
       ImageLinksArray = [];
 

@@ -307,6 +307,27 @@
     </div>
   </div>
 
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Note</h4>
+        </div>
+        <div class="modal-body">
+          <p id = "Note"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger m-1" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
   <table id="example" class="table table-striped" style="width:100%">
     <thead>
       <tr>
@@ -396,6 +417,12 @@
       addSelectedOrder(e.target.id);
     }else{
       removeSelectedOrder(e.target.id);
+    }
+
+    if (e.target.innerHTML == "Note"){
+      document.getElementById("Note").innerHTML = e.target.id;
+      $('#myModal').modal('show');
+      return;
     }
     
 
@@ -535,28 +562,28 @@
           }
         }
 
+        if (childData.Note == null || childData.Note == "")
+          Action = '<td><div class="row"> <button disabled type="button" id = ' + childData.path + ' style=  "width:30%; margin:auto;" class="btn btn-outline-secondary m-1" >Note</button>';
+        else
+          Action = '<td><div class="row"> <button type="button" id = "' + childData.Note + '" style=  "width:30%; margin:auto;" class="btn btn-info m-1" >Note</button>';
 
         if (childData.process == 'pending') {
-          Action = '<td><div class="row"> <button type="button" id = ' + childData.path + ' style= "width:45%; margin:auto;" class="btn btn-success m-1">Accept</button>'
-                 + '<button type="button" id = ' + childData.path + ' style= "width:auto; margin:auto;" class="btn btn-danger">Reject</button>'
-                 + '</div></td>';
+          Action += '<button type="button" id = ' + childData.path + ' style= "width:30%; margin:auto;" class="btn btn-success m-1">Accept</button>'
+                 + '<button type="button" id = ' + childData.path + ' style= "width:auto; margin:auto;" class="btn btn-danger">Reject</button>';
         } else if (childData.process == 'Accepted') {
-          Action = '<td><div class="row"> <button type="button" id = ' + childData.path + ' style=  "width:45%; margin:auto;" class="btn btn-success m-1" > Ready</button>'
-                 + '<button type="button" id = ' + childData.path + ' style= "width:auto; margin:auto;" class="btn btn-danger">Reject</button>'
-                 + '</div></td>';
+          Action += '<button type="button" id = ' + childData.path + ' style=  "width:30%; margin:auto;" class="btn btn-success m-1" > Ready</button>'
+                 + '<button type="button" id = ' + childData.path + ' style= "width:auto; margin:auto;" class="btn btn-danger">Reject</button>';
         } else if (childData.process == 'Ready' && childData.type == 'Pickup') {
           showPickup = true;
-          Action = '<td><div class="row"> <button type="button" id = ' + childData.path + ' style=  "width:45%; margin:auto;" class="btn btn-success m-1" >Pickup</button>'
-                 + '<button type="button" id = ' + childData.Order_number + ' style= "width:45%; margin:auto;" class="btn btn-primary">Call</button>'
-                 + '</div></td>';
+          Action += '<button type="button" id = ' + childData.path + ' style=  "width:30%; margin:auto;" class="btn btn-success m-1" >Pickup</button>'
+                 + '<button type="button" id = ' + childData.Order_number + ' style= "width:30%; margin:auto;" class="btn btn-primary">Call</button>';
         } else if (childData.process == 'Ready' && childData.type == 'Delivery') {
           showDelivery = true;
-          Action = '<span class="badge bg-success badge-font-size: 1.75em;" style=  "width:100%;">Waitting for delivery</span>'
+          Action += '<span class="badge bg-success badge-font-size: 1.75em;" style=  "width:100%;">Waitting for delivery</span>'
         }
 
-        
+        Action += '</div></td>';
 
-        //View = '<button id = ' + childData.path + ' type="button" class="btn btn-info m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Veiw</button>';
         if (childData.process == "Reject" || childData.process == 'Delivery' || childData.process == 'Pickup')
           return;
 

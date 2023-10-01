@@ -306,6 +306,7 @@
       const db     = getFirestore();
 
       var products = [];
+      var note = '';
 
       getAllProduct(sessionStorage.getItem("CompanyName"));
       //sessionStorage.getItem("CompanyName"));
@@ -581,10 +582,12 @@ function placeOrder(Items, Itemsprices, total,number,datetime) {
         'process'        : 'Accepted',
         'user'           : sessionStorage.getItem("Username"),
         'payWithCash'    : paymentType,
-        'Preparing Food' : false
+        'Preparing Food' : false,
+        'Note'           : note
     }).then(()=>{
         hideLoadingOverlay();
         showPopupMessage(`The order was placed with order number : #${number}`);
+        note = '';
         clearCart();
         
     });
@@ -639,6 +642,7 @@ document.addEventListener('click',async (e)=>{
 
         if (result){
             paymentType = "card";
+            
         }else{
             paymentType = "cash";
         }
@@ -713,6 +717,10 @@ document.addEventListener('click',async (e)=>{
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div class="modal-content">             
             <div class="modal-body fs-6">
+              <div class="col-md-12">
+                  <label for="Note">Add Note</label>
+                  <textarea class="form-control" required name="Note" id="Note" placeholder="Enter customer's note..." rows="5"></textarea>
+                </div>
               <p style="font-size: 30px; border: 3em;">${msg}</p>
           </div>    <!-- modal-body -->
           <div class="modal-footer" style="border-top:0px">             
@@ -722,6 +730,7 @@ document.addEventListener('click',async (e)=>{
         </div>
       </div>
       `
+      
       const myModal = new bootstrap.Modal(modalElem, {
         keyboard: false,
         backdrop: 'static'
@@ -734,6 +743,7 @@ document.addEventListener('click',async (e)=>{
         document.body.addEventListener('click', response)
     
         function response(e) {
+          note = document.getElementById("Note").value;
           let bool = false
           if (e.target.id == 'modal-btn-descartar') {
             

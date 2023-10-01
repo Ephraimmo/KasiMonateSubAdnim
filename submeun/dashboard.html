@@ -248,196 +248,95 @@ input[type="checkbox"]:checked {
   </style>
 
 <body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
-    <!-- =============== Navigation ================ -->
-    <div class="container">
-        <div class="navigation" id="navigation">
-            <ul>
-                <li>
-                    <a href="#">
-                        <span class="icon">
-                            <img id="imgIcon" width="40" style="border-radius: 50%; margin-top: 10px;" src="submeun/assets/images/no-image-icon-23492.png" alt="">
-                        </span>
-                        <span class="title" id="BrandName">Brand Name</span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a href="#" id="Change1">
-                        <span class="icon">
-                            <ion-icon name="home-outline"></ion-icon>
-                        </span>
-                        <span class="title">Dashboard</span>
-                    </a>
-                </li>
-
-                <li>
-                  <a href="#" id="Change7">
-                      <span class="icon">
-                          <ion-icon name="bag-outline"></ion-icon>
-                      </span>
-                      <span class="title">Place Order</span>
-                  </a>
-              </li>
-
-                <li>
-                    <a href="#" id="Change2">
-                        <span class="icon">
-                          <ion-icon name="fast-food-outline"></ion-icon>
-                        </span>
-                        <span class="title">Order</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#" id="Change4">
-                        <span class="icon">
-                          <ion-icon name="add-outline"></ion-icon>
-                        </span>
-                        <span class="title">Category</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#" id="Change5">
-                        <span class="icon">
-                          <ion-icon name="bag-add-outline"></ion-icon>
-                        </span>
-                        <span class="title">Product</span>
-                    </a>
-                </li>
-
-                <li>
-                  <a href="#"- id="Change3">
-                      <span class="icon">
-                        <ion-icon name="receipt-outline"></ion-icon>
-                      </span>
-                      <span class="title">Report</span>
-                  </a>
-              </li>
-
-                <li>
-                    <a href="#" id="Change6">
-                        <span class="icon">
-                            <ion-icon name="log-out-outline"></ion-icon>
-                        </span>
-                        <span class="title">Sign Out</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-        <!-- ========================= Main ==================== -->
-        <div class="main">
-            <div class="topbar">
-                <div class="toggle">
-                    <ion-icon name="menu-outline"></ion-icon>
-                </div>
-            </div>
-
-            <!-- ======================= section 1 ================== -->
-            <section id="section 1">
-                <!-- ======================= Cards ================== -->
-                <div class="cardBox">
-                    <div class="card">
-                        <div>
-                            <div class="numbers" id = "orderCompletedNumbers">0</div>
-                            <div class="cardName">Completed</div>
-                        </div>
-
-                        <div class="iconBx">
-                          <ion-icon name="eye-outline"></ion-icon>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div>
-                            <div class="numbers" id="orderIncoming">0</div>
-                            <div class="cardName">Incoming</div>
-                        </div>
-
-                        <div class="iconBx">
-                          <ion-icon name="eye-off-outline"></ion-icon>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div>
-                            <div class="numbers" id="orderRejected">0</div>
-                            <div class="cardName">Rejected</div>
-                        </div>
-
-                        <div class="iconBx">
-                            <ion-icon name="ban-outline"></ion-icon>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div>
-                            <div class="numbers" id="TotalEarning">R0.00</div>
-                            <div class="cardName">Earning</div>
-                        </div>
-
-                        <div class="iconBx">
-                            <ion-icon name="cash-outline"></ion-icon>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ================ Order Details List ================= -->
-                <div class="details" id="details">
-                    <div class="recentOrders" style="margin: 0%; padding: 0%;">
-                        <h1 style="padding: 0%; text-align: center;">Quick Order Report</h1>
-                        <div id="myChart" style="max-width:800px; height:350px;"></div>  
-                    </div>
-
-                    <!-- ================= New Customers ================ -->
-                    <div class="containerProfile">
-                        <div class="cover-photo" id = "backgroundImage">
-                          <img id="profileImage" src="submeun/assets/images/no-image-icon-23492.png" class="profile">
-                        </div>
-                        <div class="profile-name" id="CompanyName"></div>
-
-                        <table>
-                            <tr>
-                                <td><b>Username</b></td>
-                                <td id="Username"></td>
-                            </tr>
-                            <tr>
-                                <td><b>Office</b></td>
-                                <td id="Email"></td>
-                            </tr>
-                            <tr>
-                              <td><b>Email</b></td>
-                              <td id="Email">Branchec@gmail.com</td>
-                            </tr>
-                            <tr>
-                              <td><b>Contacts</b></td>
-                              <td id="PhoneNumber"></td>
-                          </tr>
-                            <tr>
-                                <td><b>Address</b></td>
-                                <td id="Address"></td>
-                            </tr>
-                            <tr>
-                                <td id="StoreText" ></td>
-                                
-                                <td> <input id="storeButton" type="checkbox"></td>
-                            </tr>
-                        </table>
-                      </div>
-            </section>
-            
-            <section id="section 7" style="margin-left: 20px;margin-right: 15px;"><iframe id = "iframeAddcategory" src="submeun/order_now.html"></iframe></section>
-            <section id="section 2" style="margin-left: 20px;margin-right: 15px;"><iframe id = "iframeOtder" src="submeun/OderVeiwPage.html"></iframe></section>
-            <section id="section 3" style="margin-left: 20px;margin-right: 15px;"><iframe id = "iframeAddcategory" src="submeun/VeiwReport.html" >iframeAddcategory</iframe></section>
-            <section id="section 4" style="margin-left: 20px;margin-right: 15px;"><iframe id = "iframeAddcategory" src="submeun/AddCategorysub.html" ></iframe></section>
-            <section id="section 5" style="margin-left: 20px;margin-right: 15px;"><iframe id = "iframeAddcategory" src="submeun/AddProductsub.html"              >iframeAddcategory</iframe></section>
-            
-            </div>
-        </div>
-
     
+    <div class="cardBox">
+        <div class="card">
+            <div>
+                <div class="numbers" id = "orderCompletedNumbers">0</div>
+                <div class="cardName">Completed</div>
+            </div>
+
+            <div class="iconBx">
+              <ion-icon name="eye-outline"></ion-icon>
+            </div>
+        </div>
+
+        <div class="card">
+            <div>
+                <div class="numbers" id="orderIncoming">0</div>
+                <div class="cardName">Incoming</div>
+            </div>
+
+            <div class="iconBx">
+              <ion-icon name="eye-off-outline"></ion-icon>
+            </div>
+        </div>
+
+        <div class="card">
+            <div>
+                <div class="numbers" id="orderRejected">0</div>
+                <div class="cardName">Rejected</div>
+            </div>
+
+            <div class="iconBx">
+                <ion-icon name="ban-outline"></ion-icon>
+            </div>
+        </div>
+
+        <div class="card">
+            <div>
+                <div class="numbers" id="TotalEarning">R0.00</div>
+                <div class="cardName">Earning</div>
+            </div>
+
+            <div class="iconBx">
+                <ion-icon name="cash-outline"></ion-icon>
+            </div>
+        </div>
     </div>
+
+    <!-- ================ Order Details List ================= -->
+    <div class="details" id="details">
+        <div class="recentOrders" style="margin: 0%; padding: 0%;">
+            <h1 style="padding: 0%; text-align: center;">Quick Order Report</h1>
+            <div id="myChart" style="max-width:800px; height:350px;"></div>  
+        </div>
+
+        <!-- ================= New Customers ================ -->
+        <div class="containerProfile">
+            <div class="cover-photo" id = "backgroundImage">
+              <img id="profileImage" src="submeun/assets/images/no-image-icon-23492.png" class="profile">
+            </div>
+            <div class="profile-name" id="CompanyName"></div>
+
+            <table>
+                <tr>
+                    <td><b>Username</b></td>
+                    <td id="Username"></td>
+                </tr>
+                <tr>
+                    <td><b>Office</b></td>
+                    <td id="Email"></td>
+                </tr>
+                <tr>
+                  <td><b>Email</b></td>
+                  <td id="Email">Branchec@gmail.com</td>
+                </tr>
+                <tr>
+                  <td><b>Contacts</b></td>
+                  <td id="PhoneNumber"></td>
+              </tr>
+                <tr>
+                    <td><b>Address</b></td>
+                    <td id="Address"></td>
+                </tr>
+                <tr>
+                    <td id="StoreText" ></td>
+                    
+                    <td> <input id="storeButton" type="checkbox"></td>
+                </tr>
+            </table>
+          </div>
 
     <!-- =========== Scripts =========  -->
     <script src="assets/js/main.js"></script>
@@ -684,7 +583,6 @@ await onValue(starCountRef, (snapshot) => {
            
             if (section == null || section == 1)
             {
-              
                 document.getElementById("section 1").style.display = 'block';
                 document.getElementById("section 2").style.display = 'none';
                 document.getElementById("section 3").style.display = 'none';

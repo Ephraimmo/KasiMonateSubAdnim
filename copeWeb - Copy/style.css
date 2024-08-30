@@ -1,0 +1,164 @@
+.fullBody {
+    background-image: linear-gradient(-30deg,yellow,green,black);
+    background-size: 200% 200%;
+    width: 100%;
+    height: 100vh;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: green;
+    color: white;
+    text-align: center;
+    transition: animate 0.15s ease-in-out;
+ }
+
+ /* Style all font awesome icons */
+.fa {
+    padding: 30px;
+    font-size: 40px;
+    width: 60px;
+    text-align: center;
+    text-decoration: none;
+  }
+  
+  /* Add a hover effect if you want */
+  .fa:hover {
+    opacity: 0.7;
+  }
+  
+  /* Set a specific color for each brand */
+  
+  /* Facebook */
+  .fa-facebook {
+    background: #3B5998;
+    color: white;
+  }
+
+  .fa {
+    padding: 10px;
+    font-size: 30px;
+    width: 30px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50%;
+  }
+  
+
+.carousel-item img {
+    margin-top: 0px;  /*important */
+    margin-left: 20%;
+    margin-right: 20%;
+    display: inline-block;
+ }
+
+.in-container {
+    margin: 50px;
+}
+
+@keyframes animate {
+    0%{
+        background-position: 0 10%;
+    }
+
+    50%{
+        background-position: 100% 50%;
+    }
+
+    100%{
+        background-position: 0 10%;
+    }
+}
+
+.navbar-brand {
+    font-weight: 500;
+    font-size: 30px;
+    color: #666777;
+}
+
+@media screen and (max-width: 769px) {
+    #navbarNav > ul > li > a {
+        color: #666777;
+        font-weight: 500;
+        position: relative;
+    }
+    
+    #navbarNav > ul > li > a.active {
+        color: #009970;
+    }
+  }
+
+  
+
+#navbarNav > ul > li > a:focus {
+    color: #000;
+}
+
+#navbarNav > ul > li.nav-item.mx-lg-2.dropdown > ul > li > a:hover{
+    background-color: #e9d60231;
+}
+
+#navbarNav > ul > li.nav-item.mx-lg-2.dropdown > ul > li > a {
+    color: #666777;
+    font-weight: 500;
+    position: relative;
+   }
+   
+#navbarNav > ul > li.nav-item.mx-lg-2.dropdown > ul > li > a:hover {
+    color: #000;
+ 
+}
+   
+#navbarNav > ul > li.nav-item.mx-lg-2.dropdown > ul > li > a::before{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: #009970;
+    visibility: hidden;
+    transition: 0.3s ease-in-out;
+}
+   
+#navbarNav > ul > li.nav-item.mx-lg-2.dropdown > ul > li > a:hover::before{
+    width: 90%;
+    visibility: visible; 
+}
+
+
+@media (min-width: 769px) {
+    .nav-link {
+        color: #666777;
+        font-weight: 500;
+        position: relative;
+       }
+       
+       .nav-link:hover, .nav-link.active {
+           color: #000;
+       
+       }
+       
+       .nav-link::before{
+           content: "";
+           position: absolute;
+           bottom: 0;
+           left: 50%;
+           transform: translateX(-50%);
+           width: 0;
+           height: 2px;
+           background-color: #009970;
+           visibility: hidden;
+           transition: 0.3s ease-in-out;
+       }
+       
+       .nav-link:hover::before, .nav-link.active::before {
+          width: 100%;
+          visibility: visible; 
+       }
+       
+}

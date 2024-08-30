@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
+    
+    <div>
+      <!-- nav -->
+      <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-black">
+        <div class="container-fluid">
+          <a class="navbar-brand m-3 me-5"><img class="d-inline-block align-top" src="images/design-high-resolution-logo-white-transparent.png" height="30" width="30" >
+            Fauget
+          </a>
+          <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-around" id="navbarNav">
+            <ul class="navbar-nav mb-2 mb-lg-0">
+              <li class="nav-item active">
+                <a href="#" class="nav-link mx-lg-2 active">
+                  Home
+                </a>
+              </li>
+              <li class="nav-item mx-lg-2 dropdown">
+                <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  About Us
+                </a>
+                <ul class="dropdown-menu bg-warning" aria-labelledby="navbarDropdown">
+                  <li>
+                    <a href="#" class="dropdown-item">
+                      item 1
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="dropdown-item">
+                      item 2
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item mx-lg-2 active">
+                <a href="#" class="nav-link">
+                  Contact Us
+                </a>
+              </li>
+            </ul>
+            <table>
+              <tr>
+                <td style="width: 200px;">
+                  <label class="search" for="inpt_search">
+                    <input id="inpt_search" placeholder="search..." type="text" />
+                  </label>
+                </td>
+                <td>
+                <button type="button" class="btn btn-light fw-bold align-content-end SHOPNOW"><i class="fa fa-lock me-2"></i> LOGIN</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </nav>
+      <!-- nav end -->
+
+      <div class="bodyContainer">
+
+        <div class="d-grid gap-2 d-lg-inline-flex">
+          <div class="mt-5">
+            <h1 class="h1">Moden & </h1>
+            <h1 class="h1">Elegant Interior</h1>
+            <img class="designImg mt-5" src="images/design-high-resolution-logo-transparent.png" alt="">
+            <p class="mb-4 mt-5 me-5" style="width: 350px;"> 
+              Answers 9 ... Add position:fixed . Then the cover is fixed over the whole screen, also when you scroll. 
+            </p>
+            <button type="button" class="btn btn-light fw-bold SHOPNOW">SHOP NOW</button>
+          </div>
+          <div>
+              <img class="row2Imags" src="images/images (1).jpg" alt="">
+              <img class="row2Imags" src="images/download.jpg" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+
+  <script>
+    $("#inpt_search").on('focus', function () {
+	$(this).parent('label').addClass('active');
+});
+
+   $("#inpt_search").on('blur', function () {
+	if($(this).val().length == 0)
+		$(this).parent('label').removeClass('active');
+});
+  </script>
+</html>
